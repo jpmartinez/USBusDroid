@@ -315,7 +315,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 JSONObject credentials = new JSONObject();
                 credentials.put("userName", mEmail);
                 credentials.put("password", mPassword);
-                String testURL = "https://httpbin.org/post";
+                String testURL = "https://httpbin.org/post"; //usar loginURL
 
                 RestCall call = new RestCall(testURL, POST, credentials);
                 result = call.getData();
