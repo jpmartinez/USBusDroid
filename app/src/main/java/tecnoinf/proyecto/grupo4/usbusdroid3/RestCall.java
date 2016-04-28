@@ -61,22 +61,23 @@ public class RestCall {
                     }
                     br.close();
 
-                    toReturn = new JSONObject(sb.toString());
+                    toReturn = new JSONObject();
+                    toReturn.put("result", sb.toString());
 
                 } else {
                     System.out.println(connection.getResponseMessage());
-                    toReturn = new JSONObject("{error:" + connection.getResponseMessage() + "}");
+                    toReturn = new JSONObject("{\"result\":\"ERROR... " + connection.getResponseMessage() + "\"}");
                 }
 
             } catch (ProtocolException e1) {
                 e1.printStackTrace();
-                toReturn = new JSONObject("{\"error\":\"ProtocolException - " + e1.getMessage().replace(":", "-") + "\"}");
+                toReturn = new JSONObject("{\"result\":\"ERROR... ProtocolException - " + e1.getMessage().replace(":", "-") + "\"}");
             } catch (MalformedURLException e1) {
                 e1.printStackTrace();
-                toReturn = new JSONObject("{\"error\":\"MalformedURLException - " + e1.getMessage().replace(":", "-") + "\"}");
+                toReturn = new JSONObject("{\"result\":\"ERROR... MalformedURLException - " + e1.getMessage().replace(":", "-") + "\"}");
             } catch (IOException e1) {
                 e1.printStackTrace();
-                toReturn = new JSONObject("{\"error\":\"IOException - " + e1.getMessage().replace(":", "-") + "\"}");
+                toReturn = new JSONObject("{\"result\":\"ERROR... IOException - " + e1.getMessage().replace(":", "-") + "\"}");
             } finally {
                 if (connection != null) {
                     connection.disconnect();

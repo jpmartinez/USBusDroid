@@ -319,8 +319,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 RestCall call = new RestCall(testURL, POST, credentials);
                 result = call.getData();
-                String dummy = result.toString();
-
+                //String dummy = result.toString();
+                if(result.get("result").toString().equals("OK")){
+                    //login OK
+                    System.out.println("LOGIN OK...");
+                } else {
+                    //algun error
+                    System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
+                }
 
 
             } catch (JSONException e) {

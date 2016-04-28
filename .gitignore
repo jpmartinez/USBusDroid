@@ -30,3 +30,22 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+.idea/workspace.xml
+*.iml
+.idea/libraries
+.DS_Store
+.idea/libraries/animated_vector_drawable_23_3_0.xml
+.idea/libraries/design_23_3_0.xml
+.idea/libraries/support_annotations_23_3_0.xml
+.idea/libraries/support_v4_23_3_0.xml
+.idea/libraries/animated_vector_drawable_23_3_0.xml
+.idea/libraries/appcompat_v7_23_3_0.xml
+.idea/libraries/design_23_3_0.xml
+.idea/libraries/recyclerview_v7_23_3_0.xml
+.idea/libraries/support_annotations_23_3_0.xml
+.idea/libraries/support_v4_23_3_0.xml
+.idea/libraries/support_vector_drawable_23_3_0.xml
+.idea/workspace.xml
+app/app.iml
+.idea/gradle.xml
