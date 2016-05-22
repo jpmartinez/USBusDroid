@@ -1,4 +1,4 @@
-package tecnoinf.proyecto.grupo4.usbusdroid3;
+package tecnoinf.proyecto.grupo4.usbusdroid3.Helpers;
 
 import org.json.JSONException;
 import org.json.JSONObject;

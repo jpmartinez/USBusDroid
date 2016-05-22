@@ -1,4 +1,4 @@
-package tecnoinf.proyecto.grupo4.usbusdroid3;
+package tecnoinf.proyecto.grupo4.usbusdroid3.Activities;
 
 
 import android.animation.Animator;
@@ -31,6 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+
+import tecnoinf.proyecto.grupo4.usbusdroid3.R;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCall;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
