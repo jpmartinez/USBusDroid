@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
-public class MainCliente extends AppCompatActivity {
+public class MainClient extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainCliente extends AppCompatActivity {
         newTicketBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //cositas
+
                 Intent newTicketIntent = new Intent(v.getContext(), NewTicket.class);
                 startActivity(newTicketIntent);
 

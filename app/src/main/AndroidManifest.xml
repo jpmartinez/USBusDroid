@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainCliente" />
+        <activity android:name=".Activities.MainClient" />
         <activity android:name=".Activities.NewTicket" />
         <activity android:name=".Activities.MyTickets" />
         <activity android:name=".Activities.TimeTable" />
