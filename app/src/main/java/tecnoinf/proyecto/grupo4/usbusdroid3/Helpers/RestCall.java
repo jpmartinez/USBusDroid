@@ -23,10 +23,37 @@ public class RestCall {
     private String method;
     private JSONObject dataOut;
 
+    public RestCall() {
+    }
+
     public RestCall(String url, String callMethod, JSONObject data) {
         restURL = url;
         method = callMethod;
         dataOut = data;
+    }
+
+    public String getRestURL() {
+        return restURL;
+    }
+
+    public void setRestURL(String restURL) {
+        this.restURL = restURL;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public JSONObject getDataOut() {
+        return dataOut;
+    }
+
+    public void setDataOut(JSONObject dataOut) {
+        this.dataOut = dataOut;
     }
 
     public JSONObject getData() throws JSONException {
@@ -52,6 +79,7 @@ public class RestCall {
                 out.close();
 
                 int HttpResult = connection.getResponseCode();
+
                 if (HttpResult == HttpURLConnection.HTTP_OK) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(
                             connection.getInputStream(), "utf-8"));
@@ -62,22 +90,23 @@ public class RestCall {
                     br.close();
 
                     toReturn = new JSONObject();
-                    toReturn.put("result", sb.toString());
+                    toReturn.put("result", "OK");
+                    toReturn.put("data", sb.toString());
 
                 } else {
                     System.out.println(connection.getResponseMessage());
-                    toReturn = new JSONObject("{\"result\":\"ERROR... " + connection.getResponseMessage() + "\"}");
+                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"" + connection.getResponseMessage() + "\"}");
                 }
 
             } catch (ProtocolException e1) {
                 e1.printStackTrace();
-                toReturn = new JSONObject("{\"result\":\"ERROR... ProtocolException - " + e1.getMessage().replace(":", "-") + "\"}");
+                toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"ProtocolException - " + e1.getMessage().replace(":", "-") + "\"}");
             } catch (MalformedURLException e1) {
                 e1.printStackTrace();
-                toReturn = new JSONObject("{\"result\":\"ERROR... MalformedURLException - " + e1.getMessage().replace(":", "-") + "\"}");
+                toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"MalformedURLException - " + e1.getMessage().replace(":", "-") + "\"}");
             } catch (IOException e1) {
                 e1.printStackTrace();
-                toReturn = new JSONObject("{\"result\":\"ERROR... IOException - " + e1.getMessage().replace(":", "-") + "\"}");
+                toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"IOException - " + e1.getMessage().replace(":", "-") + "\"}");
             } finally {
                 if (connection != null) {
                     connection.disconnect();

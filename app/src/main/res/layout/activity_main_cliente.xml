@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:weightSum="1">
 
         <ImageButton
@@ -37,13 +38,14 @@
 
         <ImageButton
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="109dp"
             android:id="@+id/timetableButton"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/time_query"
             android:scaleType="fitXY"
             android:background="#ffffff"
-            android:layout_weight="0.77" />
+            android:clickable="true"
+            android:contextClickable="false" />
 
         <ImageButton
             android:layout_width="117dp"

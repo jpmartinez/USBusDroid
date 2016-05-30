@@ -4,6 +4,8 @@ package tecnoinf.proyecto.grupo4.usbusdroid3.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -18,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +30,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
+import io.fabric.sdk.android.Fabric;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -42,22 +56,19 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "XyYrh7Uvf4EylxNc7qr6IAjJ5";
+    private static final String TWITTER_SECRET = "ga160r9tq7krioNOFSCy7nD21RNr6FC8hZm2tQ8UHb0cFNj4Nd";
+    private TwitterLoginButton loginButton;
+
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     private static final String POST = "POST";
     private static final String GET = "GET";
     private static final String GOOGLE_API_KEY = "AIzaSyCvIEKboKjUqc4-pI1BcyAGoL6Qt0tLJrI";
-    private static final String loginURL = "https://maps.googleapis.com/maps/api/geocode/json?address=Valle+del+Lunarejo,Rivera,Uruguay&key=";
+    private static final String loginURL = "http://10.0.2.2:8080/usbus/api/authentication";
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -72,6 +83,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -99,6 +112,37 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        loginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                // The TwitterSession is also available through:
+                // Twitter.getInstance().core.getSessionManager().getActiveSession()
+                System.out.println("==============en success");
+                TwitterSession session = result.data;
+                System.out.println("==============username: " + session.getUserName());
+                System.out.println("==============userid: " + session.getUserId());
+                System.out.println("==============authtoken: " + session.getAuthToken());
+
+                mAuthTask = new UserLoginTask(session.getUserName(), session.getAuthToken().toString(), getApplicationContext());
+                mAuthTask.execute((Void) null);
+
+                //TODO: mandar username y authtoken a mi user login task (abajo, linea 341)
+                // TODO: Remove toast and use the TwitterSession's userID
+                // with your app's user model
+//                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
+//                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+//                Intent mainIntent = new Intent(getBaseContext(), MainClient.class);
+//                mainIntent.putExtra("token", "el_token_de_nuestra_app");
+//                startActivity(mainIntent);
+            }
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("TwitterKit", "Login with Twitter failure", exception);
+            }
+        });
     }
 
     private void populateAutoComplete() {
@@ -192,8 +236,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(email, password, getApplicationContext());
             mAuthTask.execute((Void) null);
+
+
         }
     }
 
@@ -305,10 +351,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
+        private final int tenantId = 13; //TODO: Ver como poner tenantId hard pero prolijo
+        private String token;
+        private Context mCtx;
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(String email, String password, Context ctx) {
             mEmail = email;
             mPassword = password;
+            mCtx = ctx;
         }
 
         @Override
@@ -316,32 +366,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             JSONObject result;
             try {
                 JSONObject credentials = new JSONObject();
-                credentials.put("userName", mEmail);
-                credentials.put("password", mPassword);
-                String testURL = "https://httpbin.org/post"; //usar loginURL
+                credentials.put("type", "twitter");
+                credentials.put("username", "kavesa");
+                credentials.put("tenantId", "13");
+                credentials.put("password", "kavesa");
+                //String testURL = "http://10.0.2.2:8080/usbus/api/authentication"; //usar loginURL
 
-                RestCall call = new RestCall(testURL, POST, credentials);
+                RestCall call = new RestCall(loginURL, POST, credentials);
                 result = call.getData();
                 //String dummy = result.toString();
-                if(result.get("result").toString().equals("OK")){
+                System.out.println(result);
+                if(result.get("result").toString().equalsIgnoreCase("OK")){
                     //login OK
                     System.out.println("LOGIN OK...");
+                    JSONObject data = new JSONObject(result.get("data").toString());
+                    token = data.getString("token");
                 } else {
                     //algun error
                     System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
+                    return false;
                 }
 
 
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
             }
 
             // TODO: register the new account here.
@@ -350,10 +398,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            System.out.println("en PostExecute con success en: " + success.toString());
+            //mAuthTask = null;
             showProgress(false);
 
             if (success) {
+                Intent mainIntent = new Intent(getBaseContext(), MainClient.class);
+                mainIntent.putExtra("token", token);
+                startActivity(mainIntent);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -366,67 +419,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
 
-/*
-        protected JSONObject getData(String url, String callType, JSONObject dataOut) throws JSONException {
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-            StringBuilder sb = new StringBuilder();
-            JSONObject toReturn = null;
-            try {
-                URL restURL = new URL(url);
-                connection = (HttpURLConnection) restURL.openConnection();
-                connection.setRequestMethod(callType);
-                connection.setRequestProperty("Content-Type","application/json");
-                connection.connect();
-
-                OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-                out.write(dataOut.toString());
-                out.close();
-
-                int HttpResult = connection.getResponseCode();
-                if(HttpResult == HttpURLConnection.HTTP_OK){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(
-                            connection.getInputStream(),"utf-8"));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line);
-                    }
-                    br.close();
-
-                    toReturn = new JSONObject(sb.toString());
-
-                }else{
-                    System.out.println(connection.getResponseMessage());
-                    toReturn = new JSONObject("{error:"+connection.getResponseMessage()+"}");
-                }
-
-            } catch (ProtocolException e1) {
-                e1.printStackTrace();
-                toReturn = new JSONObject("{\"error\":\"ProtocolException - "+e1.getMessage().replace(":","-")+"\"}");
-            } catch (MalformedURLException e1) {
-                e1.printStackTrace();
-                toReturn = new JSONObject("{\"error\":\"MalformedURLException - "+e1.getMessage().replace(":","-")+"\"}");
-            } catch (IOException e1) {
-                e1.printStackTrace();
-                toReturn = new JSONObject("{\"error\":\"IOException - "+e1.getMessage().replace(":","-")+"\"}");
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                    return toReturn;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return toReturn;
-        }
-*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Make sure that the loginButton hears the result from any
+        // Activity that it triggered.
+        loginButton.onActivityResult(requestCode, resultCode, data);
     }
 }
 

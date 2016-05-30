@@ -24,10 +24,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MainClient" />
-        <activity android:name=".Activities.NewTicket" />
-        <activity android:name=".Activities.MyTickets" />
-        <activity android:name=".Activities.TimeTable" />
-        <activity android:name=".Activities.ContactUs"></activity>
+        <activity android:name=".Activities.NewTicket.NewTicket" />
+        <activity android:name=".Activities.MyTickets.MyTickets" />
+        <activity android:name=".Activities.TimeTable.TimeTable" />
+        <activity android:name=".Activities.ContactUs.ContactUs" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="37639548c5fc33add920f563bac6215f2740df48" />
+
+        <activity android:name=".Activities.LoginWithTwitterActivity"></activity>
     </application>
 
 </manifest>
