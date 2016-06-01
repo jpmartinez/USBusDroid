@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:orientation="vertical">
+<TextView
+    android:id="@+id/journeyNameTV"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Rivera - Montevideo"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Jueves"
+            android:id="@+id/journeyDayTV"
+            android:layout_marginRight="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="23:15"
+            android:id="@+id/journeyTimeTV" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Coche"
+            android:id="@+id/busNumberLbl"
+            android:labelFor="@+id/busNumberTV"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+        android:id="@+id/busNumberTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:text="123" />
+    </LinearLayout>
+
+</LinearLayout>

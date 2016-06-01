@@ -58,6 +58,7 @@ public class RestCall {
 
     public JSONObject getData() throws JSONException {
         JSONObject toReturn = null;
+        System.out.println("==================");
 
         if(this.restURL == null || this.restURL.isEmpty()) {
             toReturn = new JSONObject("{\"error\":\"USBus - URL not initialized\"");
@@ -124,3 +125,4 @@ public class RestCall {
         return toReturn;
     }
 }
+
