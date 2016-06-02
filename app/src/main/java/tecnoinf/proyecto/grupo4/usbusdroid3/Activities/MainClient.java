@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.ContactUs.ContactUs;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets.MyTickets;
@@ -52,14 +53,21 @@ public class MainClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent newTicketIntent = new Intent(v.getContext(), NewTicket.class);
-                    newTicketIntent.putExtra("token", token);
-
                     JSONObject restSecurity = new JSONObject();
                     restSecurity.put("token", token);
-                    RestCallAsync restCall = new RestCallAsync(allBusStopsRest, "POST", restSecurity, newTicketIntent);
-                    restCall.execute((Void) null);
+
+                    AsyncTask<Void, Void, JSONObject> busStopResult = new RestCallAsync(allBusStopsRest, "POST", restSecurity).execute();
+                    JSONObject journeyData = busStopResult.get();
+
+                    Intent newTicketIntent = new Intent(v.getContext(), NewTicket.class);
+                    newTicketIntent.putExtra("token", token);
+                    newTicketIntent.putExtra("data", journeyData.toString());
+                    startActivity(newTicketIntent);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
             }
@@ -70,14 +78,21 @@ public class MainClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent myTicketsIntent = new Intent(v.getContext(), MyTickets.class);
-                    myTicketsIntent.putExtra("token", token);
-
                     JSONObject restSecurity = new JSONObject();
                     restSecurity.put("token", token);
-                    RestCallAsync restCall = new RestCallAsync(myTicketsRest, "POST", restSecurity, myTicketsIntent);
-                    restCall.execute((Void) null);
+
+                    AsyncTask<Void, Void, JSONObject> ticketsResult = new RestCallAsync(allBusStopsRest, "POST", restSecurity).execute();
+                    JSONObject ticketsData = ticketsResult.get();
+
+                    Intent myTicketsIntent = new Intent(v.getContext(), MyTickets.class);
+                    myTicketsIntent.putExtra("token", token);
+                    myTicketsIntent.putExtra("data", ticketsData.toString());
+                    startActivity(myTicketsIntent);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
             }
@@ -88,14 +103,21 @@ public class MainClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent timeTableIntent = new Intent(v.getContext(), TimeTable.class);
-                    timeTableIntent.putExtra("token", token);
-
                     JSONObject restSecurity = new JSONObject();
                     restSecurity.put("token", token);
-                    RestCallAsync restCall = new RestCallAsync(allServicesRest, "POST", restSecurity, timeTableIntent);
-                    restCall.execute((Void) null);
+
+                    AsyncTask<Void, Void, JSONObject> schedResult = new RestCallAsync(allBusStopsRest, "POST", restSecurity).execute();
+                    JSONObject schedData = schedResult.get();
+
+                    Intent timeTableIntent = new Intent(v.getContext(), TimeTable.class);
+                    timeTableIntent.putExtra("token", token);
+                    timeTableIntent.putExtra("data", schedData.toString());
+                    startActivity(timeTableIntent);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
                 //TODO: Ir a buscar datos para mostrar en la activity (list de servicios activos, ya que como no interesa comprar sino horarios, los viajes pueden traer información limitada)
@@ -133,21 +155,19 @@ public class MainClient extends AppCompatActivity {
         finish();
     }
 
-    public class RestCallAsync extends AsyncTask<Void, Void, Boolean> {
+    public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
 
         private String restURL;
         private String method;
         private JSONObject dataOut;
-        private Intent nextActivity;
 
         public RestCallAsync() {
         }
 
-        public RestCallAsync(String url, String callMethod, JSONObject data, Intent intent) {
+        public RestCallAsync(String url, String callMethod, JSONObject data) {
             restURL = url;
             method = callMethod;
             dataOut = data; //Se instancia con dataOut en null si el rest no requiere datos de entrada
-            nextActivity = intent;
         }
 
         public String getRestURL() {
@@ -174,36 +194,27 @@ public class MainClient extends AppCompatActivity {
             this.dataOut = dataOut;
         }
 
-        public Intent getNextActivity() {
-            return nextActivity;
-        }
-
-        public void setNextActivity(Intent nextActivity) {
-            this.nextActivity = nextActivity;
-        }
-
         @Override
-        protected Boolean doInBackground(Void... params) {
-            JSONObject result;
+        protected JSONObject doInBackground(Void... params) {
+            JSONObject result = null;
             try {
                 result = getData();
                 System.out.println(result);
 
                 if(result.get("result").toString().equalsIgnoreCase("OK")){
                     //llamada OK
-                    System.out.println("LLAMADA OK...");
                     JSONObject data = new JSONObject();
                     data.put("data", result.get("data").toString());
-                    nextActivity.putExtra("data", data.toString());
+//                    nextActivity.putExtra("data", data.toString());
                 } else {
                     //algun error
                     System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
-                    return false;
+                    return result;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return true;
+            return result;
         }
 
         public JSONObject getData() throws JSONException {
@@ -214,7 +225,6 @@ public class MainClient extends AppCompatActivity {
             }
             else {
                 HttpURLConnection connection = null;
-                BufferedReader reader = null;
                 StringBuilder sb = new StringBuilder();
                 try {
                     URL restURL = new URL(this.restURL);
@@ -265,29 +275,10 @@ public class MainClient extends AppCompatActivity {
                     if (connection != null) {
                         connection.disconnect();
                     }
-                    try {
-                        if (reader != null) {
-                            reader.close();
-                        }
-                        return toReturn;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    return toReturn;
                 }
             }
             return toReturn;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            System.out.println("en PostExecute con success en: " + success.toString());
-            if (success) {
-                startActivity(nextActivity);
-                finish();
-            } else {
-                System.out.println("================onPostExecute con success en false");
-                //TODO: Ver como manejar esto. Volver a la activity anterior? darle finish nomas? Buscar qué se suele hacer
-            }
         }
     }
 }

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.NewTicket.NTJourneyList">
+    tools:context=".Activities.NewTicket.NTJourneyListActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,13 +17,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Seleccione su Viaje"
-            android:id="@+id/journeyListTV" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Seleccione el Viaje"
+            android:id="@+id/journeyListTV"
+            android:layout_gravity="center_horizontal" />
 
         <ListView
-            android:layout_width="wrap_content"
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/journeysLV" />
+            android:paddingTop="25dip" />
+        <!--<ListView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/journeysLV" />-->
     </LinearLayout>
 </RelativeLayout>

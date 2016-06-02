@@ -1,57 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-    android:orientation="vertical">
-<TextView
-    android:id="@+id/journeyNameTV"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Rivera - Montevideo"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/switch_thumb_disabled_material_light">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <!-- ID Label -->
+
+    <TextView
+        android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/journeyNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#0c1248"
+        android:visibility="visible"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Jueves"
             android:id="@+id/journeyDayTV"
-            android:layout_marginRight="14dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#0c1248" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="23:15"
-            android:id="@+id/journeyTimeTV" />
+            android:id="@+id/journeyDateTV"
+            android:layout_marginRight="14dp"
+            android:textColor="#0c1248" />
+
+        <TextView
+            android:id="@+id/journeyTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#0c1248" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp">
 
         <TextView
+            android:id="@+id/busNumberLbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Coche"
-            android:id="@+id/busNumberLbl"
+            android:layout_marginRight="15dp"
             android:labelFor="@+id/busNumberTV"
-            android:layout_marginRight="15dp" />
+            android:text="Coche"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#0c1248" />
 
         <TextView
-        android:id="@+id/busNumberTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:text="123" />
+            android:id="@+id/busNumberTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#0c1248" />
     </LinearLayout>
 
 </LinearLayout>

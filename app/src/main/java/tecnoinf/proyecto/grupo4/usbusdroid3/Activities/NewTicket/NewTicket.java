@@ -23,6 +23,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.BusStop;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
@@ -70,10 +71,20 @@ public class NewTicket extends AppCompatActivity {
                         postData.put("origin", origin);
                         postData.put("destination", destination);
 
-                        Intent listServicesFromToIntent = new Intent(v.getContext(), NTJourneyList.class);
-                        RestCallAsync restCall = new RestCallAsync(journeysFromToRest, "POST", postData, listServicesFromToIntent);
-                        restCall.execute((Void) null);
+                        AsyncTask<Void, Void, JSONObject> journeyResult = new RestCallAsync(journeysFromToRest, "POST", postData).execute();
+                        JSONObject journeyData = journeyResult.get();
+
+                        Intent listServicesFromToIntent = new Intent(v.getContext(), NTJourneyListActivity.class);
+                        listServicesFromToIntent.putExtra("token", token);
+                        listServicesFromToIntent.putExtra("data", journeyData.toString());
+                        startActivity(listServicesFromToIntent);
+//                        RestCallAsync restCall = new RestCallAsync(journeysFromToRest, "POST", postData, listServicesFromToIntent);
+//                        restCall.execute((Void) null);
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
                 }
@@ -89,42 +100,38 @@ public class NewTicket extends AppCompatActivity {
         //TODO: Este mapa al seleccionar un asiento permite realizar la compra del mismo, pagando andá a saber como.
     }
 
-    public class RestCallAsync extends AsyncTask<Void, Void, Boolean> {
+    public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
 
         private String restURL;
         private String method;
         private JSONObject dataOut;
-        private Intent nextActivity;
 
-        public RestCallAsync(String url, String callMethod, JSONObject data, Intent intent) {
+        public RestCallAsync(String url, String callMethod, JSONObject data) {
             restURL = url;
             method = callMethod;
             dataOut = data; //Se instancia con dataOut en null si el rest no requiere datos de entrada
-            nextActivity = intent;
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            JSONObject result;
+        protected JSONObject doInBackground(Void... params) {
+            JSONObject result = null;
             try {
                 result = getData();
                 System.out.println(result);
 
                 if(result.get("result").toString().equalsIgnoreCase("OK")){
                     //llamada OK
-                    System.out.println("LLAMADA OK...");
                     JSONObject data = new JSONObject();
                     data.put("data", result.get("data").toString());
-                    nextActivity.putExtra("data", data.toString());
                 } else {
                     //algun error
                     System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
-                    return false;
+                    return result;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return true;
+            return result;
         }
 
         public JSONObject getData() throws JSONException {
@@ -189,18 +196,6 @@ public class NewTicket extends AppCompatActivity {
                 }
             }
             return toReturn;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            System.out.println("en PostExecute con success en: " + success.toString());
-            if (success) {
-                startActivity(nextActivity);
-                finish();
-            } else {
-                System.out.println("================onPostExecute con success en false");
-                //TODO: Ver como manejar esto. Volver a la activity anterior? darle finish nomas? Buscar qué se suele hacer
-            }
         }
     }
 }

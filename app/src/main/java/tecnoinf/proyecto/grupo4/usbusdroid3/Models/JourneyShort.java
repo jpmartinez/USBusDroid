@@ -17,6 +17,7 @@ public class JourneyShort {
     private String name;
     private DayOfWeek day;
     private Date time;
+    private Date date;
     private Integer busNumber;
 
     public Long getId() {
@@ -51,6 +52,14 @@ public class JourneyShort {
         this.time = time;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Integer getBusNumber() {
         return busNumber;
     }
@@ -60,7 +69,7 @@ public class JourneyShort {
     }
 
 
-    public JourneyShort(JSONObject object){
+    public JourneyShort(JSONObject object) throws ParseException {
         try {
             id = object.getLong("id");
             name = object.getJSONObject("service").getString("name");
@@ -68,6 +77,9 @@ public class JourneyShort {
             //time = new SimpleDateFormat("HH:mm").parse(object.getJSONObject("service").getString("time"));
             time = new Date();
             time.setTime(Long.valueOf(object.getJSONObject("service").getString("time")));
+            date = new Date();
+            date.setTime(Long.valueOf(object.getString("date")));
+            //date = new SimpleDateFormat("dd/MM/yyyy").parse(object.getString("date"));
             busNumber = object.getInt("busNumber");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -75,7 +87,7 @@ public class JourneyShort {
     }
 
 
-    public static ArrayList<JourneyShort> fromJson(JSONArray jsonObjects) {
+    public static ArrayList<JourneyShort> fromJson(JSONArray jsonObjects) throws ParseException {
         ArrayList<JourneyShort> journeyList = new ArrayList<>();
         for (int i = 0; i < jsonObjects.length(); i++) {
             try {
