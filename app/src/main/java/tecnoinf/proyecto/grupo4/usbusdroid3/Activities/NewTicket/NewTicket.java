@@ -1,5 +1,7 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -31,12 +36,25 @@ import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 public class NewTicket extends AppCompatActivity {
 
     private static final String journeysFromToRest = "http://10.0.2.2:8080/usbus/api/1/test/journeys";
+    private Button btnSelectDate;
+    private static TextView dateField;
+    private int year_x, month_x, day_x;
+    static final int DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
+        dateField = (TextView) findViewById(R.id.tvNTSelectedDate);
+        showDatePicker();
+
         Intent father = getIntent();
+
+        final Calendar cal = Calendar.getInstance();
+        year_x = cal.get(Calendar.YEAR);
+        month_x = cal.get(Calendar.MONTH);
+        day_x = cal.get(Calendar.DAY_OF_MONTH);
+
         final String token = father.getStringExtra("token");
         try {
             JSONObject intentData = new JSONObject(father.getStringExtra("data"));
@@ -70,6 +88,7 @@ public class NewTicket extends AppCompatActivity {
                         String destination = spinnerTo.getSelectedItem().toString();
                         postData.put("origin", origin);
                         postData.put("destination", destination);
+                        postData.put("date", day_x + "/" + month_x + "/" + year_x);
 
                         AsyncTask<Void, Void, JSONObject> journeyResult = new RestCallAsync(journeysFromToRest, "POST", postData).execute();
                         JSONObject journeyData = journeyResult.get();
@@ -99,6 +118,36 @@ public class NewTicket extends AppCompatActivity {
         //TODO: luego que vuelva el viaje seleccionado, ponerlo como extra y llamar a otra activity de este paquete que muestre mapa de asientos y se haga cargo
         //TODO: Este mapa al seleccionar un asiento permite realizar la compra del mismo, pagando andá a saber como.
     }
+
+    public void showDatePicker() {
+        btnSelectDate = (Button) findViewById(R.id.btnNTSelectDate);
+        btnSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_ID);
+
+            }
+        });
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        if (id == DIALOG_ID){
+            return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener dpickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            year_x = year;
+            month_x = monthOfYear;
+            day_x = dayOfMonth;
+            dateField.setText(day_x + "/" + month_x + "/" + year_x);
+        }
+    };
 
     public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
 

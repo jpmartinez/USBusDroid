@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NTSelectSeatActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Seleccione su Asiento"
+        android:id="@+id/selectSeatTitle"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/driver"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/seatsGV"
+        android:layout_marginLeft="20.0dp"
+        android:layout_marginTop="5.0dp"
+        android:background="@drawable/steering_wheel"
+        android:orientation="horizontal" >
+    </RelativeLayout>
+
+    <GridView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/seatsGV"
+        android:numColumns="5"
+        android:layout_below="@+id/driver"
+        android:layout_margin="4dp"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth" />
+
+</RelativeLayout>

@@ -28,12 +28,44 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Fecha: "
+                android:id="@+id/tvNTDate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/tvNTSelectedDate" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Fecha"
+            android:id="@+id/btnNTSelectDate" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Desde"
-            android:id="@+id/tvFrom" />
+            android:id="@+id/tvFrom"
+            android:layout_marginTop="30dp" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -62,6 +94,7 @@
             android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal"
             style="@style/TextAppearance.AppCompat.Button" />
+
     </LinearLayout>
 
 </RelativeLayout>

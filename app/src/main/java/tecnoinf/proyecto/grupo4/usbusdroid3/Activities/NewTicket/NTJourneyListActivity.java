@@ -174,9 +174,9 @@ public class NTJourneyListActivity extends ListActivity {
 
         try {
             JSONObject intentData = new JSONObject(father.getStringExtra("data"));
-            JSONArray journeyJsonArray = new JSONArray(intentData.get("data").toString().replace("\\", ""));
+            final JSONArray journeyJsonArray = new JSONArray(intentData.get("data").toString().replace("\\", ""));
 
-            List<JourneyShort> journeyList = JourneyShort.fromJson(journeyJsonArray);
+            final List<JourneyShort> journeyList = JourneyShort.fromJson(journeyJsonArray);
             System.out.println("======estoy, journeyList size: " + journeyList.size());
             //ArrayList<String> busStopsNames = new ArrayList<>();
             for (JourneyShort js: journeyList) {
@@ -225,19 +225,23 @@ public class NTJourneyListActivity extends ListActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    // getting values from selected ListItem
-                    String name = ((TextView) view.findViewById(R.id.journeyNameTV))
-                            .getText().toString();
-                    String journeyid = ((TextView) view.findViewById(R.id.id))
+                    try {
+                        // getting values from selected ListItem
+                        String name = ((TextView) view.findViewById(R.id.journeyNameTV))
+                                .getText().toString();
+                        String journeyid = ((TextView) view.findViewById(R.id.id))
                             .getText().toString();
 
-                    System.out.println("===============selected journey: ");
-                    System.out.println(journeyid + name);
-//                    Intent selectedJourney = new Intent(getBaseContext(), SingleJourneyActivity.class);
-//                    selectedJourney.putExtra(TAG_NAME, name);
-//                    selectedJourney.putExtra("userid", userId);
-//                    selectedJourney.putExtra(TAG_ID, vsid);
-//                    startActivity(selectedJourney);
+//                        System.out.println("===============selected journey: ");
+//                        System.out.println(journeyid + name);
+                        Intent selectSeat = new Intent(getBaseContext(), NTSelectSeatActivity.class);
+
+                        selectSeat.putExtra("journey", journeyJsonArray.get(Integer.valueOf(journeyid)).toString());
+                        startActivity(selectSeat);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
 

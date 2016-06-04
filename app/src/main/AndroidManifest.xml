@@ -33,7 +33,8 @@
             android:name="io.fabric.ApiKey"
             android:value="37639548c5fc33add920f563bac6215f2740df48" />
 
-        <activity android:name=".Activities.NewTicket.NTJourneyListActivity"></activity>
+        <activity android:name=".Activities.NewTicket.NTJourneyListActivity" />
+        <activity android:name=".Activities.NewTicket.NTSelectSeatActivity"></activity>
     </application>
 
 </manifest>

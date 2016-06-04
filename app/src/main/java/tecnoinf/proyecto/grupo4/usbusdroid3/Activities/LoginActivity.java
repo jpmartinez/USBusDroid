@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private View mTwitterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        mTwitterButton = findViewById(R.id.twitter_login_button);
 
         loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
@@ -128,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mAuthTask = new UserLoginTask(session.getUserName(), session.getAuthToken().toString(), getApplicationContext());
                 mAuthTask.execute((Void) null);
 
+                //showProgress(true);
                 //TODO: mandar username y authtoken a mi user login task (abajo, linea 341)
                 // TODO: Remove toast and use the TwitterSession's userID
                 // with your app's user model
@@ -261,9 +264,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
+        mProgressView.setVisibility(show? View.VISIBLE : View.GONE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
+            mTwitterButton.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
@@ -400,13 +406,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             System.out.println("en PostExecute con success en: " + success.toString());
             //mAuthTask = null;
-            showProgress(false);
+            //showProgress(false);
 
             if (success) {
+                showProgress(true);
+                System.out.println("mostrando progress");
                 Intent mainIntent = new Intent(getBaseContext(), MainClient.class);
                 mainIntent.putExtra("token", token);
                 startActivity(mainIntent);
 
+                //showProgress(false);
+                //System.out.println("ocultando progress");
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
