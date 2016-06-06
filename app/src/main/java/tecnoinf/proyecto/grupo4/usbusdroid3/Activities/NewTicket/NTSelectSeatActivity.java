@@ -85,10 +85,12 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
+            Integer positionI = new Integer(position);
 
             View grid;
-            if(convertView==null){
-                grid = new View(context);
+            if(true){//(convertView==null){
+                //grid = new View(context);
+                layoutInflater = getLayoutInflater();
                 grid = layoutInflater.inflate(R.layout.gridview_seat, null);
             }else{
                 grid = (View)convertView;
@@ -99,16 +101,18 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             TextView textView = (TextView)grid.findViewById(R.id.seatNumber);
 
             int seatNbr;
-            if(position < 3) {
-                seatNbr = (position + 1);
+            if(positionI < 3) {
+                seatNbr = (positionI + 1);
             } else {
-                seatNbr = (position + 1) - (((position-2) / 5) + 1);
+                seatNbr = (positionI + 1) - (((positionI-2) / 5) + 1);
             }
 
             textView.setText(String.valueOf(seatNbr));
 
             //TODO: cambiar por los que NO vienen en el array de ocupados
-            if(occupied.contains(position)) {
+            if(occupied.indexOf(positionI) != -1) {
+                System.out.println("position: " + positionI);
+                System.out.println("indexOf: " + occupied.indexOf(positionI));
             //if((position+1) % 3 == 0 && (((position + 3) % 5) != 0)) {
                 imageView.setColorFilter(Color.RED);
                 grid.setEnabled(false);
@@ -199,9 +203,10 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     }
 
     public boolean positionIsEnabled(int position) {
-        Integer occupiedPosition = occupied.indexOf(position);
+        Integer positionI = new Integer(position);
+        Integer occupiedPosition = occupied.indexOf(positionI);
         System.out.println("ocupado: " + occupiedPosition);
-        return ((((position + 3) % 5) != 0) && occupiedPosition == -1); //TODO: ...&& position no está en rango de libres
+        return ((((positionI + 3) % 5) != 0) && occupiedPosition == -1); //TODO: ...&& position no está en rango de libres
         // Return true for clickable, false for not
         //return false;
     }
