@@ -121,6 +121,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void success(Result<TwitterSession> result) {
                 // The TwitterSession is also available through:
                 // Twitter.getInstance().core.getSessionManager().getActiveSession()
+                showProgress(true);
+                //TODO: aqui va el mProgressView en true??
                 System.out.println("==============en success");
                 TwitterSession session = result.data;
                 System.out.println("==============username: " + session.getUserName());
