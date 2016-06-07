@@ -9,4 +9,61 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.TimeTable.TimeTable">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Seleccione Origen y Destino"
+        android:id="@+id/tvTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Desde"
+            android:id="@+id/tvFrom"
+            android:layout_marginTop="30dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnFrom"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hasta"
+            android:id="@+id/tvTo"
+            android:layout_marginTop="50dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnTo" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Buscar Frecuencias"
+            android:id="@+id/btnSearch"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            style="@style/TextAppearance.AppCompat.Button" />
+
+    </LinearLayout>
+
 </RelativeLayout>

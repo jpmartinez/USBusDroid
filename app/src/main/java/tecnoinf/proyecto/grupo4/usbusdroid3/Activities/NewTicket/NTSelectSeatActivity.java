@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,11 +19,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NTSelectSeatActivity extends AppCompatActivity {
+
+    private static final String ticketCostRest = "http://10.0.2.2:8080/usbus/api/1/test/ticketCost";
 
     private int selectedSeat = 0;
     private int lastSelectedSeat = 0;
@@ -129,18 +137,29 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
     GridView gridView;
     Button confirmButton;
+    private String token;
+    private Intent father;
+    private JSONObject journeyJSON;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ntselect_seat);
-        gridView = (GridView)findViewById(R.id.seatsGV);
-        confirmButton = (Button) findViewById(R.id.confirmSeatBtn);
-        Intent father = getIntent();
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_ntselect_seat);
+            gridView = (GridView)findViewById(R.id.seatsGV);
+            confirmButton = (Button) findViewById(R.id.confirmSeatBtn);
+            father = getIntent();
+            token = father.getStringExtra("token");
+
+            journeyJSON = new JSONObject(father.getStringExtra("journey"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //occupied = father.getIntegerArrayListExtra("ocuppiedSeats");
         occupied = new ArrayList<Integer>();
+        //TODO: estos adds son los position, no los asientos. En producción habrá que hacer la conversión.
         occupied.add(3);
         occupied.add(15);
         occupied.add(9);
@@ -192,8 +211,35 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(selectedSeat > 0) {
-                        System.out.println("Boton onClick selected seat: " + selectedSeat);
+                        try {
+                            System.out.println("Boton onClick selected seat: " + selectedSeat);
+                            //TODO: recabar información para solicitar precio al rest
+                            JSONObject postData = new JSONObject();
+                            postData.put("token", token);
+                            //postData.put("from", journeyJSON.getJSONObject("service").getJSONObject("route").get("origin"));
+                            //postData.put("destination", journeyJSON.getJSONObject("service").getJSONObject("route").get("destination"));
+                            postData.put("otros", "otros");
 
+                            AsyncTask<Void, Void, JSONObject> ticketCostResult = new RestCallAsync(ticketCostRest, "POST", postData).execute();
+                            JSONObject ticketCostData = ticketCostResult.get();
+
+                            System.out.println("===========Data del ticket:");
+                            System.out.println(ticketCostData);
+
+
+                            Intent confirmationIntent = new Intent(getBaseContext(), NTConfirmationActivity.class);
+                            confirmationIntent.putExtra("seat", selectedSeat);
+                            confirmationIntent.putExtra("journey", father.getStringExtra("journey"));
+                            //confirmationIntent.putExtra("ticketCost", ticketCostData.getJSONObject("data").get("cost").toString());
+                            startActivity(confirmationIntent);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "Debe seleccionar un asiento", Toast.LENGTH_LONG).show();
                     }

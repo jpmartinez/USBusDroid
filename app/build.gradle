@@ -42,4 +42,6 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.13.1@aar') {
         transitive = true;
     }
+    compile 'com.paypal.sdk:paypal-android-sdk:2.14.2'
+    compile files('src/libs/PayPal_MPL.jar')
 }

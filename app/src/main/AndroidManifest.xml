@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -34,7 +35,10 @@
             android:value="37639548c5fc33add920f563bac6215f2740df48" />
 
         <activity android:name=".Activities.NewTicket.NTJourneyListActivity" />
-        <activity android:name=".Activities.NewTicket.NTSelectSeatActivity"></activity>
+        <activity android:name=".Activities.NewTicket.NTSelectSeatActivity" />
+        <activity android:name=".Activities.NewTicket.NTConfirmationActivity" />
+        <activity android:name=".Activities.NewTicket.NTResultActivity" />
+        <activity android:name=".Activities.TimeTable.TTServicesListActivity"></activity>
     </application>
 
 </manifest>

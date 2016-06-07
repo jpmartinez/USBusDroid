@@ -237,6 +237,7 @@ public class NTJourneyListActivity extends ListActivity {
                         Intent selectSeat = new Intent(getBaseContext(), NTSelectSeatActivity.class);
 
                         selectSeat.putExtra("journey", journeyJsonArray.get(Integer.valueOf(journeyid)).toString());
+                        selectSeat.putExtra("token", token);
                         startActivity(selectSeat);
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -93,10 +93,10 @@ public class NewTicket extends AppCompatActivity {
                         AsyncTask<Void, Void, JSONObject> journeyResult = new RestCallAsync(journeysFromToRest, "POST", postData).execute();
                         JSONObject journeyData = journeyResult.get();
 
-                        Intent listServicesFromToIntent = new Intent(v.getContext(), NTJourneyListActivity.class);
-                        listServicesFromToIntent.putExtra("token", token);
-                        listServicesFromToIntent.putExtra("data", journeyData.toString());
-                        startActivity(listServicesFromToIntent);
+                        Intent listJourneysFromToIntent = new Intent(v.getContext(), NTJourneyListActivity.class);
+                        listJourneysFromToIntent.putExtra("token", token);
+                        listJourneysFromToIntent.putExtra("data", journeyData.toString());
+                        startActivity(listJourneysFromToIntent);
 //                        RestCallAsync restCall = new RestCallAsync(journeysFromToRest, "POST", postData, listServicesFromToIntent);
 //                        restCall.execute((Void) null);
                     } catch (JSONException e) {
