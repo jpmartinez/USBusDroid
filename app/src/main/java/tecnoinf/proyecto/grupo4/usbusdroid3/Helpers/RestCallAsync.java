@@ -1,5 +1,6 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Helpers;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -14,16 +15,24 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import tecnoinf.proyecto.grupo4.usbusdroid3.R;
+
 public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
 
+    private Context mCtx;
+    private String REST_API_URL;
     private String restURL;
     private String method;
     private JSONObject dataOut;
+    private String token;
 
-    public RestCallAsync(String url, String callMethod, JSONObject data) {
+    public RestCallAsync(Context ctx, String url, String callMethod, JSONObject data, String auth_token) {
         restURL = url;
         method = callMethod;
-        dataOut = data; //Se instancia con dataOut en null si el rest no requiere datos de entrada
+        dataOut = data; //Se instancia con dataOut en null si el rest no requiere datos de entrada (GET)
+        token = auth_token;
+        mCtx = ctx.getApplicationContext();
+        REST_API_URL = mCtx.getString(R.string.URL_REST_API);
     }
 
     @Override
@@ -31,6 +40,7 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
         JSONObject result = null;
         try {
             result = getData();
+            System.out.println("====doInBackground de RestCallAsync: ");
             System.out.println(result);
 
             if(result.get("result").toString().equalsIgnoreCase("OK")){
@@ -55,6 +65,7 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
             toReturn = new JSONObject("{\"error\":\"USBus - URL not initialized\"");
         }
         else {
+            System.out.println("888888888888888 URL que llegó: " + restURL);
             HttpURLConnection connection = null;
             StringBuilder sb = new StringBuilder();
             try {
@@ -62,6 +73,10 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
                 connection = (HttpURLConnection) restURL.openConnection();
                 connection.setRequestMethod(this.method);
                 connection.setRequestProperty("Content-Type", "application/json");
+                if (token != null && !token.isEmpty()) {
+                    System.out.println("77777777777cargando token bearer: " + token);
+                    connection.setRequestProperty("Authorization", "Bearer " + token);
+                }
                 connection.connect();
 
                 if(dataOut != null) {
@@ -81,13 +96,16 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
                     }
                     br.close();
 
+                    System.out.println("=======Vino del rest:");
+                    System.out.println(sb.toString());
+
                     toReturn = new JSONObject();
                     toReturn.put("result", "OK");
                     toReturn.put("data", sb.toString());
 
                 } else {
                     System.out.println(connection.getResponseMessage());
-                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"" + connection.getResponseMessage() + "\"}");
+                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"" + HttpResult + connection.getResponseMessage() + "\"}");
                 }
 
             } catch (ProtocolException e1) {

@@ -17,25 +17,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.BusStop;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NewTicket extends AppCompatActivity {
 
-    private static final String journeysFromToRest = "http://10.0.2.2:8080/usbus/api/1/test/journeys";
+    private static String journeysFromToRest;
     private Button btnSelectDate;
     private static TextView dateField;
     private int year_x, month_x, day_x;
@@ -45,6 +38,7 @@ public class NewTicket extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ticket);
+
         dateField = (TextView) findViewById(R.id.tvNTSelectedDate);
         showDatePicker();
 
@@ -83,14 +77,16 @@ public class NewTicket extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         JSONObject postData = new JSONObject();
-                        postData.put("token", token);
+                        //postData.put("token", token);
                         String origin = spinnerFrom.getSelectedItem().toString();
                         String destination = spinnerTo.getSelectedItem().toString();
                         postData.put("origin", origin);
                         postData.put("destination", destination);
                         postData.put("date", day_x + "/" + month_x + "/" + year_x);
 
-                        AsyncTask<Void, Void, JSONObject> journeyResult = new RestCallAsync(journeysFromToRest, "POST", postData).execute();
+                        journeysFromToRest = getString(R.string.URLjourneysFromTo, getString(R.string.URL_REST_API), getString(R.string.tenantId));
+                        //TODO: en la URL de arriba falta agregar parametros de origen y destino.
+                        AsyncTask<Void, Void, JSONObject> journeyResult = new RestCallAsync(getApplicationContext(), journeysFromToRest, "GET", null, token).execute();
                         JSONObject journeyData = journeyResult.get();
 
                         Intent listJourneysFromToIntent = new Intent(v.getContext(), NTJourneyListActivity.class);
@@ -148,103 +144,4 @@ public class NewTicket extends AppCompatActivity {
             dateField.setText(day_x + "/" + month_x + "/" + year_x);
         }
     };
-
-    public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
-
-        private String restURL;
-        private String method;
-        private JSONObject dataOut;
-
-        public RestCallAsync(String url, String callMethod, JSONObject data) {
-            restURL = url;
-            method = callMethod;
-            dataOut = data; //Se instancia con dataOut en null si el rest no requiere datos de entrada
-        }
-
-        @Override
-        protected JSONObject doInBackground(Void... params) {
-            JSONObject result = null;
-            try {
-                result = getData();
-                System.out.println(result);
-
-                if(result.get("result").toString().equalsIgnoreCase("OK")){
-                    //llamada OK
-                    JSONObject data = new JSONObject();
-                    data.put("data", result.get("data").toString());
-                } else {
-                    //algun error
-                    System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
-                    return result;
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return result;
-        }
-
-        public JSONObject getData() throws JSONException {
-            JSONObject toReturn = null;
-
-            if(this.restURL == null || this.restURL.isEmpty()) {
-                toReturn = new JSONObject("{\"error\":\"USBus - URL not initialized\"");
-            }
-            else {
-                HttpURLConnection connection = null;
-                StringBuilder sb = new StringBuilder();
-                try {
-                    URL restURL = new URL(this.restURL);
-                    connection = (HttpURLConnection) restURL.openConnection();
-                    connection.setRequestMethod(this.method);
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    connection.connect();
-
-                    if(dataOut != null) {
-                        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-                        out.write(this.dataOut.toString());
-                        out.close();
-                    }
-
-                    int HttpResult = connection.getResponseCode();
-
-                    if (HttpResult == HttpURLConnection.HTTP_OK) {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(
-                                connection.getInputStream(), "utf-8"));
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            sb.append(line);
-                        }
-                        br.close();
-
-                        toReturn = new JSONObject();
-                        toReturn.put("result", "OK");
-                        toReturn.put("data", sb.toString());
-
-                    } else {
-                        System.out.println(connection.getResponseMessage());
-                        toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"" + connection.getResponseMessage() + "\"}");
-                    }
-
-                } catch (ProtocolException e1) {
-                    e1.printStackTrace();
-                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"ProtocolException - " + e1.getMessage().replace(":", "-") + "\"}");
-                } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
-                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"MalformedURLException - " + e1.getMessage().replace(":", "-") + "\"}");
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"IOException - " + e1.getMessage().replace(":", "-") + "\"}");
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    toReturn = new JSONObject("{\"result\":\"ERROR\", \"data\": \"Exception - " + e1.getMessage().replace(":", "-") + "\"}");
-                } finally {
-                    if (connection != null) {
-                        connection.disconnect();
-                    }
-                    return toReturn;
-                }
-            }
-            return toReturn;
-        }
-    }
 }

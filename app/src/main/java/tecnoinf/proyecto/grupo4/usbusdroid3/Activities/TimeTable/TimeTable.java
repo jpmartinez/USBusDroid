@@ -66,7 +66,7 @@ public class TimeTable extends AppCompatActivity {
                         postData.put("origin", origin);
                         postData.put("destination", destination);
 
-                        AsyncTask<Void, Void, JSONObject> servicesResult = new RestCallAsync(servicesFromToRest, "POST", postData).execute();
+                        AsyncTask<Void, Void, JSONObject> servicesResult = new RestCallAsync(getApplicationContext(), servicesFromToRest, "POST", postData, token).execute();
                         JSONObject servicesData = servicesResult.get();
 
                         Intent listServicesFromToIntent = new Intent(v.getContext(), TTServicesListActivity.class);

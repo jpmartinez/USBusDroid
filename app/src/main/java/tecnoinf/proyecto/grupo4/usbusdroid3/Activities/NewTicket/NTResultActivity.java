@@ -14,20 +14,22 @@ import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NTResultActivity extends AppCompatActivity {
 
+    String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ntresult);
 
         //Getting Intent
-        Intent intent = getIntent();
-
+        Intent father = getIntent();
+        token = father.getStringExtra("token");
 
         try {
-            JSONObject jsonDetails = new JSONObject(intent.getStringExtra("PaymentDetails"));
+            JSONObject jsonDetails = new JSONObject(father.getStringExtra("PaymentDetails"));
 
             //Displaying payment details
-            showDetails(jsonDetails.getJSONObject("response"), intent.getStringExtra("PaymentAmount"));
+            showDetails(jsonDetails.getJSONObject("response"), father.getStringExtra("PaymentAmount"));
         } catch (JSONException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -48,7 +50,7 @@ public class NTResultActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent homeIntent = new Intent(this, MainClient.class);
-        homeIntent.putExtra("token", "lksdjflsjdflksdf"); //TODO: traer del father poner token
+        homeIntent.putExtra("token", token); //TODO: traer del father poner token
         startActivity(homeIntent);
     }
 }

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,17 +31,21 @@ import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NTSelectSeatActivity extends AppCompatActivity {
 
-    private static final String ticketCostRest = "http://10.0.2.2:8080/usbus/api/1/test/ticketCost";
-
     private int selectedSeat = 0;
     private int lastSelectedSeat = 0;
     private int lastSelectedPosition = -1;
     private static ArrayList<Integer> occupied;
+    private long tenantId = 0;
+    private long journeyId = 0;
+    private String origin;
+    private String destination;
+
+    private static String ticketPriceRest;
 
     public class MyAdapter extends BaseAdapter {
 
-        final int NumberOfItem = 45 + 45/4; //TODO: cambiar por cantidad total de seats en el bus del journey
-        private Bitmap[] bitmap = new Bitmap[NumberOfItem];
+        final int numberOfItem = 45 + 45/4; //TODO: cambiar por cantidad total de seats en el bus del journey (journey.bus.seats)
+        private Bitmap[] bitmap = new Bitmap[numberOfItem];
 
         private Context context;
         private LayoutInflater layoutInflater;
@@ -49,7 +54,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             context = c;
             layoutInflater = LayoutInflater.from(context);
 
-            for(int i = 0; i < NumberOfItem; i++){
+            for(int i = 0; i < numberOfItem; i++){
                 if((i + 3) % 5 == 0) {
                     bitmap[i] = BitmapFactory.decodeResource(context.getResources(), R.drawable.bus_aisle_dotted);
                 } else {
@@ -67,33 +72,29 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         public boolean isEnabled(int position) {
             Integer occupiedPosition = occupied.indexOf(position);
             System.out.println("ocupado: " + occupiedPosition);
-            return ((((position + 3) % 5) != 0) || occupied.contains(position)); //TODO: ...&& position no está en rango de libres
+            return ((((position + 3) % 5) != 0) && !occupied.contains(position)); //TODO: ...&& position no está en rango de libres
             // Return true for clickable, false for not
             //return false;
         }
 
         @Override
         public int getCount() {
-            // TODO Auto-generated method stub
             return bitmap.length;
         }
 
         @Override
         public Object getItem(int position) {
-            // TODO Auto-generated method stub
             return bitmap[position];
         }
 
         @Override
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
             return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            Integer positionI = new Integer(position);
+            Integer positionI = position;
 
             View grid;
             if(true){//(convertView==null){
@@ -118,7 +119,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             textView.setText(String.valueOf(seatNbr));
 
             //TODO: cambiar por los que NO vienen en el array de ocupados
-            if(occupied.indexOf(positionI) != -1) {
+            if(occupied != null && !occupied.isEmpty() && occupied.indexOf(positionI) != -1) {
                 System.out.println("position: " + positionI);
                 System.out.println("indexOf: " + occupied.indexOf(positionI));
             //if((position+1) % 3 == 0 && (((position + 3) % 5) != 0)) {
@@ -151,19 +152,29 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             confirmButton = (Button) findViewById(R.id.confirmSeatBtn);
             father = getIntent();
             token = father.getStringExtra("token");
+            //ticketPriceRest = getString(R.string.URLticketPrice, );
 
             journeyJSON = new JSONObject(father.getStringExtra("journey"));
+
+            System.out.println("SelectSeat journey: " + journeyJSON);
+            JSONArray occupiedJSONArray = journeyJSON.getJSONArray("seatsState");
+
+            //occupied = father.getIntegerArrayListExtra("ocuppiedSeats");
+            occupied = new ArrayList<>();
+            Integer occupiedSeat;
+            Integer occupiedPosition;
+            for (int i = 0; i < occupiedJSONArray.length(); i++) {
+                if (!occupiedJSONArray.getJSONObject(i).getBoolean("free")) {
+                    occupiedSeat = occupiedJSONArray.getJSONObject(i).getInt("number");
+                    occupiedPosition = seat2Position(occupiedSeat);
+
+                    System.out.println("adding to occupied: " + occupiedPosition);
+                    occupied.add(occupiedPosition);
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        //occupied = father.getIntegerArrayListExtra("ocuppiedSeats");
-        occupied = new ArrayList<Integer>();
-        //TODO: estos adds son los position, no los asientos. En producción habrá que hacer la conversión.
-        occupied.add(3);
-        occupied.add(15);
-        occupied.add(9);
-
         MyAdapter adapter = new MyAdapter(this);
         gridView.setAdapter(adapter);
 
@@ -182,13 +193,15 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                     System.out.println("Selected Seat: " + selectedSeat);
 
                     ImageView selectedSeatImage = (ImageView) view.findViewById(R.id.seatImage);
-                    if (!occupied.contains(position)) {
+                    if (occupied != null && !occupied.isEmpty() && !occupied.contains(position)) {
                         selectedSeatImage.setColorFilter(Color.GREEN);
                     }
 
                     //System.out.println("previous position: " + lastSelectedPosition + " color: " + lastSelectedPreviousColor);
                     if (lastSelectedPosition > -1 &&
                             lastSelectedPosition != position &&
+                            occupied != null &&
+                            !occupied.isEmpty() &&
                             !occupied.contains(lastSelectedPosition) &&
                             !occupied.contains(position)) {
                         View lastView = parent.getChildAt(lastSelectedPosition);
@@ -199,7 +212,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                     }
 
                     //selectedSeatPreviousImage = (ImageView) view.findViewById(R.id.seatImage);
-                    if (!occupied.contains(position)) {
+                    if (occupied != null && !occupied.isEmpty() && !occupied.contains(position)) {
                         lastSelectedPosition = position;
                     }
                 }
@@ -211,35 +224,30 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(selectedSeat > 0) {
-                        try {
-                            System.out.println("Boton onClick selected seat: " + selectedSeat);
-                            //TODO: recabar información para solicitar precio al rest
-                            JSONObject postData = new JSONObject();
-                            postData.put("token", token);
-                            //postData.put("from", journeyJSON.getJSONObject("service").getJSONObject("route").get("origin"));
-                            //postData.put("destination", journeyJSON.getJSONObject("service").getJSONObject("route").get("destination"));
-                            postData.put("otros", "otros");
+                        System.out.println("Boton onClick selected seat: " + selectedSeat);
+                        //TODO: recabar información para solicitar precio al rest
+//                            JSONObject postData = new JSONObject();
+//                            postData.put("token", token);
+                        //postData.put("from", journeyJSON.getJSONObject("service").getJSONObject("route").get("origin"));
+                        //postData.put("destination", journeyJSON.getJSONObject("service").getJSONObject("route").get("destination"));
+//                            postData.put("otros", "otros");
 
-                            AsyncTask<Void, Void, JSONObject> ticketCostResult = new RestCallAsync(ticketCostRest, "POST", postData).execute();
-                            JSONObject ticketCostData = ticketCostResult.get();
+                        //TODO: insertar una activity antes del confirmation, en donde seleccione subida y bajada
+                        //TODO: y en base a esa subida y bajada poder calcular el precio para enviar al confirmation
+//                            AsyncTask<Void, Void, JSONObject> ticketCostResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "POST", postData, token).execute();
+//                            JSONObject ticketCostData = ticketCostResult.get();
 
-                            System.out.println("===========Data del ticket:");
-                            System.out.println(ticketCostData);
+//                            System.out.println("===========Data del ticket:");
+//                            System.out.println(ticketCostData);
 
 
-                            Intent confirmationIntent = new Intent(getBaseContext(), NTConfirmationActivity.class);
-                            confirmationIntent.putExtra("seat", selectedSeat);
-                            confirmationIntent.putExtra("journey", father.getStringExtra("journey"));
-                            //confirmationIntent.putExtra("ticketCost", ticketCostData.getJSONObject("data").get("cost").toString());
-                            startActivity(confirmationIntent);
+                        Intent busStopSelectionIntent = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
+                        busStopSelectionIntent.putExtra("seat", selectedSeat);
+                        busStopSelectionIntent.putExtra("journey", father.getStringExtra("journey"));
+                        busStopSelectionIntent.putExtra("token", token);
+                        //confirmationIntent.putExtra("ticketCost", ticketCostData.getJSONObject("data").get("cost").toString());
+                        startActivity(busStopSelectionIntent);
 
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "Debe seleccionar un asiento", Toast.LENGTH_LONG).show();
                     }
@@ -249,11 +257,43 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     }
 
     public boolean positionIsEnabled(int position) {
-        Integer positionI = new Integer(position);
-        Integer occupiedPosition = occupied.indexOf(positionI);
-        System.out.println("ocupado: " + occupiedPosition);
-        return ((((positionI + 3) % 5) != 0) && occupiedPosition == -1); //TODO: ...&& position no está en rango de libres
-        // Return true for clickable, false for not
-        //return false;
+        System.out.println("positionIsEnabled position:"+position);
+        Integer positionI = position;
+        if(occupied != null && !occupied.isEmpty()) {
+            return (((position+3) % 5) != 0) && (occupied.indexOf(positionI) == -1);
+        } else {
+            Integer occupiedPosition = occupied.indexOf(positionI);
+            System.out.println("ocupado: " + occupiedPosition);
+            Boolean result;
+            result = ((((positionI + 3) % 5) != 0) && occupiedPosition.intValue() == -1); //TODO: ...&& position no está en rango de libres
+            System.out.println("result: "+result);
+            return result;
+            // Return true for clickable, false for not
+            //return false;
+        }
+    }
+
+    private Integer position2Seat (Integer position) {
+        Integer seat;
+
+        if(position < 3) {
+            seat = (position + 1);
+        } else {
+            seat = (position + 1) - (((position-2) / 5) + 1);
+        }
+
+        return seat;
+    }
+
+    private Integer seat2Position (Integer seat) {
+        Integer position;
+
+        if(seat < 3) {
+            position = (seat - 1);
+        } else {
+            position = (seat - 1) + (((seat-1) / 4) + 1);
+        }
+
+        return position;
     }
 }

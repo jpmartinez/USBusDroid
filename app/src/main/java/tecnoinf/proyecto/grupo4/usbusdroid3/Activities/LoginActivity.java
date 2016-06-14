@@ -4,21 +4,21 @@ package tecnoinf.proyecto.grupo4.usbusdroid3.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,7 +30,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
@@ -38,16 +37,18 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-import io.fabric.sdk.android.Fabric;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import tecnoinf.proyecto.grupo4.usbusdroid3.R;
+import io.fabric.sdk.android.Fabric;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCall;
+import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -60,15 +61,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String TWITTER_KEY = "XyYrh7Uvf4EylxNc7qr6IAjJ5";
     private static final String TWITTER_SECRET = "ga160r9tq7krioNOFSCy7nD21RNr6FC8hZm2tQ8UHb0cFNj4Nd";
     private TwitterLoginButton loginButton;
+    private boolean twitterRegisterFlag = false;
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String POST = "POST";
-    private static final String GET = "GET";
-    private static final String GOOGLE_API_KEY = "AIzaSyCvIEKboKjUqc4-pI1BcyAGoL6Qt0tLJrI";
-    private static final String loginURL = "http://10.0.2.2:8080/usbus/api/authentication";
+    private static String loginURL;
+    private static String registerURL;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -87,8 +88,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.activity_login);
+
+        loginURL = getString(R.string.URLlogin, getString(R.string.URL_REST_API));
+        registerURL =  getString(R.string.URLregister, getString(R.string.URL_REST_API));
+
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.username);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -104,6 +109,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        assert mEmailSignInButton != null;
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,29 +125,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
+
                 // The TwitterSession is also available through:
                 // Twitter.getInstance().core.getSessionManager().getActiveSession()
                 showProgress(true);
-                //TODO: aqui va el mProgressView en true??
+
                 System.out.println("==============en success");
                 TwitterSession session = result.data;
                 System.out.println("==============username: " + session.getUserName());
                 System.out.println("==============userid: " + session.getUserId());
-                System.out.println("==============authtoken: " + session.getAuthToken());
+                System.out.println("==============authtoken: " + session.getAuthToken().token);
+                System.out.println("==============session:" + session);
 
-                mAuthTask = new UserLoginTask(session.getUserName(), session.getAuthToken().toString(), getApplicationContext());
+                mAuthTask = new UserLoginTask(session.getUserName(), session.getAuthToken().token, getApplicationContext(), "twitter");
                 mAuthTask.execute((Void) null);
 
-                //showProgress(true);
-                //TODO: mandar username y authtoken a mi user login task (abajo, linea 341)
-                // TODO: Remove toast and use the TwitterSession's userID
-                // with your app's user model
-//                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
-//                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-
-//                Intent mainIntent = new Intent(getBaseContext(), MainClient.class);
-//                mainIntent.putExtra("token", "el_token_de_nuestra_app");
-//                startActivity(mainIntent);
             }
             @Override
             public void failure(TwitterException exception) {
@@ -227,10 +225,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
         }
 
         if (cancel) {
@@ -241,20 +235,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password, getApplicationContext());
+            mAuthTask = new UserLoginTask(email, password, getApplicationContext(), "usbus");
             mAuthTask.execute((Void) null);
-
-
         }
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -357,68 +347,83 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String username;
         private final String mPassword;
-        private final int tenantId = 13; //TODO: Ver como poner tenantId hard pero prolijo
+        private final String mType;
         private String token;
         private Context mCtx;
 
-        UserLoginTask(String email, String password, Context ctx) {
-            mEmail = email;
+        UserLoginTask(String user, String password, Context ctx, String type) {
+            username = user;
             mPassword = password;
             mCtx = ctx;
+            mType = type;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             JSONObject result;
+            JSONObject registerResult;
             try {
                 JSONObject credentials = new JSONObject();
-                credentials.put("type", "twitter");
-                credentials.put("username", "kavesa");
-                credentials.put("tenantId", "13");
-                credentials.put("password", "kavesa");
-                //String testURL = "http://10.0.2.2:8080/usbus/api/authentication"; //usar loginURL
+                //credentials.put("type", "twitter");
+                credentials.put("username", username);
+                credentials.put("tenantId", mCtx.getString(R.string.tenantId));
+                credentials.put("password", mPassword);
+                System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+token twitter: " + mPassword);
 
-                RestCall call = new RestCall(loginURL, POST, credentials);
+                RestCall call = new RestCall(loginURL, POST, credentials, null);
                 result = call.getData();
                 //String dummy = result.toString();
                 System.out.println(result);
-                if(result.get("result").toString().equalsIgnoreCase("OK")){
+                if(result.get("result").toString().equalsIgnoreCase("OK")) {
                     //login OK
                     System.out.println("LOGIN OK...");
                     JSONObject data = new JSONObject(result.get("data").toString());
                     token = data.getString("token");
+                } else if (mType.equalsIgnoreCase("twitter")) {
+                    credentials.put("email", username+"@twitterclient.usbus");
+                    RestCall registerCall = new RestCall(registerURL, POST, credentials, null);
+                    registerResult = registerCall.getData();
+                    if(registerResult.get("result").toString().equalsIgnoreCase("OK")) {
+                        //register OK
+                        System.out.println("REGISTRO TWITTER OK...");
+                        credentials.remove("email");
+
+                        call = new RestCall(loginURL, POST, credentials, null);
+                        result = call.getData();
+                        if(result.get("result").toString().equalsIgnoreCase("OK")) {
+                            //login OK
+                            System.out.println("LOGIN AFTER TWITTER REGISTER OK...");
+                            JSONObject data = new JSONObject(result.get("data").toString());
+                            token = data.getString("token");
+                        } else {
+                            //algun error
+                            System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
+                            return false;
+                        }
+                    }
+
                 } else {
                     //algun error
                     System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
                     return false;
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            // TODO: register the new account here.
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            System.out.println("en PostExecute con success en: " + success.toString());
-            //mAuthTask = null;
-            //showProgress(false);
-
             if (success) {
                 showProgress(true);
-                System.out.println("mostrando progress");
                 Intent mainIntent = new Intent(getBaseContext(), MainClient.class);
                 mainIntent.putExtra("token", token);
+                mainIntent.putExtra("username", username);
                 startActivity(mainIntent);
 
-                //showProgress(false);
-                //System.out.println("ocultando progress");
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -436,8 +441,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Make sure that the loginButton hears the result from any
-        // Activity that it triggered.
         loginButton.onActivityResult(requestCode, resultCode, data);
     }
 }

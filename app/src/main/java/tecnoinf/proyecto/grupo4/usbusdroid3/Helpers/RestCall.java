@@ -22,14 +22,16 @@ public class RestCall {
     private String restURL;
     private String method;
     private JSONObject dataOut;
+    private String token;
 
     public RestCall() {
     }
 
-    public RestCall(String url, String callMethod, JSONObject data) {
+    public RestCall(String url, String callMethod, JSONObject data, String auth_token) {
         restURL = url;
         method = callMethod;
         dataOut = data;
+        token = auth_token;
     }
 
     public String getRestURL() {
@@ -73,11 +75,16 @@ public class RestCall {
                 connection = (HttpURLConnection) restURL.openConnection();
                 connection.setRequestMethod(this.method);
                 connection.setRequestProperty("Content-Type", "application/json");
+                if (token != null && !token.isEmpty()) {
+                    connection.setRequestProperty("Authorization", "Bearer " + token);
+                }
                 connection.connect();
 
-                OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-                out.write(this.dataOut.toString());
-                out.close();
+                if(dataOut != null) {
+                    OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+                    out.write(this.dataOut.toString());
+                    out.close();
+                }
 
                 int HttpResult = connection.getResponseCode();
 
@@ -92,7 +99,7 @@ public class RestCall {
 
                     toReturn = new JSONObject();
                     toReturn.put("result", "OK");
-                    toReturn.put("data", sb.toString());
+                    toReturn.put("data", new JSONObject(sb.toString()));
 
                 } else {
                     System.out.println(connection.getResponseMessage());

@@ -38,7 +38,8 @@
         <activity android:name=".Activities.NewTicket.NTSelectSeatActivity" />
         <activity android:name=".Activities.NewTicket.NTConfirmationActivity" />
         <activity android:name=".Activities.NewTicket.NTResultActivity" />
-        <activity android:name=".Activities.TimeTable.TTServicesListActivity"></activity>
+        <activity android:name=".Activities.TimeTable.TTServicesListActivity" />
+        <activity android:name=".Activities.NewTicket.NTBusStopSelectionActivity"></activity>
     </application>
 
 </manifest>

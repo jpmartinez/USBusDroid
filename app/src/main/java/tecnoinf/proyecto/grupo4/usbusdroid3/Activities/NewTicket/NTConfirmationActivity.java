@@ -16,6 +16,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 
@@ -26,27 +27,43 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
 
     private Button buttonPay;
     private String paymentAmount;
+    private String token;
+    private JSONObject journey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ntconfirmation);
         Intent father = getIntent();
+        token = father.getStringExtra("token");
                 System.out.println("Confirmation=====================");
                 System.out.println(father.getStringExtra("journey"));
                 System.out.println(father.getIntExtra("seat", -1));
                 System.out.println(father.getStringExtra("ticketCost"));
         Double ticketCost = 12.30;//Double.parseDouble(father.getStringExtra("ticketCost"));
+        String selectedSeat = String.valueOf(father.getIntExtra("seat", 0));
+        paymentAmount = father.getStringExtra("ticketCost");
+        try {
+            journey = new JSONObject(father.getStringExtra("journey"));
 
-        TextView ticketIdTV = (TextView) findViewById(R.id.ticketIdTV);
-        TextView ticketOriginTV = (TextView) findViewById(R.id.ticketOriginTV);
-        TextView ticketDestinationTV = (TextView) findViewById(R.id.ticketDestinationTV);
-        TextView ticketDateTV = (TextView) findViewById(R.id.ticketDateTV);
-        TextView ticketBusIdTV = (TextView) findViewById(R.id.ticketBusIdTV);
-        TextView ticketSeatTV = (TextView) findViewById(R.id.ticketSeatTV);
-        TextView ticketCostTV = (TextView) findViewById(R.id.ticketCostTV);
-        ticketCostTV.setText(ticketCost.toString());
 
+            TextView ticketIdTV = (TextView) findViewById(R.id.ticketIdTV);
+            TextView ticketOriginTV = (TextView) findViewById(R.id.ticketOriginTV);
+            TextView ticketDestinationTV = (TextView) findViewById(R.id.ticketDestinationTV);
+            TextView ticketDateTV = (TextView) findViewById(R.id.ticketDateTV);
+            TextView ticketBusIdTV = (TextView) findViewById(R.id.ticketBusIdTV);
+            TextView ticketSeatTV = (TextView) findViewById(R.id.ticketSeatTV);
+            TextView ticketCostTV = (TextView) findViewById(R.id.ticketCostTV);
+            ticketCostTV.setText(ticketCost.toString());
+            ticketSeatTV.setText(selectedSeat);
+            ticketOriginTV.setText(father.getStringExtra("origin"));
+            ticketDestinationTV.setText(father.getStringExtra("destination"));
+            ticketDateTV.setText(journey.get("date").toString());
+            ticketBusIdTV.setText((Integer) journey.getJSONObject("bus").get("id"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         buttonPay = (Button) findViewById(R.id.buttonPay);
         buttonPay.setOnClickListener(this);
 
@@ -119,7 +136,8 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
                         //Starting a new activity for the payment details and also putting the payment details with intent
                         startActivity(new Intent(this, NTResultActivity.class)
                                 .putExtra("PaymentDetails", paymentDetails)
-                                .putExtra("PaymentAmount", paymentAmount));
+                                .putExtra("PaymentAmount", paymentAmount)
+                                .putExtra("token", token));
 
                     } catch (JSONException e) {
                         Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
