@@ -96,7 +96,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
     private void getPayment() {
         //Getting the amount from editText
         //paymentAmount = editTextAmount.getText().toString();
-        paymentAmount = "12.30";
+        //paymentAmount = "12.30";
 
         //Creating a paypalpayment
         PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(paymentAmount)), "USD", "Simplified Coding Fee",
@@ -137,7 +137,8 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
                         startActivity(new Intent(this, NTResultActivity.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", paymentAmount)
-                                .putExtra("token", token));
+                                .putExtra("token", token)
+                                .putExtra("journey", journey.toString()));
 
                     } catch (JSONException e) {
                         Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);

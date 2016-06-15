@@ -39,15 +39,6 @@ public class NTJourneyListActivity extends ListActivity {
             final JSONArray journeyJsonArray = new JSONArray(intentData.get("data").toString().replace("\\", ""));
 
             final List<JourneyShort> journeyList = JourneyShort.fromJson(journeyJsonArray);
-            System.out.println("======estoy, journeyList size: " + journeyList.size());
-
-//            for (JourneyShort js: journeyList) {
-//                System.out.println("====Journey:");
-//                System.out.println(js.getName());
-//                System.out.println(js.getDay());
-//                System.out.println(js.getTime());
-//                System.out.println(js.getBusNumber());
-//            }
 
             ArrayList<HashMap<String, String>> journeyMap = new ArrayList<>();
 

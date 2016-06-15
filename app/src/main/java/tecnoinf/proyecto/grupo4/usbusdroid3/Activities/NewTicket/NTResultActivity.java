@@ -1,6 +1,7 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -9,29 +10,45 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MainClient;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NTResultActivity extends AppCompatActivity {
 
-    String token;
+    private String token;
+    private String buyTicketRest;
+    private JSONObject newTicket;
+    private JSONObject journey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ntresult);
 
-        //Getting Intent
         Intent father = getIntent();
         token = father.getStringExtra("token");
 
         try {
+            journey = new JSONObject(father.getStringExtra("journey"));
             JSONObject jsonDetails = new JSONObject(father.getStringExtra("PaymentDetails"));
+            newTicket = new JSONObject();
+            newTicket.put("journeyId", journey.get("id").toString());
+            newTicket.put("paymentAmount", father.getStringExtra("paymentAmount"));
+            //TODO: agregar el resto que pida el rest
 
+            AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), buyTicketRest, "POST", newTicket, token).execute();
+            JSONObject priceData = priceResult.get();
             //Displaying payment details
             showDetails(jsonDetails.getJSONObject("response"), father.getStringExtra("PaymentAmount"));
         } catch (JSONException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -44,7 +61,7 @@ public class NTResultActivity extends AppCompatActivity {
         //Showing the details from json object
         textViewId.setText(jsonDetails.getString("id"));
         textViewStatus.setText(jsonDetails.getString("state"));
-        textViewAmount.setText(paymentAmount+" USD");
+        textViewAmount.setText("USD " + paymentAmount);
     }
 
     @Override

@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".Activities.MainClient" />
         <activity android:name=".Activities.NewTicket.NewTicket" />
-        <activity android:name=".Activities.MyTickets.MyTickets" />
+        <activity android:name=".Activities.MyTickets.MyTicketsActivity" />
         <activity android:name=".Activities.TimeTable.TimeTable" />
         <activity android:name=".Activities.ContactUs.ContactUs" />
 
@@ -39,7 +39,10 @@
         <activity android:name=".Activities.NewTicket.NTConfirmationActivity" />
         <activity android:name=".Activities.NewTicket.NTResultActivity" />
         <activity android:name=".Activities.TimeTable.TTServicesListActivity" />
-        <activity android:name=".Activities.NewTicket.NTBusStopSelectionActivity"></activity>
+        <activity android:name=".Activities.NewTicket.NTBusStopSelectionActivity" />
+        <activity android:name=".Activities.MyTickets.MyUsedTicketsActivity" />
+        <activity android:name=".Activities.MyTickets.MyUnusedTicketsActivity" />
+        <activity android:name=".Activities.MyTickets.MTShowTicketActivity"></activity>
     </application>
 
 </manifest>

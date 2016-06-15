@@ -25,6 +25,8 @@
     <string name="URLlogin">%1$s/authentication</string>
     <string name="URLregister">%1$s/register/client</string>
     <string name="URLjourneysFromTo"><![CDATA[%1$s/%2$s/journey?journeyStatus=ACTIVE&offset=0&limit=999]]></string>
+    <string name="URLServicesFromTo"><![CDATA[%1$s/%2$s/service?dow=%3$s&origin=%4$s&destination=%5$s&serviceStatus=ACTIVE&offset=0&limit=999]]></string>
     <string name="URLallBusStops"><![CDATA[%1$s/%2$s/busstop?offset=0&limit=999]]></string>
     <string name="URLticketPrice"><![CDATA[%1$s/%2$s/journey/id/%3$s/price?origin=%4$s&destination=%5$s]]></string>
+    <string name="URLmyTickets"><![CDATA[%1$s/%2$s/ticket?username=%3$s&status=%4$s&&offset=0&limit=20]]></string>
 </resources>

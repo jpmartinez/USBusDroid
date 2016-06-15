@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets.MyTickets;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets.MyTicketsActivity;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NewTicket;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.TimeTable.TimeTable;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
@@ -62,7 +62,7 @@ public class MainClient extends AppCompatActivity {
         myTicketsBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myTicketsIntent = new Intent(v.getContext(), MyTickets.class);
+                Intent myTicketsIntent = new Intent(v.getContext(), MyTicketsActivity.class);
                 myTicketsIntent.putExtra("token", token);
                 myTicketsIntent.putExtra("username", username);
                 startActivity(myTicketsIntent);

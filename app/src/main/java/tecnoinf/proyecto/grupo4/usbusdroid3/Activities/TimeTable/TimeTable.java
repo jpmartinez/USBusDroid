@@ -24,13 +24,16 @@ import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class TimeTable extends AppCompatActivity {
 
-    private static final String servicesFromToRest = "http://10.0.2.2:8080/usbus/api/1/test/journeys";
+    private static String servicesFromToRest;
+    private String dayOfWeek;
+    private String origin;
+    private String destination;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
-        Intent father = getIntent();
+        final Intent father = getIntent();
         final String token = father.getStringExtra("token");
 
         try {
@@ -42,6 +45,11 @@ public class TimeTable extends AppCompatActivity {
             for (BusStop bs: busStopList) {
                 busStopsNames.add(bs.getName());
             }
+
+            String dayNames[] = {"LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO"};
+
+            final Spinner spinnerDay = (Spinner) findViewById(R.id.spnDOW);
+            ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dayNames);
 
             final Spinner spinnerFrom = (Spinner) findViewById(R.id.spnFrom);
             ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNames);
@@ -59,22 +67,27 @@ public class TimeTable extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     try {
-                        JSONObject postData = new JSONObject();
-                        postData.put("token", token);
-                        String origin = spinnerFrom.getSelectedItem().toString();
-                        String destination = spinnerTo.getSelectedItem().toString();
-                        postData.put("origin", origin);
-                        postData.put("destination", destination);
+//                        JSONObject postData = new JSONObject();
+//                        postData.put("token", token);
+//                        String origin = spinnerFrom.getSelectedItem().toString();
+//                        String destination = spinnerTo.getSelectedItem().toString();
+//                        postData.put("origin", origin);
+//                        postData.put("destination", destination);
+                        //TODO: pasar origin y destination en la url, al igual que el dow
+                        servicesFromToRest = getString(R.string.URLServicesFromTo,
+                                getString(R.string.URL_REST_API),
+                                getString(R.string.tenantId),
+                                dayOfWeek,
+                                origin,
+                                destination);
 
-                        AsyncTask<Void, Void, JSONObject> servicesResult = new RestCallAsync(getApplicationContext(), servicesFromToRest, "POST", postData, token).execute();
+                        AsyncTask<Void, Void, JSONObject> servicesResult = new RestCallAsync(getApplicationContext(), servicesFromToRest, "GET", null, token).execute();
                         JSONObject servicesData = servicesResult.get();
 
                         Intent listServicesFromToIntent = new Intent(v.getContext(), TTServicesListActivity.class);
                         listServicesFromToIntent.putExtra("token", token);
                         listServicesFromToIntent.putExtra("data", servicesData.toString());
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
