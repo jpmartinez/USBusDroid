@@ -17,33 +17,33 @@
         android:weightSum="1">
 
         <ImageButton
-            android:layout_width="106dp"
-            android:layout_height="105dp"
+            android:layout_width="126dp"
+            android:layout_height="126dp"
             android:id="@+id/newticketButton"
             android:src="@drawable/new_ticket"
             android:clickable="true"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:layout_gravity="center_horizontal"
-            android:background="#ffffff" />
+            android:background="@null" />
 
         <ImageButton
-            android:layout_width="111dp"
-            android:layout_height="109dp"
+            android:layout_width="126dp"
+            android:layout_height="126dp"
             android:id="@+id/myticketsButton"
             android:src="@drawable/my_tickets"
             android:layout_gravity="center_horizontal"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="#ffffff" />
+            android:scaleType="fitCenter"
+            android:background="@null" />
 
         <ImageButton
-            android:layout_width="120dp"
+            android:layout_width="109dp"
             android:layout_height="109dp"
             android:id="@+id/timetableButton"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/time_query"
-            android:scaleType="fitXY"
-            android:background="#ffffff"
+            android:src="@drawable/schedule"
+            android:scaleType="fitCenter"
+            android:background="@null"
             android:clickable="true"
             android:contextClickable="false" />
 
@@ -52,8 +52,8 @@
             android:layout_height="109dp"
             android:id="@+id/contactButton"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/contactbutton"
-            android:scaleType="fitXY"
-            android:background="#ffffff" />
+            android:src="@drawable/contact_us"
+            android:scaleType="fitCenter"
+            android:background="@null" />
     </LinearLayout>
 </RelativeLayout>

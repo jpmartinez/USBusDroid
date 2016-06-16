@@ -10,14 +10,13 @@
     tools:context=".Activities.MyTickets.MyTicketsActivity">
 
     <ImageButton
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:id="@+id/unusedBtn"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp"
-        android:background="@drawable/unused_ticket"
-        android:backgroundTint="#001277" />
+        android:background="@drawable/unused_ticket" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,17 +26,17 @@
         android:id="@+id/unusedTV"
         android:layout_below="@+id/unusedBtn"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="-30dp" />
 
     <ImageButton
-        android:layout_width="155dp"
-        android:layout_height="155dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:id="@+id/usedBtn"
         android:layout_below="@+id/unusedTV"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
-        android:background="@drawable/used_ticket"
-        android:backgroundTint="#540303" />
+        android:background="@drawable/used_ticket" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,6 +46,7 @@
         android:id="@+id/usedTV"
         android:layout_below="@+id/usedBtn"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="-30dp" />
 
 </RelativeLayout>

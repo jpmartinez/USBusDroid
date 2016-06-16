@@ -9,12 +9,14 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -61,7 +63,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String TWITTER_KEY = "XyYrh7Uvf4EylxNc7qr6IAjJ5";
     private static final String TWITTER_SECRET = "ga160r9tq7krioNOFSCy7nD21RNr6FC8hZm2tQ8UHb0cFNj4Nd";
     private TwitterLoginButton loginButton;
-    private boolean twitterRegisterFlag = false;
+    private String saved_username;
+    private String saved_password;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private SharedPreferences sharedPreferences;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -85,12 +89,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
-        setContentView(R.layout.activity_login);
 
         loginURL = getString(R.string.URLlogin, getString(R.string.URL_REST_API));
         registerURL =  getString(R.string.URLregister, getString(R.string.URL_REST_API));
+
+        sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        saved_password = sharedPreferences.getString("password", "first_use");
+        if(!saved_password.equalsIgnoreCase("first_use")) {
+            saved_username = sharedPreferences.getString("username", "");
+
+            mAuthTask = new UserLoginTask(saved_username, saved_password, getApplicationContext(), "twitter");
+            mAuthTask.execute((Void) null);
+        }
+
+        setContentView(R.layout.activity_login);
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.username);
@@ -389,6 +405,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         //register OK
                         System.out.println("REGISTRO TWITTER OK...");
                         credentials.remove("email");
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", username);
+                        editor.putString("password", mPassword);
+                        editor.apply();
 
                         call = new RestCall(loginURL, POST, credentials, null);
                         result = call.getData();

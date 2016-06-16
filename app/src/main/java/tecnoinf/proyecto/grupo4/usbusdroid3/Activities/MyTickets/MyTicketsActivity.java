@@ -82,7 +82,9 @@ public class MyTicketsActivity extends AppCompatActivity {
 
                 try {
                     JSONObject unusedTicketsRestData = call.get();
-                    JSONArray unusedTickets = unusedTicketsRestData.getJSONArray("data");
+                    //JSONArray unusedTickets = unusedTicketsRestData.getJSONArray("data");
+
+                    JSONArray unusedTickets = new JSONArray("[{\"qr\":\"asdf1243\"}]");
 
                     Intent unusedTicketsIntent = new Intent(getBaseContext(), MyUnusedTicketsActivity.class);
                     unusedTicketsIntent.putExtra("token", token);

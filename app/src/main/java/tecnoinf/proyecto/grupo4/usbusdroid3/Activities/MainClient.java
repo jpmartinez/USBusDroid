@@ -28,7 +28,7 @@ public class MainClient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_cliente);
+        setContentView(R.layout.activity_main_client);
 
         allBusStopsRest = getString(R.string.URLallBusStops, getString(R.string.URL_REST_API), getString(R.string.tenantId));
 
@@ -65,6 +65,7 @@ public class MainClient extends AppCompatActivity {
                 Intent myTicketsIntent = new Intent(v.getContext(), MyTicketsActivity.class);
                 myTicketsIntent.putExtra("token", token);
                 myTicketsIntent.putExtra("username", username);
+                System.out.println("En MainClient click on MyTickets");
                 startActivity(myTicketsIntent);
             }
         });

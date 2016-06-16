@@ -9,4 +9,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets.MTShowTicketActivity">
 
+    <ImageButton
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/qrCodeBtn"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="QR Code"
+        android:id="@+id/qrCodeTV"
+        android:layout_below="@+id/qrCodeBtn"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
