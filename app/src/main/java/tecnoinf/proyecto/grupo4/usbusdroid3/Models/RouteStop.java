@@ -42,7 +42,7 @@ public class RouteStop {
         try {
             busStop = object.getString("busStop");
             km = object.getDouble("km");
-            isCombinationPoint = object.getBoolean("isCombinationPoint");
+            isCombinationPoint = object.getBoolean("combinationPoint");
         } catch (JSONException e) {
             e.printStackTrace();
         }

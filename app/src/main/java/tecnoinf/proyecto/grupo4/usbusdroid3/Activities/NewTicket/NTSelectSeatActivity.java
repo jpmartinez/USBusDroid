@@ -2,6 +2,7 @@ package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -150,8 +151,10 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             setContentView(R.layout.activity_ntselect_seat);
             gridView = (GridView)findViewById(R.id.seatsGV);
             confirmButton = (Button) findViewById(R.id.confirmSeatBtn);
-            father = getIntent();
-            token = father.getStringExtra("token");
+            //father = getIntent();
+            SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+            token = sharedPreferences.getString("token", "");
+            //token = father.getStringExtra("token");
             //ticketPriceRest = getString(R.string.URLticketPrice, );
 
             journeyJSON = new JSONObject(father.getStringExtra("journey"));
@@ -242,9 +245,9 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
 
                         Intent busStopSelectionIntent = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
-                        busStopSelectionIntent.putExtra("seat", selectedSeat);
+                        busStopSelectionIntent.putExtra("seat", String.valueOf(selectedSeat));
                         busStopSelectionIntent.putExtra("journey", father.getStringExtra("journey"));
-                        busStopSelectionIntent.putExtra("token", token);
+                        //busStopSelectionIntent.putExtra("token", token);
                         //confirmationIntent.putExtra("ticketCost", ticketCostData.getJSONObject("data").get("cost").toString());
                         startActivity(busStopSelectionIntent);
 
@@ -291,9 +294,8 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         if(seat < 3) {
             position = (seat - 1);
         } else {
-            position = (seat - 1) + (((seat-1) / 4) + 1);
+            position = (seat - 1) + (((seat-2) / 4) + 1);
         }
-
         return position;
     }
 }

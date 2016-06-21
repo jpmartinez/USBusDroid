@@ -1,7 +1,9 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,36 +37,46 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ntconfirmation);
         Intent father = getIntent();
-        token = father.getStringExtra("token");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        //token = father.getStringExtra("token");
                 System.out.println("Confirmation=====================");
                 System.out.println(father.getStringExtra("journey"));
-                System.out.println(father.getIntExtra("seat", -1));
-                System.out.println(father.getStringExtra("ticketCost"));
-        Double ticketCost = 12.30;//Double.parseDouble(father.getStringExtra("ticketCost"));
-        String selectedSeat = String.valueOf(father.getIntExtra("seat", 0));
-        paymentAmount = father.getStringExtra("ticketCost");
+                System.out.println(father.getStringExtra("seat"));
+                System.out.println(father.getStringExtra("busNumber"));
+        System.out.println(father.getStringExtra("ticketCost"));
+        //Double ticketCost = 12.30;//Double.parseDouble(father.getStringExtra("ticketCost"));
+        String selectedSeat = father.getStringExtra("seat");
+        paymentAmount = father.getStringExtra("ticketPrice");
         try {
             journey = new JSONObject(father.getStringExtra("journey"));
 
 
-            TextView ticketIdTV = (TextView) findViewById(R.id.ticketIdTV);
+            TextView ticketIdTV = (TextView) findViewById(R.id.ticketIdTV); //TODO: sacar?
             TextView ticketOriginTV = (TextView) findViewById(R.id.ticketOriginTV);
             TextView ticketDestinationTV = (TextView) findViewById(R.id.ticketDestinationTV);
             TextView ticketDateTV = (TextView) findViewById(R.id.ticketDateTV);
             TextView ticketBusIdTV = (TextView) findViewById(R.id.ticketBusIdTV);
             TextView ticketSeatTV = (TextView) findViewById(R.id.ticketSeatTV);
             TextView ticketCostTV = (TextView) findViewById(R.id.ticketCostTV);
-            ticketCostTV.setText(ticketCost.toString());
+            assert ticketCostTV != null;
+            ticketCostTV.setText(paymentAmount);
+            assert ticketSeatTV != null;
             ticketSeatTV.setText(selectedSeat);
+            assert ticketOriginTV != null;
             ticketOriginTV.setText(father.getStringExtra("origin"));
+            assert ticketDestinationTV != null;
             ticketDestinationTV.setText(father.getStringExtra("destination"));
-            ticketDateTV.setText(journey.get("date").toString());
-            ticketBusIdTV.setText((Integer) journey.getJSONObject("bus").get("id"));
+            assert ticketDateTV != null;
+            ticketDateTV.setText(journey.get("date").toString());//TODO:formatear
+            assert ticketBusIdTV != null;
+            ticketBusIdTV.setText(journey.get("busNumber").toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         buttonPay = (Button) findViewById(R.id.buttonPay);
+        assert buttonPay != null;
         buttonPay.setOnClickListener(this);
 
         Intent intent = new Intent(this, PayPalService.class);
@@ -137,7 +149,6 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
                         startActivity(new Intent(this, NTResultActivity.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", paymentAmount)
-                                .putExtra("token", token)
                                 .putExtra("journey", journey.toString()));
 
                     } catch (JSONException e) {

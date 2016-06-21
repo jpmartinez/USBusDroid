@@ -1,6 +1,8 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +38,9 @@ public class MyTicketsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tickets);
         Intent father = getIntent();
-        token = father.getStringExtra("token");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        //token = father.getStringExtra("token");
         username = father.getStringExtra("username");
         myUsedTicketsURL = getString(R.string.URLmyTickets,
                 getString(R.string.URL_REST_API),
@@ -47,7 +51,7 @@ public class MyTicketsActivity extends AppCompatActivity {
                 getString(R.string.URL_REST_API),
                 getString(R.string.tenantId),
                 username,
-                "USED");
+                "UNUSED");
 
         ImageButton usedTicketsBtn = (ImageButton) findViewById(R.id.usedBtn);
         ImageButton unusedTicketsBtn = (ImageButton) findViewById(R.id.unusedBtn);
@@ -64,7 +68,7 @@ public class MyTicketsActivity extends AppCompatActivity {
                     JSONArray usedTickets = usedTicketsRestData.getJSONArray("data");
 
                     Intent usedTicketsIntent = new Intent(getBaseContext(), MyUsedTicketsActivity.class);
-                    usedTicketsIntent.putExtra("token", token);
+                    //usedTicketsIntent.putExtra("token", token);
                     usedTicketsIntent.putExtra("usedTickets", usedTickets.toString());
                     startActivity(usedTicketsIntent);
                 } catch (InterruptedException | ExecutionException | JSONException e) {
@@ -82,12 +86,12 @@ public class MyTicketsActivity extends AppCompatActivity {
 
                 try {
                     JSONObject unusedTicketsRestData = call.get();
-                    //JSONArray unusedTickets = unusedTicketsRestData.getJSONArray("data");
+                    JSONArray unusedTickets = unusedTicketsRestData.getJSONArray("data");
 
-                    JSONArray unusedTickets = new JSONArray("[{\"qr\":\"asdf1243\"}]");
+                    //JSONArray unusedTickets = new JSONArray("[{\"qr\":\"asdf1243\"}]");
 
                     Intent unusedTicketsIntent = new Intent(getBaseContext(), MyUnusedTicketsActivity.class);
-                    unusedTicketsIntent.putExtra("token", token);
+                    //unusedTicketsIntent.putExtra("token", token);
                     unusedTicketsIntent.putExtra("unusedTickets", unusedTickets.toString());
                     startActivity(unusedTicketsIntent);
                 } catch (InterruptedException | ExecutionException | JSONException e) {

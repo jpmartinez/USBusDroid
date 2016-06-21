@@ -1,6 +1,8 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +31,9 @@ public class NTResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ntresult);
 
         Intent father = getIntent();
-        token = father.getStringExtra("token");
+        //token = father.getStringExtra("token");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
 
         try {
             journey = new JSONObject(father.getStringExtra("journey"));
@@ -67,7 +71,7 @@ public class NTResultActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent homeIntent = new Intent(this, MainClient.class);
-        homeIntent.putExtra("token", token); //TODO: traer del father poner token
+        //homeIntent.putExtra("token", token);
         startActivity(homeIntent);
     }
 }

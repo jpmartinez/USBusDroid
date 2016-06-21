@@ -1,7 +1,9 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +34,9 @@ public class NTJourneyListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ntjourneys_list);
         Intent father = getIntent();
-        final String token = father.getStringExtra("token");
+        //final String token = father.getStringExtra("token");
+        //SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        //final String token = sharedPreferences.getString("token", "");
 
         try {
             JSONObject intentData = new JSONObject(father.getStringExtra("data"));
@@ -80,8 +84,8 @@ public class NTJourneyListActivity extends ListActivity {
                         String journeyid = ((TextView) view.findViewById(R.id.id)).getText().toString();
 
                         Intent selectSeat = new Intent(getBaseContext(), NTSelectSeatActivity.class);
-                        selectSeat.putExtra("journey", journeyJsonArray.get(Integer.valueOf(journeyid)).toString());
-                        selectSeat.putExtra("token", token);
+                        selectSeat.putExtra("journey", journeyJsonArray.get(position).toString());
+                        //selectSeat.putExtra("token", token);
                         startActivity(selectSeat);
                     } catch (JSONException e) {
                         e.printStackTrace();

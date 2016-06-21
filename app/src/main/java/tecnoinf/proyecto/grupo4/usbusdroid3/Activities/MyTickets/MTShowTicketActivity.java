@@ -30,7 +30,7 @@ public class MTShowTicketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mtshow_ticket);
-        Intent father = getIntent();
+        //Intent father = getIntent();
 
         //TODO: aqui muestra el QR (y alguna otra bobada)
         ticketIdEncripted = "sdf234234";

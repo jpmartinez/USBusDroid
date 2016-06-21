@@ -1,6 +1,8 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.TimeTable;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +36,9 @@ public class TimeTable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
         final Intent father = getIntent();
-        final String token = father.getStringExtra("token");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        final String token = sharedPreferences.getString("token", "");
+        //final String token = father.getStringExtra("token");
 
         try {
             JSONObject intentData = new JSONObject(father.getStringExtra("data"));
@@ -50,6 +54,8 @@ public class TimeTable extends AppCompatActivity {
 
             final Spinner spinnerDay = (Spinner) findViewById(R.id.spnDOW);
             ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dayNames);
+            assert spinnerDay != null;
+            spinnerDay.setAdapter(dayAdapter);
 
             final Spinner spinnerFrom = (Spinner) findViewById(R.id.spnFrom);
             ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNames);
@@ -69,8 +75,9 @@ public class TimeTable extends AppCompatActivity {
                     try {
 //                        JSONObject postData = new JSONObject();
 //                        postData.put("token", token);
-//                        String origin = spinnerFrom.getSelectedItem().toString();
-//                        String destination = spinnerTo.getSelectedItem().toString();
+                        dayOfWeek = spinnerDay.getSelectedItem().toString();
+                        origin = spinnerFrom.getSelectedItem().toString();
+                        destination = spinnerTo.getSelectedItem().toString();
 //                        postData.put("origin", origin);
 //                        postData.put("destination", destination);
                         //TODO: pasar origin y destination en la url, al igual que el dow
@@ -85,12 +92,10 @@ public class TimeTable extends AppCompatActivity {
                         JSONObject servicesData = servicesResult.get();
 
                         Intent listServicesFromToIntent = new Intent(v.getContext(), TTServicesListActivity.class);
-                        listServicesFromToIntent.putExtra("token", token);
+                        //listServicesFromToIntent.putExtra("token", token);
                         listServicesFromToIntent.putExtra("data", servicesData.toString());
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
+                    } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
                 }

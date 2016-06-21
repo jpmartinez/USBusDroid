@@ -51,7 +51,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/busStopToSpn"
         android:layout_below="@+id/busStopToLbl"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="270dp"

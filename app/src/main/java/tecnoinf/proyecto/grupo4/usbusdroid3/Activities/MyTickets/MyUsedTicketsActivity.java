@@ -1,8 +1,9 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,8 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NTSelectSeatActivity;
-import tecnoinf.proyecto.grupo4.usbusdroid3.Models.JourneyShort;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.TicketShort;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
@@ -34,9 +33,13 @@ public class MyUsedTicketsActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_used_tickets);
         Intent father = getIntent();
-        token = father.getStringExtra("token");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        //token = father.getStringExtra("token");
         try {
             usedTicketsArray = new JSONArray(father.getStringExtra("usedTickets").replace("\\", ""));
+            //TODO: probar con array vacío y en caso de explotar arreglar
+            //TODO: y en caso que no explote, mostrar un toast con el mensaje, en lugar de llamar al ShowTicket
 
             final List<TicketShort> ticketsList = TicketShort.fromJson(usedTicketsArray);
             ArrayList<HashMap<String, String>> ticketsMap = new ArrayList<>();
@@ -78,15 +81,12 @@ public class MyUsedTicketsActivity extends ListActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    //TODO: analizar necesidad de una nueva activity NTShowTicket, visto que en la lista ya veo todos los datos
-                    //TODO: posiblemente cambiar a onClick(mostrar toast o similar para enviar info por email)
                     try {
-                        String ticketid = ((TextView) view.findViewById(R.id.id)).getText().toString();
-
-                        Intent showTicket = new Intent(getBaseContext(), MTShowTicketActivity.class);
-                        showTicket.putExtra("journey", usedTicketsArray.get(Integer.valueOf(ticketid)).toString());
-                        showTicket.putExtra("token", token);
-                        startActivity(showTicket);
+                        //String ticketid = ((TextView) view.findViewById(R.id.id)).getText().toString();
+                        Intent showTicketIntent = new Intent(getBaseContext(), MTShowTicketActivity.class);
+                        showTicketIntent.putExtra("journey", usedTicketsArray.get(position).toString());
+                        //showTicketIntent.putExtra("token", token);
+                        startActivity(showTicketIntent);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -1,6 +1,8 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,9 +38,14 @@ public class MainClient extends AppCompatActivity {
         ImageButton myTicketsBt = (ImageButton) findViewById(R.id.myticketsButton);
         ImageButton timeTableBt = (ImageButton) findViewById(R.id.timetableButton);
         ImageButton contactBt = (ImageButton) findViewById(R.id.contactButton);
-        Intent father = getIntent();
-        final String token = father.getStringExtra("token");
-        final String username = father.getStringExtra("username");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        final String token = sharedPreferences.getString("token", "");
+        final String username = sharedPreferences.getString("username", "");
+
+//        Intent father = getIntent();
+//        final String token = father.getStringExtra("token");
+//        final String username = father.getStringExtra("username");
 
         assert newTicketBt != null;
         newTicketBt.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +56,7 @@ public class MainClient extends AppCompatActivity {
                     JSONObject busStopsData = busStopsResult.get();
 
                     Intent newTicketIntent = new Intent(v.getContext(), NewTicket.class);
-                    newTicketIntent.putExtra("token", token);
+                    //newTicketIntent.putExtra("token", token);
                     newTicketIntent.putExtra("data", busStopsData.toString());
                     startActivity(newTicketIntent);
                 } catch (InterruptedException | ExecutionException e) {
@@ -63,7 +70,7 @@ public class MainClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myTicketsIntent = new Intent(v.getContext(), MyTicketsActivity.class);
-                myTicketsIntent.putExtra("token", token);
+                //myTicketsIntent.putExtra("token", token);
                 myTicketsIntent.putExtra("username", username);
                 System.out.println("En MainClient click on MyTickets");
                 startActivity(myTicketsIntent);
@@ -79,7 +86,7 @@ public class MainClient extends AppCompatActivity {
                     JSONObject busStopsData = busStopsResult.get();
 
                     Intent timeTableIntent = new Intent(v.getContext(), TimeTable.class);
-                    timeTableIntent.putExtra("token", token);
+                    //timeTableIntent.putExtra("token", token);
                     timeTableIntent.putExtra("data", busStopsData.toString());
                     startActivity(timeTableIntent);
                 } catch (InterruptedException | ExecutionException e) {

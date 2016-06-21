@@ -16,7 +16,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -39,7 +38,6 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONException;
@@ -381,6 +379,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             JSONObject result;
             JSONObject registerResult;
             try {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 JSONObject credentials = new JSONObject();
                 //credentials.put("type", "twitter");
                 credentials.put("username", username);
@@ -397,6 +396,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     System.out.println("LOGIN OK...");
                     JSONObject data = new JSONObject(result.get("data").toString());
                     token = data.getString("token");
+
+                    editor.putString("token", token);
+                    editor.putString("username", username);
+                    editor.putString("password", mPassword);
+                    editor.putString("user_type", mType);
+                    editor.putString("tenantId", getString(R.string.tenantId));
+                    editor.putString("loginURL", loginURL);
+                    editor.apply();
                 } else if (mType.equalsIgnoreCase("twitter")) {
                     credentials.put("email", username+"@twitterclient.usbus");
                     RestCall registerCall = new RestCall(registerURL, POST, credentials, null);
@@ -405,10 +412,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         //register OK
                         System.out.println("REGISTRO TWITTER OK...");
                         credentials.remove("email");
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("username", username);
-                        editor.putString("password", mPassword);
-                        editor.apply();
 
                         call = new RestCall(loginURL, POST, credentials, null);
                         result = call.getData();
@@ -417,6 +420,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             System.out.println("LOGIN AFTER TWITTER REGISTER OK...");
                             JSONObject data = new JSONObject(result.get("data").toString());
                             token = data.getString("token");
+                            editor.putString("token", token);
+                            editor.putString("username", username);
+                            editor.putString("password", mPassword);
+                            editor.putString("user_type", mType);
+                            editor.putString("tenantId", getString(R.string.tenantId));
+                            editor.apply();
                         } else {
                             //algun error
                             System.out.println("DANGER WILL ROBINSON..." + result.get("result").toString());
@@ -440,8 +449,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 showProgress(true);
                 Intent mainIntent = new Intent(getBaseContext(), MainClient.class);
-                mainIntent.putExtra("token", token);
-                mainIntent.putExtra("username", username);
+//                mainIntent.putExtra("token", token);
+//                mainIntent.putExtra("username", username);
                 startActivity(mainIntent);
 
                 finish();

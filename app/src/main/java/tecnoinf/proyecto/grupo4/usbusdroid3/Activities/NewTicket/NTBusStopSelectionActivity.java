@@ -1,6 +1,8 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +36,10 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ntbus_stop_selection);
 
         Intent father = getIntent();
-        token = father.getStringExtra("token");
+        //token = father.getStringExtra("token");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        final String selectedSeat = father.getStringExtra("seat");
 
         try {
             journey = new JSONObject(father.getStringExtra("journey"));
@@ -68,19 +73,20 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
                                 getString(R.string.URL_REST_API),
                                 getString(R.string.tenantId),
                                 journey.get("id").toString(),
-                                origin,
-                                destination);
+                                origin.replace(" ", "+"),
+                                destination.replace(" ", "+"));
 
                         AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
                         JSONObject priceData = priceResult.get();
                         String ticketPrice = priceData.getString("data");
 
                         Intent confirmationIntent = new Intent(v.getContext(), NTConfirmationActivity.class);
-                        confirmationIntent.putExtra("token", token);
+                        //confirmationIntent.putExtra("token", token);
                         confirmationIntent.putExtra("journey", journey.toString());
                         confirmationIntent.putExtra("ticketPrice", ticketPrice);
                         confirmationIntent.putExtra("origin", origin);
                         confirmationIntent.putExtra("destination", destination);
+                        confirmationIntent.putExtra("seat", selectedSeat);
                         startActivity(confirmationIntent);
                     } catch (JSONException | InterruptedException | ExecutionException e) {
                         e.printStackTrace();
