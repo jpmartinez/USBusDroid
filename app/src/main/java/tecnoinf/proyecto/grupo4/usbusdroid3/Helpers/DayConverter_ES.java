@@ -19,4 +19,17 @@ public class DayConverter_ES {
             default:        return null;
         }
     }
+
+    public static String convertEN(String day){
+        switch (day){
+            case "LUNES":    return "MONDAY";
+            case "MARTES":   return "TUESDAY";
+            case "MIÉRCOLES":return "WEDNESDAY";
+            case "JUEVES":   return "THURSDAY";
+            case "VIERNES":  return "FRIDAY";
+            case "SÁBADO":   return "SATURDAY";
+            case "DOMINGO":  return "SUNDAY";
+            default:         return null;
+        }
+    }
 }

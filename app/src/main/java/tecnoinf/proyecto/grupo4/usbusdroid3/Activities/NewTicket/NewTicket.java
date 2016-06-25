@@ -39,8 +39,6 @@ public class NewTicket extends AppCompatActivity {
     private static TextView dateField;
     private int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
-    //private int fromSpinnerCount = 0;
-    //private BaseAdapter toAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +73,8 @@ public class NewTicket extends AppCompatActivity {
             final Spinner spinnerTo = (Spinner) findViewById(R.id.spnTo); //Se carga mas abajo
 
             final Spinner spinnerFrom = (Spinner) findViewById(R.id.spnFrom);
-            ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNames);
-            final ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNamesTo);
+            ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, busStopsNames);
+            final ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, busStopsNamesTo);
             //BaseAdapter fromAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNames);
             assert spinnerFrom != null;
             spinnerFrom.setAdapter(fromAdapter);
@@ -174,12 +172,6 @@ public class NewTicket extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        //TODO: paso uno sería mostrar 2 combos con origen y destino.
-        //TODO: StartActivityForResult llamando a la Common que traiga los posibles trayectos, los liste y permita seleccionar uno.
-        //TODO: luego que vuelva el seleccionado hacer otro StartAct4Result que liste los Viajes o Servicios (ver cual es mejor) y que permita seleccionar uno.
-        //TODO: luego que vuelva el viaje seleccionado, ponerlo como extra y llamar a otra activity de este paquete que muestre mapa de asientos y se haga cargo
-        //TODO: Este mapa al seleccionar un asiento permite realizar la compra del mismo, pagando andá a saber como.
     }
 
     public void showDatePicker() {

@@ -52,12 +52,12 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
             }
 
             final Spinner spinnerFrom = (Spinner) findViewById(R.id.busStopFromSpn);
-            ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, routeStopsNames);
+            ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, routeStopsNames);
             assert spinnerFrom != null;
             spinnerFrom.setAdapter(fromAdapter);
 
             final Spinner spinnerTo = (Spinner) findViewById(R.id.busStopToSpn);
-            ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, routeStopsNames);
+            ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, routeStopsNames);
             assert spinnerTo != null;
             spinnerTo.setAdapter(toAdapter);
 

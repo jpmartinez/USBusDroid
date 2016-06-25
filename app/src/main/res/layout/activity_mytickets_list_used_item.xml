@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:orientation="vertical"
-    android:background="@drawable/my_tickets_list_bg">
+    android:background="@drawable/my_tickets_list_bg"
+    android:backgroundTint="#f07575">
 
     <!-- ID Label -->
 
@@ -100,15 +101,13 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Valor: $ "
-            android:id="@+id/mtAmountLbl"
-            android:textColor="#474747" />
+            android:id="@+id/mtAmountLbl" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/mtAmountTV"
-            android:textColor="#474747" />
+            android:id="@+id/mtAmountTV" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,15 +121,13 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Status: "
-            android:id="@+id/mtStatusLbl"
-            android:textColor="#474747" />
+            android:id="@+id/mtStatusLbl" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/mtStatusTV"
-            android:textColor="#474747" />
+            android:id="@+id/mtStatusTV" />
     </LinearLayout>
 
 </LinearLayout>

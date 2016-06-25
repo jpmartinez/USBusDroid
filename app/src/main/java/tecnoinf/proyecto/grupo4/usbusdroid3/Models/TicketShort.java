@@ -22,7 +22,15 @@ public class TicketShort {
     private Date journeyTime;
     private Date journeyDate;
     private Integer busNumber;
+    private Integer seat;
 
+    public Integer getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Integer seat) {
+        this.seat = seat;
+    }
 
     public String getJourneyName() {
         return journeyName;
@@ -102,15 +110,16 @@ public class TicketShort {
 
             id = object.getLong("id");
             amount = object.getDouble("amount");
-            emissionDate = dateFormat.parse(object.get("emissionDate").toString());
+            //emissionDate = dateFormat.parse(object.get("emissionDate").toString());
             status = TicketStatus.valueOf(object.get("status").toString());
-            journeyName = object.getJSONObject("journey").getString("name");
+            journeyName = object.getJSONObject("journey").getJSONObject("service").getString("name");
             journeyDay = DayOfWeek.valueOf(object.getJSONObject("journey").getJSONObject("service").getString("day"));
             journeyTime = new Date();
             journeyTime.setTime(Long.valueOf(object.getJSONObject("journey").getJSONObject("service").getString("time")));
             journeyDate = new Date();
             journeyDate.setTime(Long.valueOf(object.getJSONObject("journey").getString("date")));
-            busNumber = object.getJSONObject("journey").getInt("busnumber");
+            busNumber = object.getJSONObject("journey").getInt("busNumber");
+            seat = object.getInt("seat");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,8 @@ public class MyUsedTicketsActivity extends ListActivity {
         //token = father.getStringExtra("token");
         try {
             usedTicketsArray = new JSONArray(father.getStringExtra("usedTickets").replace("\\", ""));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
             //TODO: probar con array vacío y en caso de explotar arreglar
             //TODO: y en caso que no explote, mostrar un toast con el mensaje, en lugar de llamar al ShowTicket
 
@@ -47,9 +50,13 @@ public class MyUsedTicketsActivity extends ListActivity {
             for (TicketShort ts2 : ticketsList) {
                 HashMap<String, String> t = new HashMap<>();
                 t.put("id", ts2.getId().toString());
-                t.put("emissiondate", ts2.getEmissionDate().toString());
                 t.put("amount", ts2.getAmount().toString());
                 t.put("status", ts2.getStatus().toString());
+                t.put("journeyName", ts2.getJourneyName());
+                t.put("journeyDate", dateFormat.format(ts2.getJourneyDate()));
+                t.put("journeyTime", timeFormat.format(ts2.getJourneyTime()));
+                t.put("busNumber", ts2.getBusNumber().toString());
+                t.put("seat", ts2.getSeat().toString());
 
                 ticketsMap.add(t);
             }
@@ -57,22 +64,23 @@ public class MyUsedTicketsActivity extends ListActivity {
             ListAdapter adapter = new SimpleAdapter(
                     getApplicationContext(),
                     ticketsMap,
-                    R.layout.activity_mytickets_list_item,
+                    R.layout.activity_mytickets_list_used_item,
                     new String[] { "id",
-                            "emissiondate",
                             "amount",
                             "status",
                             "journeyName",
-                            "journeyDay",
                             "journeyDate",
                             "journeyTime",
-                            "busNumber" },
+                            "busNumber",
+                            "seat"},
                     new int[] { R.id.mtItemid,
+                            R.id.mtAmountTV,
+                            R.id.mtStatusTV,
                             R.id.mtJourneyNameTV,
-                            R.id.mtJourneyDayTV,
                             R.id.mtJourneyDateTV,
                             R.id.mtJourneyTimeTV,
-                            R.id.mtBusNumberTV });
+                            R.id.mtBusNumberTV,
+                            R.id.mtSeatTV});
 
             setListAdapter(adapter);
             ListView lv = getListView();
@@ -84,7 +92,7 @@ public class MyUsedTicketsActivity extends ListActivity {
                     try {
                         //String ticketid = ((TextView) view.findViewById(R.id.id)).getText().toString();
                         Intent showTicketIntent = new Intent(getBaseContext(), MTShowTicketActivity.class);
-                        showTicketIntent.putExtra("journey", usedTicketsArray.get(position).toString());
+                        showTicketIntent.putExtra("ticket", usedTicketsArray.get(position).toString());
                         //showTicketIntent.putExtra("token", token);
                         startActivity(showTicketIntent);
                     } catch (JSONException e) {

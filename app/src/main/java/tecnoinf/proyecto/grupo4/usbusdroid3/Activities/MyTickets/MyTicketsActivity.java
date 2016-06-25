@@ -51,7 +51,7 @@ public class MyTicketsActivity extends AppCompatActivity {
                 getString(R.string.URL_REST_API),
                 getString(R.string.tenantId),
                 username,
-                "UNUSED");
+                "CONFIRMED");
 
         ImageButton usedTicketsBtn = (ImageButton) findViewById(R.id.usedBtn);
         ImageButton unusedTicketsBtn = (ImageButton) findViewById(R.id.unusedBtn);
@@ -65,10 +65,9 @@ public class MyTicketsActivity extends AppCompatActivity {
 
                 try {
                     JSONObject usedTicketsRestData = call.get();
-                    JSONArray usedTickets = usedTicketsRestData.getJSONArray("data");
+                    JSONArray usedTickets = new JSONArray(usedTicketsRestData.get("data").toString().replace("\\", ""));
 
                     Intent usedTicketsIntent = new Intent(getBaseContext(), MyUsedTicketsActivity.class);
-                    //usedTicketsIntent.putExtra("token", token);
                     usedTicketsIntent.putExtra("usedTickets", usedTickets.toString());
                     startActivity(usedTicketsIntent);
                 } catch (InterruptedException | ExecutionException | JSONException e) {
@@ -86,12 +85,9 @@ public class MyTicketsActivity extends AppCompatActivity {
 
                 try {
                     JSONObject unusedTicketsRestData = call.get();
-                    JSONArray unusedTickets = unusedTicketsRestData.getJSONArray("data");
-
-                    //JSONArray unusedTickets = new JSONArray("[{\"qr\":\"asdf1243\"}]");
+                    JSONArray unusedTickets = new JSONArray(unusedTicketsRestData.get("data").toString().replace("\\", ""));
 
                     Intent unusedTicketsIntent = new Intent(getBaseContext(), MyUnusedTicketsActivity.class);
-                    //unusedTicketsIntent.putExtra("token", token);
                     unusedTicketsIntent.putExtra("unusedTickets", unusedTickets.toString());
                     startActivity(unusedTicketsIntent);
                 } catch (InterruptedException | ExecutionException | JSONException e) {

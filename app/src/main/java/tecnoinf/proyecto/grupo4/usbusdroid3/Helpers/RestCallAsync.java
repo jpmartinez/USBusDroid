@@ -88,6 +88,7 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
         JSONObject toReturn = null;
 
         if(this.restURL == null || this.restURL.isEmpty()) {
+            System.out.println("url not initialized");
             toReturn = new JSONObject("{\"error\":\"USBus - URL not initialized\"");
         }
         else {

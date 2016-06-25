@@ -1,9 +1,7 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +26,8 @@ import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NTJourneyListActivity extends ListActivity {
 
+    private JSONArray journeyJsonArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,8 @@ public class NTJourneyListActivity extends ListActivity {
 
         try {
             JSONObject intentData = new JSONObject(father.getStringExtra("data"));
-            final JSONArray journeyJsonArray = new JSONArray(intentData.get("data").toString().replace("\\", ""));
+            journeyJsonArray = new JSONArray(intentData.get("data").toString().replace("\\", ""));
+            System.out.println("journeyJsonArray: " + journeyJsonArray);
 
             final List<JourneyShort> journeyList = JourneyShort.fromJson(journeyJsonArray);
 
@@ -70,11 +70,9 @@ public class NTJourneyListActivity extends ListActivity {
                     R.layout.activity_ntjourneys_list_item,
                     new String[] { "id", "name", "day", "date", "time", "busNumber" },
                     new int[] { R.id.id, R.id.journeyNameTV, R.id.journeyDayTV, R.id.journeyDateTV, R.id.journeyTimeTV, R.id.busNumberTV });
-
             setListAdapter(adapter);
 
             ListView lv = getListView();
-
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -90,10 +88,8 @@ public class NTJourneyListActivity extends ListActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             });
-
         } catch (Exception e) {
             e.printStackTrace();
         }

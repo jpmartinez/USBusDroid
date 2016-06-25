@@ -16,7 +16,11 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.QRCodeEncoder;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Models.TicketShort;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class MTShowTicketActivity extends AppCompatActivity {
@@ -30,16 +34,25 @@ public class MTShowTicketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mtshow_ticket);
-        //Intent father = getIntent();
-
-        //TODO: aqui muestra el QR (y alguna otra bobada)
-        ticketIdEncripted = "sdf234234";
-        qrImage = (ImageButton) findViewById(R.id.qrCodeBtn);
+        Intent father = getIntent();
         try {
+            JSONObject ticket = new JSONObject(father.getStringExtra("ticket"));
+            JSONObject qrTicket = new JSONObject();
+            qrTicket.put("tenantId", ticket.get("tenantId"));
+            qrTicket.put("id", ticket.get("id"));
+
+
+            //TODO: aqui muestra el QR (y alguna otra bobada)
+            ticketIdEncripted = qrTicket.toString();
+            System.out.println("Voy a encriptar: " + ticketIdEncripted);
+            qrImage = (ImageButton) findViewById(R.id.qrCodeBtn);
+
             Bitmap bitmap = encodeAsBitmap(ticketIdEncripted);
             assert qrImage != null;
             qrImage.setImageBitmap(bitmap);
         } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

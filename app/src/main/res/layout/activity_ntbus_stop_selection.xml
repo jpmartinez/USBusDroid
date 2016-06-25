@@ -30,11 +30,12 @@
         android:textStyle="bold" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/busStopFromSpn"
         android:layout_below="@+id/busStopFromLbl"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:spinnerMode="dialog"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,14 +45,15 @@
         android:id="@+id/busStopToLbl"
         android:layout_below="@+id/busStopFromSpn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp" />
+        android:layout_marginTop="58dp"
+        android:textStyle="bold" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/busStopToSpn"
         android:layout_below="@+id/busStopToLbl"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="false"
         android:layout_centerHorizontal="true" />
 
     <Button

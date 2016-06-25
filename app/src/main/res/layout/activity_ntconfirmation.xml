@@ -9,27 +9,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NTConfirmationActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Confirme los datos de su compra"
+        android:id="@+id/ntConfirmLbl" />
+
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Pasaje N°: "
-                android:id="@+id/ticketIdLabelTV" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketIdTV" />
-        </TableRow>
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/ntConfirmLbl"
+        android:layout_marginTop="10dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -143,12 +137,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/buttonPay"
-                android:text="Pay Now"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </TableRow>
 
     </TableLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/paypalPayBT"
+        android:background="@drawable/paypal_button_color"
+        android:layout_span="2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp" />
+
 </RelativeLayout>

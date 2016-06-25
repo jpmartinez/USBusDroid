@@ -3,60 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:orientation="vertical"
-    android:background="@drawable/bus_list_item">
+    android:background="@drawable/road_list_item">
 
     <!-- ID Label -->
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/ttServiceId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/journeyNameTV"
+        android:id="@+id/ttServiceNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#0c1248"
         android:visibility="visible"
-
         android:textStyle="bold"
-        android:layout_marginStart="29dp"
+        android:layout_marginLeft="5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="30dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="20dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/journeyDayTV"
+            android:id="@+id/ttServiceDayTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="14dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#0c1248" />
+            android:textColor="#0c1248"
+            android:textStyle="bold"
+            android:textSize="20dp" />
 
         <TextView
+            android:id="@+id/ttServiceTimeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/journeyDateTV"
-            android:layout_marginRight="14dp"
-            android:textColor="#0c1248" />
-
-        <TextView
-            android:id="@+id/journeyTimeTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#0c1248" />
+            android:textColor="#0c1248"
+            android:textStyle="bold"
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -64,20 +58,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:gravity="bottom">
+        android:layout_marginBottom="15dp">
 
         <TextView
-            android:id="@+id/busNumberLbl"
+            android:id="@+id/ttNumberOfBusesLbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:labelFor="@+id/busNumberTV"
-            android:text="Coche"
+            android:text="Cantidad de Coches"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#0c1248" />
 
         <TextView
-            android:id="@+id/busNumberTV"
+            android:id="@+id/ttNumberOfBusesTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#0c1248" />

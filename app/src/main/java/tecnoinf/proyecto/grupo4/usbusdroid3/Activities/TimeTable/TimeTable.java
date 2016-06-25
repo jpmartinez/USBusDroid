@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NTJourneyListActivity;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.DayConverter_ES;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.BusStop;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
@@ -53,17 +54,17 @@ public class TimeTable extends AppCompatActivity {
             String dayNames[] = {"LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO"};
 
             final Spinner spinnerDay = (Spinner) findViewById(R.id.spnDOW);
-            ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dayNames);
+            ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, dayNames);
             assert spinnerDay != null;
             spinnerDay.setAdapter(dayAdapter);
 
             final Spinner spinnerFrom = (Spinner) findViewById(R.id.spnFrom);
-            ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNames);
+            ArrayAdapter<String> fromAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, busStopsNames);
             assert spinnerFrom != null;
             spinnerFrom.setAdapter(fromAdapter);
 
             final Spinner spinnerTo = (Spinner) findViewById(R.id.spnTo);
-            ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, busStopsNames);
+            ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, busStopsNames);
             assert spinnerTo != null;
             spinnerTo.setAdapter(toAdapter);
 
@@ -73,18 +74,13 @@ public class TimeTable extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     try {
-//                        JSONObject postData = new JSONObject();
-//                        postData.put("token", token);
                         dayOfWeek = spinnerDay.getSelectedItem().toString();
                         origin = spinnerFrom.getSelectedItem().toString();
                         destination = spinnerTo.getSelectedItem().toString();
-//                        postData.put("origin", origin);
-//                        postData.put("destination", destination);
-                        //TODO: pasar origin y destination en la url, al igual que el dow
                         servicesFromToRest = getString(R.string.URLServicesFromTo,
                                 getString(R.string.URL_REST_API),
                                 getString(R.string.tenantId),
-                                dayOfWeek,
+                                DayConverter_ES.convertEN(dayOfWeek),
                                 origin,
                                 destination);
 
@@ -92,9 +88,8 @@ public class TimeTable extends AppCompatActivity {
                         JSONObject servicesData = servicesResult.get();
 
                         Intent listServicesFromToIntent = new Intent(v.getContext(), TTServicesListActivity.class);
-                        //listServicesFromToIntent.putExtra("token", token);
                         listServicesFromToIntent.putExtra("data", servicesData.toString());
-
+                        startActivity(listServicesFromToIntent);
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
