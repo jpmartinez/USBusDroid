@@ -151,6 +151,7 @@ public class NewTicket extends AppCompatActivity {
                         journeysFromToRest = getString(R.string.URLjourneysFromTo,
                                 getString(R.string.URL_REST_API),
                                 getString(R.string.tenantId),
+                                "DATE_ORIGIN_DESTINATION",
                                 selectedDate,
                                 origin,
                                 destination);
