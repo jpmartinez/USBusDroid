@@ -9,25 +9,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.NewTicket.NTResultActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gracias por su compra!"
+        android:id="@+id/ntresultTitleTV"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#050e57"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="125dp">
 
         <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Payment Amount : " />
+                android:text="Monto Abonado: "
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/paymentAmount"
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
         </TableRow>
 
         <TableRow>
@@ -35,13 +49,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status : " />
+                android:text="Status : "
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/paymentStatus"
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
         </TableRow>
 
         <TableRow>
@@ -49,16 +65,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Payment Id : " />
+                android:text="ID del Pago: "
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/paymentId"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
         </TableRow>
 
 
     </TableLayout>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Volver al Inicio"
+        android:id="@+id/ntresult_homeBtn"
+        android:background="#34a902"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

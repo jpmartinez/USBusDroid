@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MainClient;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets.MyTicketsActivity;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.TicketStatus;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
@@ -27,6 +30,7 @@ public class NTResultActivity extends AppCompatActivity {
     private JSONObject tempTicket;
     private JSONObject updatedTicket;
     private JSONObject journey;
+    private Button homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +59,26 @@ public class NTResultActivity extends AppCompatActivity {
             updatedTicket.put("username", username);
             updatedTicket.put("status", TicketStatus.CONFIRMED);
 
-            System.out.println("lololololololo  updatedTicket armado: " + updatedTicket);
-
             updateTicketRest = getString(R.string.URLbuyTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId)) + "/" + tempTicket.get("id").toString();
             AsyncTask<Void, Void, JSONObject> updTicketResult = new RestCallAsync(getApplicationContext(), updateTicketRest, "PUT", updatedTicket, token).execute();
             JSONObject updTicketData = updTicketResult.get();
-            System.out.println("_=_=_=_=_=_=_=_= updTicketData: "+updTicketData);
             //Displaying payment details
             showDetails(paymentDetails.getJSONObject("response"), father.getStringExtra("PaymentAmount"));
         } catch (JSONException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        homeButton = (Button) findViewById(R.id.ntresult_homeBtn);
+        assert homeButton != null;
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homeIntent = new Intent(getApplicationContext(), MainClient.class);
+                startActivity(homeIntent);
+            }
+        });
     }
 
     private void showDetails(JSONObject jsonDetails, String paymentAmount) throws JSONException {

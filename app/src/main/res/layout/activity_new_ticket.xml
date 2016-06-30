@@ -98,7 +98,7 @@
         style="@style/TextAppearance.AppCompat.Button"
         android:background="#34a902"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true" />

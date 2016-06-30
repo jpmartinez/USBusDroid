@@ -62,11 +62,8 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
         @Override
         public boolean isEnabled(int position) {
-            Integer occupiedPosition = occupied.indexOf(position);
-            System.out.println("ocupado: " + occupiedPosition);
+            //Integer occupiedPosition = occupied.indexOf(position);
             return ((((position + 3) % 5) != 0) && !occupied.contains(position)); //TODO: ...&& position no está en rango de libres
-            // Return true for clickable, false for not
-            //return false;
         }
 
         @Override
@@ -104,30 +101,23 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             int seatNbr;
             if(positionI < 3) {
                 seatNbr = (positionI + 1);
+                grid.setId(seatNbr);
             } else {
                 seatNbr = (positionI + 1) - (((positionI-2) / 5) + 1);
+                grid.setId(seatNbr);
             }
 
             textView.setText(String.valueOf(seatNbr));
 
             if(occupied != null && !occupied.isEmpty() && occupied.indexOf(positionI) != -1) {
-                System.out.println("position: " + positionI);
-                System.out.println("indexOf: " + occupied.indexOf(positionI));
-            //if((position+1) % 3 == 0 && (((position + 3) % 5) != 0)) {
                 imageView.setColorFilter(Color.RED);
                 grid.setEnabled(false);
                 grid.setClickable(false);
             }
 
             if(seatNbr == selectedSeat && positionIsEnabled(positionI)) {
-                System.out.println("============================");
-                System.out.println("seatNbr = selectedSeat " + seatNbr + " + " + selectedSeat);
                 imageView.setColorFilter(Color.GREEN);
             }
-
-    //        if((position - 1) % 4 == 0) {
-    //            grid.setPadding(0, 0, 20, 0);
-    //        }
 
             return grid;
         }
@@ -289,10 +279,12 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     private Integer seat2Position (Integer seat) {
         Integer position;
 
+
+
         if(seat < 3) {
             position = (seat - 1);
-        } else if (seat == 6){
-            position = 6;
+        } else if ((seat-2)%4 == 0) {
+            position = (seat - 1) + ((seat-2) / 4);
         } else {
             position = (seat - 1) + (((seat-2) / 4) + 1);
         }
