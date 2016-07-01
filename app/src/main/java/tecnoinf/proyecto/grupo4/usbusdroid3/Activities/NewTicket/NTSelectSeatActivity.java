@@ -63,7 +63,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         @Override
         public boolean isEnabled(int position) {
             //Integer occupiedPosition = occupied.indexOf(position);
-            return ((((position + 3) % 5) != 0) && !occupied.contains(position)); //TODO: ...&& position no está en rango de libres
+            return (occupied == null || (((position + 3) % 5) != 0) && !occupied.contains(position));
         }
 
         @Override
@@ -143,10 +143,13 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             //token = father.getStringExtra("token");
             //ticketPriceRest = getString(R.string.URLticketPrice, );
 
+            JSONArray occupiedJSONArray;
             journeyJSON = new JSONObject(father.getStringExtra("journey"));
-
-            System.out.println("SelectSeat journey: " + journeyJSON);
-            JSONArray occupiedJSONArray = journeyJSON.getJSONArray("seatsState");
+            if (journeyJSON.get("seatsState") != null && journeyJSON.getJSONArray("seatsState").length() > 0) {
+                occupiedJSONArray = journeyJSON.getJSONArray("seatsState");
+            } else {
+                occupiedJSONArray = new JSONArray();
+            }
 
             //occupied = father.getIntegerArrayListExtra("ocuppiedSeats");
             occupied = new ArrayList<>();
@@ -184,7 +187,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                     System.out.println("Selected Seat: " + selectedSeat);
 
                     ImageView selectedSeatImage = (ImageView) view.findViewById(R.id.seatImage);
-                    if (occupied != null && !occupied.isEmpty() && !occupied.contains(position)) {
+                    if (occupied == null || (occupied != null && !occupied.isEmpty() && !occupied.contains(position))) {
                         selectedSeatImage.setColorFilter(Color.GREEN);
                     }
 
@@ -210,41 +213,21 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             }
         });
 
-            assert confirmButton != null;
-            confirmButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(selectedSeat > 0) {
-                        System.out.println("Boton onClick selected seat: " + selectedSeat);
-                        //TODO: recabar información para solicitar precio al rest
-//                            JSONObject postData = new JSONObject();
-//                            postData.put("token", token);
-                        //postData.put("from", journeyJSON.getJSONObject("service").getJSONObject("route").get("origin"));
-                        //postData.put("destination", journeyJSON.getJSONObject("service").getJSONObject("route").get("destination"));
-//                            postData.put("otros", "otros");
-
-                        //TODO: insertar una activity antes del confirmation, en donde seleccione subida y bajada
-                        //TODO: y en base a esa subida y bajada poder calcular el precio para enviar al confirmation
-//                            AsyncTask<Void, Void, JSONObject> ticketCostResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "POST", postData, token).execute();
-//                            JSONObject ticketCostData = ticketCostResult.get();
-
-//                            System.out.println("===========Data del ticket:");
-//                            System.out.println(ticketCostData);
-
-
-                        Intent busStopSelectionIntent = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
-                        busStopSelectionIntent.putExtra("seat", String.valueOf(selectedSeat));
-                        busStopSelectionIntent.putExtra("journey", father.getStringExtra("journey"));
-                        //busStopSelectionIntent.putExtra("token", token);
-                        //confirmationIntent.putExtra("ticketCost", ticketCostData.getJSONObject("data").get("cost").toString());
-                        startActivity(busStopSelectionIntent);
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Debe seleccionar un asiento", Toast.LENGTH_LONG).show();
-                    }
+        assert confirmButton != null;
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedSeat > 0) {
+                    Intent busStopSelectionIntent = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
+                    busStopSelectionIntent.putExtra("seat", String.valueOf(selectedSeat));
+                    busStopSelectionIntent.putExtra("journey", father.getStringExtra("journey"));
+                    startActivity(busStopSelectionIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Debe seleccionar un asiento", Toast.LENGTH_LONG).show();
+                    //Nota: La compra de standing passenger solo se permite mediante app de Guarda (USBusDroid Trip)
                 }
-            });
-        //TODO: llamar a siguiente activity
+            }
+        });
     }
 
     public boolean positionIsEnabled(int position) {
@@ -253,7 +236,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         if(occupied != null && !occupied.isEmpty()) {
             return (((position+3) % 5) != 0) && (occupied.indexOf(positionI) == -1);
         } else {
-            Integer occupiedPosition = occupied.indexOf(positionI);
+            Integer occupiedPosition = occupied == null? -1 : occupied.indexOf(positionI);
             System.out.println("ocupado: " + occupiedPosition);
             Boolean result;
             result = ((((positionI + 3) % 5) != 0) && occupiedPosition.intValue() == -1); //TODO: ...&& position no está en rango de libres
@@ -266,21 +249,16 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
     private Integer position2Seat (Integer position) {
         Integer seat;
-
         if(position < 3) {
             seat = (position + 1);
         } else {
             seat = (position + 1) - (((position-2) / 5) + 1);
         }
-
         return seat;
     }
 
     private Integer seat2Position (Integer seat) {
         Integer position;
-
-
-
         if(seat < 3) {
             position = (seat - 1);
         } else if ((seat-2)%4 == 0) {

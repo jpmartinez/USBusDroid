@@ -27,7 +27,7 @@ public class MTShowTicketActivity extends AppCompatActivity {
 
     private Integer WIDTH;
     private Integer HEIGHT;
-    private String ticketIdEncripted;
+    private String ticketIdEncrypted;
     private ImageButton qrImage;
 
     @Override
@@ -41,18 +41,15 @@ public class MTShowTicketActivity extends AppCompatActivity {
             qrTicket.put("tenantId", ticket.get("tenantId"));
             qrTicket.put("id", ticket.get("id"));
 
-
             //TODO: aqui muestra el QR (y alguna otra bobada)
-            ticketIdEncripted = qrTicket.toString();
-            System.out.println("Voy a encriptar: " + ticketIdEncripted);
+            ticketIdEncrypted = qrTicket.toString();
             qrImage = (ImageButton) findViewById(R.id.qrCodeBtn);
 
-            Bitmap bitmap = encodeAsBitmap(ticketIdEncripted);
+            Bitmap bitmap = encodeAsBitmap(ticketIdEncrypted);
             assert qrImage != null;
             qrImage.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+
+        } catch (WriterException | JSONException e) {
             e.printStackTrace();
         }
     }
@@ -71,7 +68,7 @@ public class MTShowTicketActivity extends AppCompatActivity {
         smallerDimension = smallerDimension * 3/4;
 
         //Encode with a QR Code image
-        QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(ticketIdEncripted,
+        QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(ticketIdEncrypted,
                 null,
                 BarcodeFormat.QR_CODE.toString(),
                 smallerDimension);
