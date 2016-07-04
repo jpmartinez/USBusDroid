@@ -32,7 +32,9 @@ public class MainClient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_client);
 
-        allBusStopsRest = getString(R.string.URLallBusStops, getString(R.string.URL_REST_API), getString(R.string.tenantId));
+        allBusStopsRest = getString(R.string.URLallBusStops,
+                getString(R.string.URL_REST_API),
+                getString(R.string.tenantId));
 
         final ImageButton newTicketBt = (ImageButton) findViewById(R.id.newticketButton);
         ImageButton myTicketsBt = (ImageButton) findViewById(R.id.myticketsButton);

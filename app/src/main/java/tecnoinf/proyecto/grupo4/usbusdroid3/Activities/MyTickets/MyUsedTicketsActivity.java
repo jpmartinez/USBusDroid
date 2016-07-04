@@ -33,6 +33,7 @@ public class MyUsedTicketsActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_used_tickets);
+
         Intent father = getIntent();
         SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");

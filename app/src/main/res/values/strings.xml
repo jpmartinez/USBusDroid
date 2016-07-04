@@ -25,13 +25,14 @@
     <string name="tenantId">2</string>
 
     <!--REST URLs-->
-    <string name="URL_REST_API">http://10.0.2.2:8080/rest/api</string>
+    <!--<string name="URL_REST_API">http://10.0.2.2:8080/rest/api</string>-->
+    <string name="URL_REST_API">http://192.168.0.110:8080/rest/api</string>
     <string name="URLlogin">%1$s/authentication</string>
     <string name="URLregister">%1$s/register/client</string>
     <string name="URLjourneysFromTo"><![CDATA[%1$s/%2$s/journey?query=%3$s&date=%4$s&origin=%5$s&destination=%6$s]]></string>
-    <string name="URLServicesFromTo"><![CDATA[%1$s/%2$s/service/get/dowfromto?dow=%3$s&origin=%4$s&destination=%5$s&offset=0&limit=999]]></string>
-    <string name="URLallBusStops"><![CDATA[%1$s/%2$s/busstop?&offset=0&limit=999]]></string>
-    <string name="URLallBusStopsFrom"><![CDATA[%1$s/%2$s/busstop?origin=%3$s&offset=0&limit=999]]></string>
+    <string name="URLServicesFromTo"><![CDATA[%1$s/%2$s/service?query=DAYOFWEEK_FROM_TO&dayOfWeek=%3$s&origin=%4$s&destination=%5$s&offset=0&limit=999]]></string>
+    <string name="URLallBusStops"><![CDATA[%1$s/%2$s/busstop?query=ALL&status=true&offset=0&limit=999]]></string>
+    <string name="URLallBusStopsFrom"><![CDATA[%1$s/%2$s/busstop?query=DESTINATIONS&status=true&origin=%3$s&offset=0&limit=999]]></string>
     <string name="URLticketPrice"><![CDATA[%1$s/%2$s/journey/%3$s/price?origin=%4$s&destination=%5$s]]></string>
     <string name="URLmyTickets"><![CDATA[%1$s/%2$s/ticket?username=%3$s&status=%4$s&&offset=0&limit=20]]></string>
     <string name="URLbuyTicket"><![CDATA[%1$s/%2$s/ticket]]></string>

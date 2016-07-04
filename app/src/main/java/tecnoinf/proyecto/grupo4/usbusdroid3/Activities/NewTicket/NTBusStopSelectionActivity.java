@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +61,7 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
             ArrayAdapter<String> toAdapter = new ArrayAdapter<>(this, R.layout.simple_usbus_spinner_item, routeStopsNames);
             assert spinnerTo != null;
             spinnerTo.setAdapter(toAdapter);
+            spinnerTo.setSelection(routeStopsNames.size() - 1);
 
             Button submitBtn = (Button) findViewById(R.id.busStopConfirmBtn);
             assert submitBtn != null;
@@ -69,25 +71,30 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
                     try {
                         String origin = spinnerFrom.getSelectedItem().toString();
                         String destination = spinnerTo.getSelectedItem().toString();
-                        ticketPriceRest = getString(R.string.URLticketPrice,
-                                getString(R.string.URL_REST_API),
-                                getString(R.string.tenantId),
-                                journey.get("id").toString(),
-                                origin.replace(" ", "+"),
-                                destination.replace(" ", "+"));
 
-                        AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
-                        JSONObject priceData = priceResult.get();
-                        String ticketPrice = priceData.getString("data");
+                        if(origin.equalsIgnoreCase(destination)) {
+                            Toast.makeText(getBaseContext(), "Debe seleccionar paradas diferentes", Toast.LENGTH_LONG).show();
+                        } else {
+                            ticketPriceRest = getString(R.string.URLticketPrice,
+                                    getString(R.string.URL_REST_API),
+                                    getString(R.string.tenantId),
+                                    journey.get("id").toString(),
+                                    origin.replace(" ", "+"),
+                                    destination.replace(" ", "+"));
 
-                        Intent confirmationIntent = new Intent(v.getContext(), NTConfirmationActivity.class);
-                        //confirmationIntent.putExtra("token", token);
-                        confirmationIntent.putExtra("journey", journey.toString());
-                        confirmationIntent.putExtra("ticketPrice", ticketPrice);
-                        confirmationIntent.putExtra("origin", origin);
-                        confirmationIntent.putExtra("destination", destination);
-                        confirmationIntent.putExtra("seat", selectedSeat);
-                        startActivity(confirmationIntent);
+                            AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
+                            JSONObject priceData = priceResult.get();
+                            String ticketPrice = priceData.getString("data");
+
+                            Intent confirmationIntent = new Intent(v.getContext(), NTConfirmationActivity.class);
+                            //confirmationIntent.putExtra("token", token);
+                            confirmationIntent.putExtra("journey", journey.toString());
+                            confirmationIntent.putExtra("ticketPrice", ticketPrice);
+                            confirmationIntent.putExtra("origin", origin);
+                            confirmationIntent.putExtra("destination", destination);
+                            confirmationIntent.putExtra("seat", selectedSeat);
+                            startActivity(confirmationIntent);
+                        }
                     } catch (JSONException | InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }

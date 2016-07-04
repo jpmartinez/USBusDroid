@@ -31,13 +31,13 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
     private int selectedSeat = 0;
     private int lastSelectedPosition = -1;
+    private int lastSelectedSeat = -1;
     private static ArrayList<Integer> occupied;
-
 
     public class MyAdapter extends BaseAdapter {
 
-        final int numberOfItem = 45 + 45/4; //TODO: cambiar por cantidad total de seats en el bus del journey (journey.bus.seats)
-        private Bitmap[] bitmap = new Bitmap[numberOfItem];
+        final int numberOfItems = nbrOfSeats + nbrOfSeats/4;
+        private Bitmap[] bitmap = new Bitmap[numberOfItems];
 
         private Context context;
         private LayoutInflater layoutInflater;
@@ -46,7 +46,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             context = c;
             layoutInflater = LayoutInflater.from(context);
 
-            for(int i = 0; i < numberOfItem; i++){
+            for(int i = 0; i < numberOfItems; i++){
                 if((i + 3) % 5 == 0) {
                     bitmap[i] = BitmapFactory.decodeResource(context.getResources(), R.drawable.bus_aisle_dotted);
                 } else {
@@ -62,7 +62,6 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
         @Override
         public boolean isEnabled(int position) {
-            //Integer occupiedPosition = occupied.indexOf(position);
             return (occupied == null || (((position + 3) % 5) != 0) && !occupied.contains(position));
         }
 
@@ -86,8 +85,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             Integer positionI = position;
 
             View grid;
-            if(true){//(convertView==null){
-                //grid = new View(context);
+            if(true){
                 layoutInflater = getLayoutInflater();
                 grid = layoutInflater.inflate(R.layout.gridview_seat, null);
             }else{
@@ -111,14 +109,21 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
             if(occupied != null && !occupied.isEmpty() && occupied.indexOf(positionI) != -1) {
                 imageView.setColorFilter(Color.RED);
+                textView.setTextColor(Color.WHITE);
                 grid.setEnabled(false);
                 grid.setClickable(false);
+            } else if(seatNbr == selectedSeat && positionIsEnabled(positionI)) {
+                imageView.setColorFilter(Color.rgb(0, 100, 0));
+                textView.setTextColor(Color.WHITE);
+            } else {
+                imageView.clearColorFilter();
+                textView.setTextColor(Color.WHITE);
             }
 
-            if(seatNbr == selectedSeat && positionIsEnabled(positionI)) {
-                imageView.setColorFilter(Color.GREEN);
+            if(!positionIsEnabled(positionI) &&
+                    !(occupied != null && !occupied.isEmpty() && occupied.indexOf(positionI) != -1)) {
+                textView.setTextColor(Color.TRANSPARENT);
             }
-
             return grid;
         }
     }
@@ -128,6 +133,8 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     private String token;
     private Intent father;
     private JSONObject journeyJSON;
+    public int standing;
+    public int nbrOfSeats;
 
     /** Called when the activity is first created. */
     @Override
@@ -140,18 +147,19 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             father = getIntent();
             SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
             token = sharedPreferences.getString("token", "");
-            //token = father.getStringExtra("token");
-            //ticketPriceRest = getString(R.string.URLticketPrice, );
 
             JSONArray occupiedJSONArray;
             journeyJSON = new JSONObject(father.getStringExtra("journey"));
-            if (journeyJSON.get("seatsState") != null && journeyJSON.getJSONArray("seatsState").length() > 0) {
+
+            standing = journeyJSON.getJSONObject("bus").getInt("standingPassengers");
+            nbrOfSeats = journeyJSON.getJSONObject("bus").getInt("seats");
+
+            if (!journeyJSON.isNull("seatsState") && journeyJSON.getJSONArray("seatsState").length() > 0) {
                 occupiedJSONArray = journeyJSON.getJSONArray("seatsState");
             } else {
                 occupiedJSONArray = new JSONArray();
             }
 
-            //occupied = father.getIntegerArrayListExtra("ocuppiedSeats");
             occupied = new ArrayList<>();
             Integer occupiedSeat;
             Integer occupiedPosition;
@@ -174,39 +182,30 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //lastSelectedPreviousColor = view.findViewById(R.id.seatImage).getSolidColor();
-                //selectedSeatPreviousView = (View) gridView.getItemAtPosition(position);
-
+                if(lastSelectedSeat != -1) {
+                    lastSelectedSeat = selectedSeat;
+                }
                 if(positionIsEnabled(position)) {
                     selectedSeat = position2Seat(position);
-//                    if (position < 3) {
-//                        selectedSeat = (position + 1);
-//                    } else {
-//                        selectedSeat = (position + 1) - (((position - 2) / 5) + 1);
-//                    }
-                    System.out.println("Selected Seat: " + selectedSeat);
 
                     ImageView selectedSeatImage = (ImageView) view.findViewById(R.id.seatImage);
-                    if (occupied == null || (occupied != null && !occupied.isEmpty() && !occupied.contains(position))) {
-                        selectedSeatImage.setColorFilter(Color.GREEN);
+                    if (occupied == null || occupied.isEmpty() || (occupied != null && !occupied.isEmpty() && !occupied.contains(position))) {
+                        selectedSeatImage.setColorFilter(Color.rgb(0, 100, 0));
                     }
 
-                    //System.out.println("previous position: " + lastSelectedPosition + " color: " + lastSelectedPreviousColor);
                     if (lastSelectedPosition > -1 &&
                             lastSelectedPosition != position &&
-                            occupied != null &&
-                            !occupied.isEmpty() &&
-                            !occupied.contains(lastSelectedPosition) &&
-                            !occupied.contains(position)) {
+                            (occupied == null || occupied.isEmpty() ||
+                                    (!occupied.contains(lastSelectedPosition) &&
+                                            !occupied.contains(position)))) {
                         View lastView = parent.getChildAt(lastSelectedPosition);
-                        //View lastView = (View) gridView.getItemAtPosition(lastSelectedPosition);
-                        ImageView lastImage = (ImageView) lastView.findViewById(R.id.seatImage);
-                        lastImage.clearColorFilter();
-                        //lastImage.setColorFilter(lastSelectedPreviousColor);
+                        if (lastView != null) {
+                            ImageView lastImage = (ImageView) lastView.findViewById(R.id.seatImage);
+                            lastImage.clearColorFilter();
+                        }
                     }
 
-                    //selectedSeatPreviousImage = (ImageView) view.findViewById(R.id.seatImage);
-                    if (occupied != null && !occupied.isEmpty() && !occupied.contains(position)) {
+                    if (occupied == null || occupied.isEmpty() || !occupied.contains(position)) {
                         lastSelectedPosition = position;
                     }
                 }
@@ -239,11 +238,9 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             Integer occupiedPosition = occupied == null? -1 : occupied.indexOf(positionI);
             System.out.println("ocupado: " + occupiedPosition);
             Boolean result;
-            result = ((((positionI + 3) % 5) != 0) && occupiedPosition.intValue() == -1); //TODO: ...&& position no está en rango de libres
+            result = ((((positionI + 3) % 5) != 0) && occupiedPosition.intValue() == -1);
             System.out.println("result: "+result);
             return result;
-            // Return true for clickable, false for not
-            //return false;
         }
     }
 
