@@ -25,8 +25,8 @@
     <string name="tenantId">2</string>
 
     <!--REST URLs-->
-    <!--<string name="URL_REST_API">http://10.0.2.2:8080/rest/api</string>-->
-    <string name="URL_REST_API">http://192.168.0.110:8080/rest/api</string>
+    <string name="URL_REST_API">http://10.0.2.2:8080/rest/api</string>
+    <!--<string name="URL_REST_API">http://192.168.0.110:8080/rest/api</string>-->
     <string name="URLlogin">%1$s/authentication</string>
     <string name="URLregister">%1$s/register/client</string>
     <string name="URLjourneysFromTo"><![CDATA[%1$s/%2$s/journey?query=%3$s&date=%4$s&origin=%5$s&destination=%6$s]]></string>

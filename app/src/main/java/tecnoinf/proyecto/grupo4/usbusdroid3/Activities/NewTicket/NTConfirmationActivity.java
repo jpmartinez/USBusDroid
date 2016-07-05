@@ -123,6 +123,8 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
             newTicket.put("closed", true);
             newTicket.put("status", TicketStatus.UNUSED);
             newTicket.put("routeId", journey.getJSONObject("service").getJSONObject("route").get("id"));
+            newTicket.put("branchId", 0);
+            newTicket.put("windowId", 0);
 
 
             System.out.println("=$=$=$=$=$=$=$=$=$=$=$= newTicket JSON ticket que envío: " + newTicket);

@@ -24,7 +24,8 @@
         android:text="Muestre este código al Guarda"
         android:id="@+id/qrCodeTV"
         android:layout_below="@+id/qrCodeBtn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
     <!--TODO: Agregar más datos del ticket-->
 
