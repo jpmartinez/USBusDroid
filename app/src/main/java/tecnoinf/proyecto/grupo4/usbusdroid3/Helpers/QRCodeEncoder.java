@@ -3,21 +3,17 @@ package tecnoinf.proyecto.grupo4.usbusdroid3.Helpers;
 /**
  * Created by Kavesa on 15/06/16.
  */
-import android.provider.ContactsContract;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
-
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Map;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public final class QRCodeEncoder {
     private static final int WHITE = 0xFFFFFFFF;

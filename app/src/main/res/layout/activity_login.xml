@@ -80,6 +80,26 @@
         android:id="@+id/twitter_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="40dp" />
+
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:id="@+id/registerBtn"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/register_button"
+        android:scaleType="fitXY"
+        android:background="@null" />
+
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/settingsBtn"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/settings_wheel"
+        android:background="@null"
+        android:scaleType="fitXY" />
 
 </LinearLayout>

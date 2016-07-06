@@ -40,8 +40,9 @@ public class MainClient extends AppCompatActivity {
         ImageButton myTicketsBt = (ImageButton) findViewById(R.id.myticketsButton);
         ImageButton timeTableBt = (ImageButton) findViewById(R.id.timetableButton);
         ImageButton contactBt = (ImageButton) findViewById(R.id.contactButton);
+        ImageButton signOutBt = (ImageButton) findViewById(R.id.signoutButton);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
         final String token = sharedPreferences.getString("token", "");
         final String username = sharedPreferences.getString("username", "");
 
@@ -111,6 +112,18 @@ public class MainClient extends AppCompatActivity {
             }
         });
 
+        assert signOutBt != null;
+        signOutBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("username", "");
+                editor.putString("password", "");
+                editor.apply();
+
+                startActivity(new Intent(getBaseContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
 
     }
 

@@ -60,13 +60,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
         buyTicketRest = getString(R.string.URLbuyTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId));
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
-        //token = father.getStringExtra("token");
-                System.out.println("Confirmation=====================");
-                System.out.println(father.getStringExtra("journey"));
-                System.out.println(father.getStringExtra("seat"));
-                System.out.println(father.getStringExtra("busNumber"));
-        System.out.println(father.getStringExtra("ticketCost"));
-        //Double ticketCost = 12.30;//Double.parseDouble(father.getStringExtra("ticketCost"));
+
         String selectedSeat = father.getStringExtra("seat");
         paymentAmount = father.getStringExtra("ticketPrice");
         try {
@@ -108,7 +102,6 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         newTicket = new JSONObject();
-        //journeyId, getOnStopName, getOffStopName, passengerName, seat, closed (true)
         try {
             newTicket.put("tenantId", getString(R.string.tenantId));
             newTicket.put("journeyId", journey.get("id"));
@@ -126,12 +119,8 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
             newTicket.put("branchId", 0);
             newTicket.put("windowId", 0);
 
-
-            System.out.println("=$=$=$=$=$=$=$=$=$=$=$= newTicket JSON ticket que envío: " + newTicket);
-
             AsyncTask<Void, Void, JSONObject> ticketResult = new RestCallAsync(getApplicationContext(), buyTicketRest, "POST", newTicket, token).execute();
             ticketData =  ticketResult.get();
-            System.out.println("=%=%=%=%=%=%=%=%=% pre buy ticket que volvió: " + ticketData);
 
         } catch (JSONException e) {
             e.printStackTrace();

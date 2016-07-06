@@ -1,5 +1,7 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Helpers;
 
+import android.content.SharedPreferences;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

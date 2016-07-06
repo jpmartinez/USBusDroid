@@ -30,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.twitter.sdk.android.Twitter;
@@ -39,6 +40,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.Image;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,7 +90,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
 
@@ -96,8 +97,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         registerURL =  getString(R.string.URLregister, getString(R.string.URL_REST_API));
 
         sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+
+        String savedServerIP = sharedPreferences.getString("serverIP", "");
+        String savedPort = sharedPreferences.getString("port", "");
+
+        if (!savedServerIP.isEmpty() && !savedPort.isEmpty()) {
+            loginURL = loginURL.replace("10.0.2.2", savedServerIP).replace(":8080", ":"+savedPort);
+            registerURL = registerURL.replace("10.0.2.2", savedServerIP).replace(":8080", ":"+savedPort);
+        }
+
         saved_password = sharedPreferences.getString("password", "first_use");
-        if(!saved_password.equalsIgnoreCase("first_use")) {
+        if(!saved_password.equalsIgnoreCase("first_use") && !saved_password.isEmpty()) {
             saved_username = sharedPreferences.getString("username", "");
 
             mAuthTask = new UserLoginTask(saved_username, saved_password, getApplicationContext(), "twitter");
@@ -122,6 +132,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        ImageButton registerButton = (ImageButton) findViewById(R.id.registerBtn);
+        assert registerButton != null;
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registrationIntent = new Intent(getBaseContext(), RegistrationActivity.class);
+                startActivity(registrationIntent);
+            }
+        });
+
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsBtn);
+        assert settingsButton != null;
+        settingsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(getBaseContext(), SettingsActivity.class);
+                startActivity(settingsIntent);
+            }
+        });
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         assert mEmailSignInButton != null;
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -140,16 +170,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void success(Result<TwitterSession> result) {
 
-                // The TwitterSession is also available through:
-                // Twitter.getInstance().core.getSessionManager().getActiveSession()
                 showProgress(true);
-
-                System.out.println("==============en success");
                 TwitterSession session = result.data;
-                System.out.println("==============username: " + session.getUserName());
-                System.out.println("==============userid: " + session.getUserId());
-                System.out.println("==============authtoken: " + session.getAuthToken().token);
-                System.out.println("==============session:" + session);
 
                 mAuthTask = new UserLoginTask(session.getUserName(), session.getAuthToken().token, getApplicationContext(), "twitter");
                 mAuthTask.execute((Void) null);
@@ -455,6 +477,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 finish();
             } else {
+                showProgress(false);
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }

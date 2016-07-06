@@ -45,4 +45,5 @@ dependencies {
     }
     compile 'com.paypal.sdk:paypal-android-sdk:2.14.2'
     compile 'com.google.zxing:core:3.2.1'
+    compile 'com.jakewharton:butterknife:6.1.0'
 }

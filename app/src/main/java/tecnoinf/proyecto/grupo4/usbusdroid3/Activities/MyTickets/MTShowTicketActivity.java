@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -41,9 +42,15 @@ public class MTShowTicketActivity extends AppCompatActivity {
             qrTicket.put("tenantId", ticket.get("tenantId"));
             qrTicket.put("id", ticket.get("id"));
 
-            //TODO: aqui muestra el QR (y alguna otra bobada)
             ticketIdEncrypted = qrTicket.toString();
             qrImage = (ImageButton) findViewById(R.id.qrCodeBtn);
+
+            TextView messageTV = (TextView) findViewById(R.id.qrCodeTV);
+            assert messageTV != null;
+            if(ticket.getString("status").equalsIgnoreCase("USED")) {
+                messageTV.setText("Ticket ya utilizado");
+            }
+
 
             Bitmap bitmap = encodeAsBitmap(ticketIdEncrypted);
             assert qrImage != null;

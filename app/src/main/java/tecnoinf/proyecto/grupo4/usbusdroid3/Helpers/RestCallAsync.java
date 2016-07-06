@@ -87,6 +87,13 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
     public JSONObject getData() throws JSONException {
         JSONObject toReturn = null;
 
+        String savedServerIP = sharedPreferences.getString("serverIP", "");
+        String savedPort = sharedPreferences.getString("port", "");
+
+        if (!savedServerIP.isEmpty() && !savedPort.isEmpty()) {
+            restURL = restURL.replace("10.0.2.2", savedServerIP).replace(":8080", ":"+savedPort);
+        }
+
         if(this.restURL == null || this.restURL.isEmpty()) {
             System.out.println("url not initialized");
             toReturn = new JSONObject("{\"error\":\"USBus - URL not initialized\"");
