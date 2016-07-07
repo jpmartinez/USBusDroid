@@ -59,7 +59,7 @@
             android:background="@null" />
     </LinearLayout>
     <ImageButton
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/signoutButton"
         android:layout_alignBottom="@+id/linearLayout"

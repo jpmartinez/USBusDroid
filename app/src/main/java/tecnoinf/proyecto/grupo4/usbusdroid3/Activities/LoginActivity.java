@@ -33,6 +33,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -57,7 +64,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity
+        implements LoaderCallbacks<Cursor>, GoogleApiClient.OnConnectionFailedListener {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "XyYrh7Uvf4EylxNc7qr6IAjJ5";
@@ -65,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private TwitterLoginButton loginButton;
     private String saved_username;
     private String saved_password;
+    private String saved_usertype;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -85,13 +94,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private View mTwitterButton;
+    private String external_email;
+
+    private GoogleApiClient mGoogleApiClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        SignInButton googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
+        assert googleSignInButton != null;
+        googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
+        googleSignInButton.setScopes(gso.getScopeArray());
 
         loginURL = getString(R.string.URLlogin, getString(R.string.URL_REST_API));
         registerURL =  getString(R.string.URLregister, getString(R.string.URL_REST_API));
@@ -106,11 +133,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             registerURL = registerURL.replace("10.0.2.2", savedServerIP).replace(":8080", ":"+savedPort);
         }
 
+        saved_usertype = sharedPreferences.getString("user_type", "");
         saved_password = sharedPreferences.getString("password", "first_use");
         if(!saved_password.equalsIgnoreCase("first_use") && !saved_password.isEmpty()) {
             saved_username = sharedPreferences.getString("username", "");
 
-            mAuthTask = new UserLoginTask(saved_username, saved_password, getApplicationContext(), "twitter");
+            mAuthTask = new UserLoginTask(saved_username, saved_password, getApplicationContext(), saved_usertype);
             mAuthTask.execute((Void) null);
         }
 
@@ -173,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 showProgress(true);
                 TwitterSession session = result.data;
 
-                mAuthTask = new UserLoginTask(session.getUserName(), session.getAuthToken().token, getApplicationContext(), "twitter");
+                mAuthTask = new UserLoginTask("twitter_"+session.getUserName(), session.getAuthToken().token, getApplicationContext(), "twitter");
                 mAuthTask.execute((Void) null);
 
             }
@@ -182,6 +210,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Log.d("TwitterKit", "Login with Twitter failure", exception);
             }
         });
+
+        findViewById(R.id.google_sign_in_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleSignIn();
+            }
+        });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        // Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    private void googleSignIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void populateAutoComplete() {
@@ -403,11 +450,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 JSONObject credentials = new JSONObject();
-                //credentials.put("type", "twitter");
                 credentials.put("username", username);
                 credentials.put("tenantId", mCtx.getString(R.string.tenantId));
                 credentials.put("password", mPassword);
-                System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+token twitter: " + mPassword);
+                System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+token twitter/google: " + mPassword);
 
                 RestCall call = new RestCall(loginURL, POST, credentials, null);
                 result = call.getData();
@@ -426,20 +472,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     editor.putString("tenantId", getString(R.string.tenantId));
                     editor.putString("loginURL", loginURL);
                     editor.apply();
-                } else if (mType.equalsIgnoreCase("twitter")) {
-                    credentials.put("email", username+"@twitterclient.usbus");
+                } else if (mType.equalsIgnoreCase("twitter") || mType.equalsIgnoreCase("google")) {
+                    if(external_email == null || external_email.isEmpty()){
+                        credentials.put("email", username + "@" + mType + "client.usbus");
+                    } else {
+                        credentials.put("email", external_email);
+                    }
                     RestCall registerCall = new RestCall(registerURL, POST, credentials, null);
                     registerResult = registerCall.getData();
                     if(registerResult.get("result").toString().equalsIgnoreCase("OK")) {
                         //register OK
-                        System.out.println("REGISTRO TWITTER OK...");
+                        System.out.println("REGISTRO TWITTER/GOOGLE OK...");
                         credentials.remove("email");
 
                         call = new RestCall(loginURL, POST, credentials, null);
                         result = call.getData();
                         if(result.get("result").toString().equalsIgnoreCase("OK")) {
                             //login OK
-                            System.out.println("LOGIN AFTER TWITTER REGISTER OK...");
+                            System.out.println("LOGIN AFTER TWITTER/GOOGLE REGISTER OK...");
                             JSONObject data = new JSONObject(result.get("data").toString());
                             token = data.getString("token");
                             editor.putString("token", token);
@@ -490,10 +540,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    private void handleSignInResult(GoogleSignInResult result) {
+//        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+//            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+//            updateUI(true);
+            assert acct != null;
+            external_email = acct.getEmail();
+            mAuthTask = new UserLoginTask("google_"+acct.getDisplayName(), acct.getId(), getApplicationContext(), "google");
+            mAuthTask.execute((Void) null);
+
+        } else {
+            // Signed out, show unauthenticated UI.
+//            updateUI(false);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+
         super.onActivityResult(requestCode, resultCode, data);
         loginButton.onActivityResult(requestCode, resultCode, data);
+
     }
 }
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "420119463810",
+    "project_id": "usbusdroid"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420119463810:android:f1ebb1f290556841",
+        "android_client_info": {
+          "package_name": "tecnoinf.proyecto.grupo4.usbusdroid3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420119463810-9rmja6d2102fvrgvknd06lrtl1lpqkso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tecnoinf.proyecto.grupo4.usbusdroid3",
+            "certificate_hash": "E306FA6721E608E117216B2A8D51B04D60C42513"
+          }
+        },
+        {
+          "client_id": "420119463810-q3p07ro936jp008b4grb5pn0g2qjt41o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIRwJbF9qhn12eHEwptOXIqLovW2z4xs0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
