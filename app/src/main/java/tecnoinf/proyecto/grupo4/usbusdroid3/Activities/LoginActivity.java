@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity
 
         SignInButton googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         assert googleSignInButton != null;
-        googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
+        googleSignInButton.setSize(SignInButton.SIZE_WIDE);
         googleSignInButton.setScopes(gso.getScopeArray());
 
         loginURL = getString(R.string.URLlogin, getString(R.string.URL_REST_API));

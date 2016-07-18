@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="240dp"
     android:orientation="vertical"
     android:background="@drawable/my_tickets_list_bg">
 
@@ -12,18 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/mtJourneyNameTV"
-        android:layout_width="wrap_content"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#0c1248"
         android:visibility="visible"
         android:textStyle="bold"
-        android:layout_marginLeft="5dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:layout_width="wrap_content"

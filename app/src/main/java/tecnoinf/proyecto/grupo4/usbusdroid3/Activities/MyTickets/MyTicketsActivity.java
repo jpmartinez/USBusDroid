@@ -22,6 +22,7 @@ public class MyTicketsActivity extends AppCompatActivity {
 
     private static String myUnusedTicketsURL;
     private static String myUsedTicketsURL;
+    private static String bookingsURL;
     private static String token;
     private static String username;
 
@@ -44,9 +45,15 @@ public class MyTicketsActivity extends AppCompatActivity {
                 getString(R.string.tenantId),
                 username,
                 "CONFIRMED");
+        bookingsURL = getString(R.string.URLbookings,
+                getString(R.string.URL_REST_API),
+                getString(R.string.tenantId),
+                username,
+                true);
 
         ImageButton usedTicketsBtn = (ImageButton) findViewById(R.id.usedBtn);
         ImageButton unusedTicketsBtn = (ImageButton) findViewById(R.id.unusedBtn);
+        ImageButton bookingsBtn = (ImageButton) findViewById(R.id.bookingBtn);
 
         assert usedTicketsBtn != null;
         usedTicketsBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +105,30 @@ public class MyTicketsActivity extends AppCompatActivity {
             }
         });
 
+        assert bookingsBtn != null;
+        bookingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RestCallAsync call = new RestCallAsync(getApplicationContext(), bookingsURL, "GET", null, token);
+                call.execute((Void) null);
 
+                try {
+                    JSONObject bookingsRestData = call.get();
+                    JSONArray myBookings = new JSONArray(bookingsRestData.get("data").toString().replace("\\", ""));
+
+                    if(myBookings.length() > 0) {
+                        Intent bookingsIntent = new Intent(getBaseContext(), MyBookingsActivity.class);
+                        bookingsIntent.putExtra("myBookings", myBookings.toString());
+                        startActivity(bookingsIntent);
+                    } else {
+                        Toast.makeText(getBaseContext(), "No tiene reservas activas", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (InterruptedException | ExecutionException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
 

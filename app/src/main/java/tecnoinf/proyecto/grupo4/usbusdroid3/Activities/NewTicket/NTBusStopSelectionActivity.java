@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -84,7 +85,8 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
 
                             AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
                             JSONObject priceData = priceResult.get();
-                            String ticketPrice = priceData.getJSONObject("data").getString("price");
+                            Double ticketPriceDouble = new JSONObject(priceData.getString("data")).getDouble("price");
+                            String ticketPrice = String.format("%.2f", ticketPriceDouble);
 
                             Intent confirmationIntent = new Intent(v.getContext(), NTConfirmationActivity.class);
                             //confirmationIntent.putExtra("token", token);

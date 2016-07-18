@@ -15,7 +15,7 @@
         android:id="@+id/unusedBtn"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/unused_ticket" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:id="@+id/usedBtn"
         android:layout_below="@+id/unusedTV"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/used_ticket" />
 
     <TextView
@@ -45,6 +45,28 @@
         android:text="Utilizados"
         android:id="@+id/usedTV"
         android:layout_below="@+id/usedBtn"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:layout_marginTop="-30dp" />
+
+    <ImageButton
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:id="@+id/bookingBtn"
+        android:layout_below="@+id/usedBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ticket_booking"
+        android:scaleType="fitXY"
+        android:background="@null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Reservas"
+        android:id="@+id/bookingTV"
+        android:layout_below="@+id/bookingBtn"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:layout_marginTop="-30dp" />

@@ -51,7 +51,8 @@ public class MyUnusedTicketsActivity extends ListActivity {
                 HashMap<String, String> t = new HashMap<>();
                 t.put("id", ts2.getId().toString());
                 //t.put("emissiondate", ts2.getEmissionDate().toString());
-                t.put("amount", ts2.getAmount().toString());
+//                t.put("amount", ts2.getAmount().toString());
+                t.put("amount", String.format("%.2f", ts2.getAmount()));
                 t.put("status", ts2.getStatus().toString());
                 t.put("journeyName", ts2.getJourneyName());
                 t.put("journeyDate", dateFormat.format(ts2.getJourneyDate()));

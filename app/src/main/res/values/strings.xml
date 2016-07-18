@@ -34,6 +34,7 @@
     <string name="URLallBusStops"><![CDATA[%1$s/%2$s/busstop?query=ALL&status=true&offset=0&limit=999]]></string>
     <string name="URLallBusStopsFrom"><![CDATA[%1$s/%2$s/busstop?query=DESTINATIONS&status=true&origin=%3$s&offset=0&limit=999]]></string>
     <string name="URLticketPrice"><![CDATA[%1$s/%2$s/journey/%3$s/price?origin=%4$s&destination=%5$s]]></string>
-    <string name="URLmyTickets"><![CDATA[%1$s/%2$s/ticket?username=%3$s&status=%4$s&&offset=0&limit=20]]></string>
+    <string name="URLmyTickets"><![CDATA[%1$s/%2$s/ticket?username=%3$s&status=%4$s&offset=0&limit=20]]></string>
+    <string name="URLbookings"><![CDATA[%1$s/%2$s/reservation?query=USERANDSTATUS&clientId=%3$s&status=%4$b&offset=0&limit=90]]></string>
     <string name="URLbuyTicket"><![CDATA[%1$s/%2$s/ticket]]></string>
 </resources>

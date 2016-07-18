@@ -90,7 +90,7 @@ public class NTResultActivity extends AppCompatActivity {
         //Showing the details from json object
         textViewId.setText(jsonDetails.getString("id"));
         textViewStatus.setText(jsonDetails.getString("state"));
-        textViewAmount.setText("USD " + paymentAmount);
+        textViewAmount.setText("$ " + paymentAmount);
     }
 
     @Override
