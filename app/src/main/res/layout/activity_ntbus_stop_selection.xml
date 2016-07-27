@@ -57,17 +57,27 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="270dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
-        android:text="Confirmar"
-        android:id="@+id/busStopConfirmBtn"
+        android:text="Reservar"
+        android:id="@+id/busStopBookingBtn"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
         android:textSize="20dp"
         android:textColor="#ffffff"
-        android:background="#34a902" />
+        android:background="#000295"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:text="Comprar"
+        android:id="@+id/busStopConfirmBtn"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:background="#34a902"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

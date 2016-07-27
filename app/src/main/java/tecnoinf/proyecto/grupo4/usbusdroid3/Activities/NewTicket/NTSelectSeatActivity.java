@@ -133,6 +133,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     private String token;
     private Intent father;
     private JSONObject journeyJSON;
+    private JSONArray bookingsJSONArray;
     public int standing;
     public int nbrOfSeats;
 
@@ -150,6 +151,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
 
             JSONArray occupiedJSONArray;
             journeyJSON = new JSONObject(father.getStringExtra("journey"));
+            bookingsJSONArray = new JSONArray(father.getStringExtra("bookings"));
 
             standing = journeyJSON.getJSONObject("bus").getInt("standingPassengers");
             nbrOfSeats = journeyJSON.getJSONObject("bus").getInt("seats");

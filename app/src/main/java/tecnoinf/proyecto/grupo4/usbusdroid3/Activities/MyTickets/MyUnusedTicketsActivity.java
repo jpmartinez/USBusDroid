@@ -41,8 +41,6 @@ public class MyUnusedTicketsActivity extends ListActivity {
             unusedTicketsArray = new JSONArray(father.getStringExtra("unusedTickets").replace("\\", ""));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
-            //TODO: probar con array vacío y en caso de explotar arreglar
-            //TODO: y en caso que no explote, mostrar un toast con el mensaje, en lugar de llamar al ShowTicket
 
             final List<TicketShort> ticketsList = TicketShort.fromJson(unusedTicketsArray);
             ArrayList<HashMap<String, String>> ticketsMap = new ArrayList<>();

@@ -45,7 +45,7 @@ public class MyTicketsActivity extends AppCompatActivity {
                 getString(R.string.tenantId),
                 username,
                 "CONFIRMED");
-        bookingsURL = getString(R.string.URLbookings,
+        bookingsURL = getString(R.string.URLuserBookings,
                 getString(R.string.URL_REST_API),
                 getString(R.string.tenantId),
                 username,
@@ -109,10 +109,10 @@ public class MyTicketsActivity extends AppCompatActivity {
         bookingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RestCallAsync call = new RestCallAsync(getApplicationContext(), bookingsURL, "GET", null, token);
-                call.execute((Void) null);
-
                 try {
+                    RestCallAsync call = new RestCallAsync(getApplicationContext(), bookingsURL, "GET", null, token);
+                    call.execute((Void) null);
+
                     JSONObject bookingsRestData = call.get();
                     JSONArray myBookings = new JSONArray(bookingsRestData.get("data").toString().replace("\\", ""));
 

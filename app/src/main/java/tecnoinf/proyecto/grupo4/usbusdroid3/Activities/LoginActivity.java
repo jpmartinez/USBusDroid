@@ -95,6 +95,9 @@ public class LoginActivity extends AppCompatActivity
     private View mLoginFormView;
     private View mTwitterButton;
     private String external_email;
+    private ImageButton settingsButton;
+    private ImageButton registerButton;
+    private SignInButton googleSignInButton;
 
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
@@ -115,7 +118,7 @@ public class LoginActivity extends AppCompatActivity
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        SignInButton googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
+        googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         assert googleSignInButton != null;
         googleSignInButton.setSize(SignInButton.SIZE_WIDE);
         googleSignInButton.setScopes(gso.getScopeArray());
@@ -160,7 +163,7 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        ImageButton registerButton = (ImageButton) findViewById(R.id.registerBtn);
+        registerButton = (ImageButton) findViewById(R.id.registerBtn);
         assert registerButton != null;
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -170,7 +173,7 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsBtn);
+        settingsButton = (ImageButton) findViewById(R.id.settingsBtn);
         assert settingsButton != null;
         settingsButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -211,7 +214,7 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        findViewById(R.id.google_sign_in_button).setOnClickListener(new OnClickListener() {
+        googleSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 googleSignIn();
@@ -345,7 +348,10 @@ public class LoginActivity extends AppCompatActivity
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mTwitterButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            settingsButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            registerButton.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            googleSignInButton.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
@@ -365,8 +371,13 @@ public class LoginActivity extends AppCompatActivity
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mTwitterButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            settingsButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            registerButton.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            googleSignInButton.setVisibility(show ? View.GONE : View.VISIBLE);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
         }
     }
 

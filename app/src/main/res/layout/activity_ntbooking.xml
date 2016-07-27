@@ -7,14 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NTConfirmationActivity">
+    tools:context="tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket.NTBookingActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Confirme los datos de su pasaje"
-        android:id="@+id/ntConfirmLbl" />
+        android:text="Confirme los datos de su reserva"
+        android:id="@+id/ntbkConfirmLbl" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
         android:layout_alignParentBottom="false"
-        android:layout_below="@+id/ntConfirmLbl"
+        android:layout_below="@+id/ntbkConfirmLbl"
         android:layout_marginTop="10dp">
 
         <TableRow
@@ -34,13 +34,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Origen: "
-                android:id="@+id/ticketOriginLabelTV" />
+                android:id="@+id/bkticketOriginLabelTV" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketOriginTV" />
+                android:id="@+id/bkticketOriginTV" />
         </TableRow>
 
         <TableRow
@@ -52,13 +52,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Destino: "
-                android:id="@+id/ticketDestinationLabelTV" />
+                android:id="@+id/bkticketDestinationLabelTV" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketDestinationTV" />
+                android:id="@+id/bkticketDestinationTV" />
         </TableRow>
 
         <TableRow
@@ -70,13 +70,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Fecha: "
-                android:id="@+id/ticketDateLabelTV" />
+                android:id="@+id/bkticketDateLabelTV" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketDateTV" />
+                android:id="@+id/bkticketDateTV" />
         </TableRow>
 
         <TableRow
@@ -88,13 +88,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Coche: "
-                android:id="@+id/ticketBusIdLabelTV" />
+                android:id="@+id/bkticketBusIdLabelTV" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketBusIdTV" />
+                android:id="@+id/bkticketBusIdTV" />
         </TableRow>
 
         <TableRow
@@ -106,13 +106,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Asiento: "
-                android:id="@+id/ticketSeatLabelTV" />
+                android:id="@+id/bkticketSeatLabelTV" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketSeatTV" />
+                android:id="@+id/bkticketSeatTV" />
         </TableRow>
 
         <TableRow
@@ -124,31 +124,33 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Precio: "
-                android:id="@+id/ticketCostLabelTV" />
+                android:id="@+id/bkticketCostLabelTV" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/ticketCostTV" />
+                android:id="@+id/bkticketCostTV" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </TableRow>
 
     </TableLayout>
 
-    <ImageButton
-        android:layout_width="250dp"
+    <Button
+        android:layout_width="270dp"
         android:layout_height="50dp"
-        android:id="@+id/paypalPayBT"
-        android:background="@drawable/paypal_button_color"
-        android:layout_span="2"
-        android:layout_alignParentBottom="true"
+        android:text="Reservar"
+        android:id="@+id/confirmBookingBtn"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:background="#000295"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_alignParentBottom="true" />
+
 
 </RelativeLayout>

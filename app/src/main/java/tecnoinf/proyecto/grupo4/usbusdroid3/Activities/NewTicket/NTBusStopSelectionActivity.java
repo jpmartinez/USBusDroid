@@ -102,6 +102,45 @@ public class NTBusStopSelectionActivity extends AppCompatActivity {
                     }
                 }
             });
+
+            Button bookingBtn = (Button) findViewById(R.id.busStopBookingBtn);
+            assert bookingBtn != null;
+            bookingBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String getsOn = spinnerFrom.getSelectedItem().toString();
+                        String getsOff = spinnerTo.getSelectedItem().toString();
+
+                        if(getsOn.equalsIgnoreCase(getsOff)) {
+                            Toast.makeText(getBaseContext(), "Debe seleccionar paradas diferentes", Toast.LENGTH_LONG).show();
+                        } else {
+                            ticketPriceRest = getString(R.string.URLticketPrice,
+                                    getString(R.string.URL_REST_API),
+                                    getString(R.string.tenantId),
+                                    journey.get("id").toString(),
+                                    getsOn.replace(" ", "+"),
+                                    getsOff.replace(" ", "+"));
+
+                            AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
+                            JSONObject priceData = priceResult.get();
+                            Double ticketPriceDouble = new JSONObject(priceData.getString("data")).getDouble("price");
+                            String ticketPrice = String.format("%.2f", ticketPriceDouble);
+
+                            Intent bookingIntent = new Intent(view.getContext(), NTBookingActivity.class);
+                            bookingIntent.putExtra("journey", journey.toString());
+                            bookingIntent.putExtra("ticketPrice", ticketPrice);
+                            bookingIntent.putExtra("getsOn", getsOn);
+                            bookingIntent.putExtra("getsOff", getsOff);
+                            bookingIntent.putExtra("seat", selectedSeat);
+                            startActivity(bookingIntent);
+                        }
+                    } catch (JSONException | InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

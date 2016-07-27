@@ -1,7 +1,10 @@
 package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,8 +22,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.DayConverter_ES;
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.JourneyShort;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
@@ -34,8 +39,8 @@ public class NTJourneyListActivity extends ListActivity {
         setContentView(R.layout.activity_ntjourneys_list);
         Intent father = getIntent();
         //final String token = father.getStringExtra("token");
-        //SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
-        //final String token = sharedPreferences.getString("token", "");
+        SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
+        final String token = sharedPreferences.getString("token", "");
 
         try {
             JSONObject intentData = new JSONObject(father.getStringExtra("data"));
@@ -80,12 +85,20 @@ public class NTJourneyListActivity extends ListActivity {
                                         int position, long id) {
                     try {
                         String journeyid = ((TextView) view.findViewById(R.id.id)).getText().toString();
+                        String bookingsURL = getString(R.string.URLjourneyBookings,
+                                getString(R.string.URL_REST_API),
+                                getString(R.string.tenantId),
+                                journeyid,
+                                true);
+                        AsyncTask<Void, Void, JSONObject> bookingsResult = new RestCallAsync(getApplicationContext(), bookingsURL, "GET", null, token).execute();
+                        JSONObject bookingsData = bookingsResult.get();
 
                         Intent selectSeat = new Intent(getBaseContext(), NTSelectSeatActivity.class);
                         selectSeat.putExtra("journey", journeyJsonArray.get(position).toString());
-                        //selectSeat.putExtra("token", token);
+                        selectSeat.putExtra("bookings", bookingsData.getString("data"));
                         startActivity(selectSeat);
-                    } catch (JSONException e) {
+
+                    } catch (JSONException | ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

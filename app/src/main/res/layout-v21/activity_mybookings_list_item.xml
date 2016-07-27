@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:orientation="vertical"
+    android:background="@drawable/my_bookings_list_bg_blue">
+
+    <!-- ID Label -->
+
+    <TextView
+        android:id="@+id/bookingItemid"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:id="@+id/bookingJourneyId"
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:visibility="invisible"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:id="@+id/bookingsJourneyNameTV"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#0c1248"
+        android:visibility="visible"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Vencimiento: "
+            android:id="@+id/bookingsDueDateLbl"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textColor="#0c1248" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/bookingsDueDateTV"
+            android:layout_marginRight="14dp"
+            android:textColor="#0c1248" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Asiento: "
+            android:id="@+id/bookingsSeatLbl"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textColor="#0c1248" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/bookingsSeatTV"
+            android:textStyle="bold"
+            android:textColor="#0c1248" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Sube en: "
+            android:id="@+id/bookingsGetsOnLbl"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textColor="#0c1248" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/bookingsGetsOnTV"
+            android:textStyle="bold"
+            android:textColor="#0c1248" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Baja en: "
+            android:id="@+id/bookingsGetsOffLbl"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textColor="#0c1248" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/bookingsGetsOffTV"
+            android:textStyle="bold"
+            android:textColor="#0c1248" />
+    </LinearLayout>
+
+</LinearLayout>

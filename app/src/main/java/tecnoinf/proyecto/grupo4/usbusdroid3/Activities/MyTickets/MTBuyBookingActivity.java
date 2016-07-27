@@ -1,15 +1,14 @@
-package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.NewTicket;
+package tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,9 +23,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.PayPalConfig;
@@ -34,7 +31,7 @@ import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.TicketStatus;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
-public class NTConfirmationActivity extends AppCompatActivity implements View.OnClickListener {
+public class MTBuyBookingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton buttonPay;
     private String paymentAmount;
@@ -45,6 +42,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
     private String buyTicketRest;
     private Intent father;
     private JSONObject ticketData;
+    private String bookingId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +60,13 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
         username = sharedPreferences.getString("username", "");
 
         String selectedSeat = father.getStringExtra("seat");
+        //TODO: tomar el bookingId para luego cambiarle el status
+        bookingId = father.getStringExtra("bookingId");
         paymentAmount = father.getStringExtra("ticketPrice");
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-            journey = new JSONObject(father.getStringExtra("journey"));
+            //journey = new JSONObject(father.getStringExtra("journey"));
 
             TextView ticketOriginTV = (TextView) findViewById(R.id.ticketOriginTV);
             TextView ticketDestinationTV = (TextView) findViewById(R.id.ticketDestinationTV);
@@ -79,9 +79,9 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
             assert ticketSeatTV != null;
             ticketSeatTV.setText(selectedSeat);
             assert ticketOriginTV != null;
-            ticketOriginTV.setText(father.getStringExtra("origin"));
+            ticketOriginTV.setText(father.getStringExtra("getsOn"));
             assert ticketDestinationTV != null;
-            ticketDestinationTV.setText(father.getStringExtra("destination"));
+            ticketDestinationTV.setText(father.getStringExtra("getsOff"));
             assert ticketDateTV != null;
             ticketDateTV.setText(dateFormat.format(journey.get("date")));
             assert ticketBusIdTV != null;
@@ -109,8 +109,8 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
             newTicket.put("combination", null);
             newTicket.put("combinationId", null);
             newTicket.put("amount", paymentAmount);
-            newTicket.put("getOnStopName", father.getStringExtra("origin"));
-            newTicket.put("getOffStopName", father.getStringExtra("destination"));
+            newTicket.put("getOnStopName", father.getStringExtra("getsOn"));
+            newTicket.put("getOffStopName", father.getStringExtra("getsOff"));
             newTicket.put("passengerName", username);
             newTicket.put("seat", father.getStringExtra("seat"));
             newTicket.put("closed", true);
@@ -184,10 +184,11 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
                         Log.i("paymentExample", paymentDetails);
 
                         //Starting a new activity for the payment details and also putting the payment details with intent
-                        startActivity(new Intent(this, NTResultActivity.class)
+                        startActivity(new Intent(this, MTBuyBookingResultActivity.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", paymentAmount)
                                 .putExtra("journey", journey.toString())
+                                .putExtra("bookingId", bookingId)
                                 .putExtra("ticket", ticketData.getString("data")));
 
                     } catch (JSONException e) {
@@ -196,6 +197,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("paymentExample", "The user canceled.");
+                //TODO: llamar a la policía, y cancelar el ticket (http delete)
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
                 Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             }

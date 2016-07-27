@@ -45,7 +45,10 @@
         <activity android:name=".Activities.MyTickets.MTShowTicketActivity" />
         <activity android:name=".Activities.RegistrationActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.MyTickets.MyBookingsActivity"></activity>
+        <activity android:name=".Activities.MyTickets.MyBookingsActivity" />
+        <activity android:name=".Activities.MyTickets.MTBuyBookingResultActivity" />
+        <activity android:name=".Activities.MyTickets.MTBuyBookingActivity" />
+        <activity android:name=".Activities.NewTicket.NTBookingActivity"></activity>
     </application>
 
 </manifest>
