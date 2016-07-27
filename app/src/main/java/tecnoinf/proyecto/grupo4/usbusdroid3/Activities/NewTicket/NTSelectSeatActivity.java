@@ -33,6 +33,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     private int lastSelectedPosition = -1;
     private int lastSelectedSeat = -1;
     private static ArrayList<Integer> occupied;
+    private static ArrayList<Integer> booked;
 
     public class MyAdapter extends BaseAdapter {
 
@@ -112,6 +113,11 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                 textView.setTextColor(Color.WHITE);
                 grid.setEnabled(false);
                 grid.setClickable(false);
+            } else if (booked != null && !booked.isEmpty() && booked.indexOf(positionI) != -1) {
+                imageView.setColorFilter(Color.BLUE);
+                textView.setTextColor(Color.WHITE);
+                grid.setEnabled(false);
+                grid.setClickable(false);
             } else if(seatNbr == selectedSeat && positionIsEnabled(positionI)) {
                 imageView.setColorFilter(Color.rgb(0, 100, 0));
                 textView.setTextColor(Color.WHITE);
@@ -121,7 +127,8 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             }
 
             if(!positionIsEnabled(positionI) &&
-                    !(occupied != null && !occupied.isEmpty() && occupied.indexOf(positionI) != -1)) {
+                    !(occupied != null && !occupied.isEmpty() && occupied.indexOf(positionI) != -1) &&
+                    !(booked != null && !booked.isEmpty() && booked.indexOf(positionI) != -1)) {
                 textView.setTextColor(Color.TRANSPARENT);
             }
             return grid;
@@ -169,12 +176,22 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                 if (!occupiedJSONArray.getJSONObject(i).getBoolean("free")) {
                     occupiedSeat = occupiedJSONArray.getJSONObject(i).getInt("number");
                     occupiedPosition = seat2Position(occupiedSeat);
-                    System.out.println("Seat: "+occupiedSeat + "  Position: " + occupiedPosition);
-
-                    System.out.println("adding to occupied: " + occupiedPosition);
+//                    System.out.println("Seat: "+occupiedSeat + "  Position: " + occupiedPosition);
+//
+//                    System.out.println("adding to occupied: " + occupiedPosition);
                     occupied.add(occupiedPosition);
                 }
             }
+
+            booked = new ArrayList<>();
+            Integer bookedSeat;
+            Integer bookedPosition;
+            for (int k = 0; k < bookingsJSONArray.length(); k++) {
+                bookedSeat = bookingsJSONArray.getJSONObject(k).getInt("seat");
+                bookedPosition = seat2Position(bookedSeat);
+                booked.add(bookedPosition);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -191,15 +208,15 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                     selectedSeat = position2Seat(position);
 
                     ImageView selectedSeatImage = (ImageView) view.findViewById(R.id.seatImage);
-                    if (occupied == null || occupied.isEmpty() || (occupied != null && !occupied.isEmpty() && !occupied.contains(position))) {
+                    if ((occupied == null || occupied.isEmpty() || (occupied != null && !occupied.isEmpty() && !occupied.contains(position))) &&
+                            (booked == null || booked.isEmpty() || (booked != null && !booked.isEmpty() && !booked.contains(position)))) {
                         selectedSeatImage.setColorFilter(Color.rgb(0, 100, 0));
                     }
 
                     if (lastSelectedPosition > -1 &&
                             lastSelectedPosition != position &&
-                            (occupied == null || occupied.isEmpty() ||
-                                    (!occupied.contains(lastSelectedPosition) &&
-                                            !occupied.contains(position)))) {
+                            (occupied == null || occupied.isEmpty() || (!occupied.contains(lastSelectedPosition) && !occupied.contains(position))) &&
+                            (booked == null || booked.isEmpty() || (!booked.contains(lastSelectedPosition) && !booked.contains(position)))) {
                         View lastView = parent.getChildAt(lastSelectedPosition - parent.getFirstVisiblePosition());
                         if (lastView != null) {
                             ImageView lastImage = (ImageView) lastView.findViewById(R.id.seatImage);
@@ -207,7 +224,8 @@ public class NTSelectSeatActivity extends AppCompatActivity {
                         }
                     }
 
-                    if (occupied == null || occupied.isEmpty() || !occupied.contains(position)) {
+                    if ((occupied == null || occupied.isEmpty() || !occupied.contains(position)) &&
+                            (booked == null || booked.isEmpty() || !booked.contains(position))) {
                         lastSelectedPosition = position;
                     }
                 }
@@ -232,16 +250,21 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     }
 
     public boolean positionIsEnabled(int position) {
-        System.out.println("positionIsEnabled position:"+position);
+        //System.out.println("positionIsEnabled position:"+position);
         Integer positionI = position;
-        if(occupied != null && !occupied.isEmpty()) {
+        if(occupied != null && !occupied.isEmpty() && booked != null && !booked.isEmpty()) {
+            return (((position+3) % 5) != 0) && (occupied.indexOf(positionI) == -1) && (booked.indexOf(positionI) == -1);
+        } else if(occupied != null && !occupied.isEmpty()) {
             return (((position+3) % 5) != 0) && (occupied.indexOf(positionI) == -1);
+        } else if(booked != null && !booked.isEmpty()) {
+            return (((position+3) % 5) != 0) && (booked.indexOf(positionI) == -1);
         } else {
             Integer occupiedPosition = occupied == null? -1 : occupied.indexOf(positionI);
-            System.out.println("ocupado: " + occupiedPosition);
+            Integer bookedPosition = booked == null? -1 : booked.indexOf(positionI);
+            //System.out.println("ocupado: " + occupiedPosition);
             Boolean result;
-            result = ((((positionI + 3) % 5) != 0) && occupiedPosition.intValue() == -1);
-            System.out.println("result: "+result);
+            result = ((((positionI + 3) % 5) != 0) && occupiedPosition.intValue() == -1 && bookedPosition.intValue() == -1);
+            //System.out.println("result: "+result);
             return result;
         }
     }
