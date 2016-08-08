@@ -94,7 +94,7 @@ public class NTBookingActivity extends AppCompatActivity {
                     newBooking.put("active", true);
                     newBooking.put("getsOn", father.getStringExtra("getsOn"));
                     newBooking.put("getsOff", father.getStringExtra("getsOff"));
-                    newBooking.put("dueDate", Long.valueOf(journey.getString("date")) - 60000*30);
+                    newBooking.put("dueDate", Long.valueOf(journey.getJSONObject("service").getString("time")) - 60000*30);
                     newBooking.put("serviceName", journey.getJSONObject("service").getString("name"));
 
                     AsyncTask<Void, Void, JSONObject> bookingResult = new RestCallAsync(getApplicationContext(), bookTicketRest, "POST", newBooking, token).execute();

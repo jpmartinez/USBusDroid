@@ -117,7 +117,7 @@ public class MyTicketsActivity extends AppCompatActivity {
                     JSONArray myBookings = new JSONArray(bookingsRestData.get("data").toString().replace("\\", ""));
 
                     if(myBookings.length() > 0) {
-                        Intent bookingsIntent = new Intent(getBaseContext(), MyBookingsActivity.class);
+                        Intent bookingsIntent = new Intent(getBaseContext(), MyBookingsSwipeActivity.class);
                         bookingsIntent.putExtra("myBookings", myBookings.toString());
                         startActivity(bookingsIntent);
                     } else {

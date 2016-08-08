@@ -40,12 +40,16 @@ dependencies {
         transitive = true;
     }
 
-    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.paypal.sdk:paypal-android-sdk:2.14.2'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.google.android.gms:play-services-auth:9.2.0'
+
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:support-v4:24.+'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
 }
 
 apply plugin: 'com.google.gms.google-services'

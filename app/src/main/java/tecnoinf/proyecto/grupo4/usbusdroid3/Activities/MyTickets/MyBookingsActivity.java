@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -136,6 +137,11 @@ public class MyBookingsActivity extends ListActivity {
                     }
                 }
             });
+
+
+
+
+
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }

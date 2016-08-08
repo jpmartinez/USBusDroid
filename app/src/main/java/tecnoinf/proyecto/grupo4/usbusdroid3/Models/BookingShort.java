@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Kavesa on 15/06/16.
@@ -80,9 +81,13 @@ public class BookingShort {
 
     public BookingShort(JSONObject object) throws ParseException {
         try {
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Montevideo"));
+            //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            //dateFormat.setTimeZone(TimeZone.getTimeZone("America/Montevideo"));
             id = object.getLong("id");
             dueDate = new Date();
             dueDate.setTime(Long.valueOf(object.getString("dueDate")));
+            //dueDate.setTime(Long.valueOf(String.valueOf(dateFormat.parse(object.getString("dueDate")))));
             seat = object.getInt("seat");
             journeyId = object.getLong("journeyId");
             getsOff = object.getString("getsOff");
