@@ -51,7 +51,7 @@ public class NTBookingActivity extends AppCompatActivity {
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
 
-        String selectedSeat = father.getStringExtra("seat");
+        String selectedSeat = String.valueOf(father.getIntExtra("seat", 0));
         paymentAmount = father.getStringExtra("ticketPrice");
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -90,11 +90,11 @@ public class NTBookingActivity extends AppCompatActivity {
                     newBooking.put("tenantId", getString(R.string.tenantId));
                     newBooking.put("journeyId", journey.get("id"));
                     newBooking.put("clientId", username);
-                    newBooking.put("seat", father.getStringExtra("seat"));
+                    newBooking.put("seat", String.valueOf(father.getIntExtra("seat", 0)));
                     newBooking.put("active", true);
-                    newBooking.put("getsOn", father.getStringExtra("getsOn"));
-                    newBooking.put("getsOff", father.getStringExtra("getsOff"));
-                    newBooking.put("dueDate", Long.valueOf(journey.getJSONObject("service").getString("time")) - 60000*30);
+                    newBooking.put("getsOn", father.getStringExtra("origin"));
+                    newBooking.put("getsOff", father.getStringExtra("destination"));
+                    newBooking.put("dueDate", Long.valueOf(journey.getString("date")) - 60000*30);
                     newBooking.put("serviceName", journey.getJSONObject("service").getString("name"));
 
                     AsyncTask<Void, Void, JSONObject> bookingResult = new RestCallAsync(getApplicationContext(), bookTicketRest, "POST", newBooking, token).execute();

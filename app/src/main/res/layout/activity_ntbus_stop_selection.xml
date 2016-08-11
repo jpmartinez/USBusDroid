@@ -54,7 +54,8 @@
         android:id="@+id/busStopToSpn"
         android:layout_below="@+id/busStopToLbl"
         android:layout_alignParentEnd="false"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:spinnerMode="dialog" />
 
     <Button
         android:layout_width="160dp"

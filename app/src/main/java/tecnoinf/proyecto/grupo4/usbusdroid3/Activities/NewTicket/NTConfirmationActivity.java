@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,9 +23,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.PayPalConfig;
@@ -57,11 +54,11 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
             e.printStackTrace();
         }
         SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
-        buyTicketRest = getString(R.string.URLbuyTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId));
+        buyTicketRest = getString(R.string.URLTickets, getString(R.string.URL_REST_API), getString(R.string.tenantId));
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
 
-        String selectedSeat = father.getStringExtra("seat");
+        String selectedSeat = String.valueOf(father.getIntExtra("seat", 0));
         paymentAmount = father.getStringExtra("ticketPrice");
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -112,12 +109,14 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
             newTicket.put("getOnStopName", father.getStringExtra("origin"));
             newTicket.put("getOffStopName", father.getStringExtra("destination"));
             newTicket.put("passengerName", username);
-            newTicket.put("seat", father.getStringExtra("seat"));
+            newTicket.put("seat", String.valueOf(father.getIntExtra("seat", 0)));
             newTicket.put("closed", true);
             newTicket.put("status", TicketStatus.UNUSED);
             newTicket.put("routeId", journey.getJSONObject("service").getJSONObject("route").get("id"));
             newTicket.put("branchId", 0);
             newTicket.put("windowId", 0);
+            newTicket.put("kmGetsOn", father.getDoubleExtra("originKm", 0.0));
+            newTicket.put("kmGetsOff", father.getDoubleExtra("destinationKm", 0.0));
 
             AsyncTask<Void, Void, JSONObject> ticketResult = new RestCallAsync(getApplicationContext(), buyTicketRest, "POST", newTicket, token).execute();
             ticketData =  ticketResult.get();

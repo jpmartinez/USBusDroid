@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -24,7 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
 public class NTSelectSeatActivity extends AppCompatActivity {
@@ -143,6 +146,8 @@ public class NTSelectSeatActivity extends AppCompatActivity {
     private JSONArray bookingsJSONArray;
     public int standing;
     public int nbrOfSeats;
+    private String ticketPriceRest;
+    private String origin, destination;
 
     /** Called when the activity is first created. */
     @Override
@@ -155,19 +160,23 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             father = getIntent();
             SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
             token = sharedPreferences.getString("token", "");
+            origin = father.getStringExtra("origin");
+            destination = father.getStringExtra("destination");
+
 
             JSONArray occupiedJSONArray;
             journeyJSON = new JSONObject(father.getStringExtra("journey"));
-            bookingsJSONArray = new JSONArray(father.getStringExtra("bookings"));
+            bookingsJSONArray = new JSONArray(father.getStringExtra("bookedSeats"));
 
             standing = journeyJSON.getJSONObject("bus").getInt("standingPassengers");
             nbrOfSeats = journeyJSON.getJSONObject("bus").getInt("seats");
 
-            if (!journeyJSON.isNull("seatsState") && journeyJSON.getJSONArray("seatsState").length() > 0) {
-                occupiedJSONArray = journeyJSON.getJSONArray("seatsState");
-            } else {
-                occupiedJSONArray = new JSONArray();
-            }
+            occupiedJSONArray = new JSONArray(father.getStringExtra("soldSeats"));
+//            if (!journeyJSON.isNull("seatsState") && journeyJSON.getJSONArray("seatsState").length() > 0) {
+//                occupiedJSONArray = journeyJSON.getJSONArray("seatsState");
+//            } else {
+//                occupiedJSONArray = new JSONArray();
+//            }
 
             occupied = new ArrayList<>();
             Integer occupiedSeat;
@@ -187,7 +196,7 @@ public class NTSelectSeatActivity extends AppCompatActivity {
             Integer bookedSeat;
             Integer bookedPosition;
             for (int k = 0; k < bookingsJSONArray.length(); k++) {
-                bookedSeat = bookingsJSONArray.getJSONObject(k).getInt("seat");
+                bookedSeat = bookingsJSONArray.getJSONObject(k).getInt("number");
                 bookedPosition = seat2Position(bookedSeat);
                 booked.add(bookedPosition);
             }
@@ -236,14 +245,71 @@ public class NTSelectSeatActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedSeat > 0) {
-                    Intent busStopSelectionIntent = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
-                    busStopSelectionIntent.putExtra("seat", String.valueOf(selectedSeat));
-                    busStopSelectionIntent.putExtra("journey", father.getStringExtra("journey"));
-                    startActivity(busStopSelectionIntent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Debe seleccionar un asiento", Toast.LENGTH_LONG).show();
-                    //Nota: La compra de standing passenger solo se permite mediante app de Guarda (USBusDroid Trip)
+                try {
+                        if (selectedSeat > 0) {
+
+                            if(father.getStringExtra("closeOption").equalsIgnoreCase("buy")) {
+                                ticketPriceRest = getString(R.string.URLticketPrice,
+                                        getString(R.string.URL_REST_API),
+                                        getString(R.string.tenantId),
+                                        journeyJSON.get("id").toString(),
+                                        origin.replace(" ", "+"),
+                                        destination.replace(" ", "+"));
+
+                                AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
+                                JSONObject priceData = priceResult.get();
+                                Double ticketPriceDouble = new JSONObject(priceData.getString("data")).getDouble("price");
+                                String ticketPrice = String.format("%.2f", ticketPriceDouble);
+
+                                Intent confirmationIntent = new Intent(v.getContext(), NTConfirmationActivity.class);
+                                //confirmationIntent.putExtra("token", token);
+                                confirmationIntent.putExtra("journey", journeyJSON.toString());
+                                confirmationIntent.putExtra("ticketPrice", ticketPrice);
+                                confirmationIntent.putExtra("origin", origin);
+                                confirmationIntent.putExtra("destination", destination);
+                                confirmationIntent.putExtra("seat", selectedSeat);
+                                confirmationIntent.putExtra("originKm", father.getDoubleExtra("originKm", 0.0));
+                                confirmationIntent.putExtra("destinationKm", father.getDoubleExtra("destinationKm", 0.0));
+                                startActivity(confirmationIntent);
+                            } else if (father.getStringExtra("closeOption").equalsIgnoreCase("booking")) {
+
+                                ticketPriceRest = getString(R.string.URLticketPrice,
+                                        getString(R.string.URL_REST_API),
+                                        getString(R.string.tenantId),
+                                        journeyJSON.get("id").toString(),
+                                        origin.replace(" ", "+"),
+                                        destination.replace(" ", "+"));
+
+                                AsyncTask<Void, Void, JSONObject> priceResult = new RestCallAsync(getApplicationContext(), ticketPriceRest, "GET", null, token).execute();
+                                JSONObject priceData = priceResult.get();
+                                Double ticketPriceDouble = new JSONObject(priceData.getString("data")).getDouble("price");
+                                String ticketPrice = String.format("%.2f", ticketPriceDouble);
+
+                                Intent confirmationIntent = new Intent(v.getContext(), NTBookingActivity.class);
+                                //confirmationIntent.putExtra("token", token);
+                                confirmationIntent.putExtra("journey", journeyJSON.toString());
+                                confirmationIntent.putExtra("ticketPrice", ticketPrice);
+                                confirmationIntent.putExtra("origin", origin);
+                                confirmationIntent.putExtra("destination", destination);
+                                confirmationIntent.putExtra("seat", selectedSeat);
+                                confirmationIntent.putExtra("originKm", father.getDoubleExtra("originKm", 0.0));
+                                confirmationIntent.putExtra("destinationKm", father.getDoubleExtra("destinationKm", 0.0));
+                                startActivity(confirmationIntent);
+                            }
+    //                    Intent busStopSelectionIntent = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
+    //                    busStopSelectionIntent.putExtra("seat", String.valueOf(selectedSeat));
+    //                    busStopSelectionIntent.putExtra("journey", father.getStringExtra("journey"));
+    //                    startActivity(busStopSelectionIntent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Debe seleccionar un asiento", Toast.LENGTH_LONG).show();
+                        //Nota: La compra de standing passenger solo se permite mediante app de Guarda (USBusDroid Trip)
+                    }
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });

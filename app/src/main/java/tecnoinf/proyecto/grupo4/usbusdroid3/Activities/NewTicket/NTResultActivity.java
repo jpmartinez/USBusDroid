@@ -14,10 +14,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
-
 import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MainClient;
-import tecnoinf.proyecto.grupo4.usbusdroid3.Activities.MyTickets.MyTicketsActivity;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.TicketStatus;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
@@ -59,13 +56,13 @@ public class NTResultActivity extends AppCompatActivity {
             updatedTicket.put("username", username);
             updatedTicket.put("status", TicketStatus.CONFIRMED);
 
-            updateTicketRest = getString(R.string.URLbuyTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId)) + "/" + tempTicket.get("id").toString();
+            updateTicketRest = getString(R.string.URLTickets, getString(R.string.URL_REST_API), getString(R.string.tenantId)) + "/" + tempTicket.get("id").toString();
             AsyncTask<Void, Void, JSONObject> updTicketResult = new RestCallAsync(getApplicationContext(), updateTicketRest, "PUT", updatedTicket, token).execute();
             JSONObject updTicketData = updTicketResult.get();
             //Displaying payment details
             showDetails(paymentDetails.getJSONObject("response"), father.getStringExtra("PaymentAmount"));
         } catch (JSONException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

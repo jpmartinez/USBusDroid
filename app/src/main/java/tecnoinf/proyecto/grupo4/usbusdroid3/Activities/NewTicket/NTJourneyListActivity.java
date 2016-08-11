@@ -93,10 +93,15 @@ public class NTJourneyListActivity extends ListActivity {
                         AsyncTask<Void, Void, JSONObject> bookingsResult = new RestCallAsync(getApplicationContext(), bookingsURL, "GET", null, token).execute();
                         JSONObject bookingsData = bookingsResult.get();
 
-                        Intent selectSeat = new Intent(getBaseContext(), NTSelectSeatActivity.class);
-                        selectSeat.putExtra("journey", journeyJsonArray.get(position).toString());
-                        selectSeat.putExtra("bookings", bookingsData.getString("data"));
-                        startActivity(selectSeat);
+                        Intent selectBusStops = new Intent(getBaseContext(), NTBusStopSelectionActivity.class);
+                        selectBusStops.putExtra("journey", journeyJsonArray.get(position).toString());
+                        selectBusStops.putExtra("bookings", bookingsData.getString("data"));
+                        startActivity(selectBusStops);
+
+//                        Intent selectSeat = new Intent(getBaseContext(), NTSelectSeatActivity.class);
+//                        selectSeat.putExtra("journey", journeyJsonArray.get(position).toString());
+//                        selectSeat.putExtra("bookings", bookingsData.getString("data"));
+//                        startActivity(selectSeat);
 
                     } catch (JSONException | ExecutionException | InterruptedException e) {
                         e.printStackTrace();

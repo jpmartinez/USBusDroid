@@ -56,7 +56,7 @@ public class MTBuyBookingResultActivity extends AppCompatActivity {
             updatedTicket.put("username", username);
             updatedTicket.put("status", TicketStatus.CONFIRMED);
 
-            updateTicketRest = getString(R.string.URLbuyTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId)) + "/" + tempTicket.get("id").toString();
+            updateTicketRest = getString(R.string.URLTickets, getString(R.string.URL_REST_API), getString(R.string.tenantId)) + "/" + tempTicket.get("id").toString();
             AsyncTask<Void, Void, JSONObject> updTicketResult = new RestCallAsync(getApplicationContext(), updateTicketRest, "PUT", updatedTicket, token).execute();
             JSONObject updTicketData = updTicketResult.get();
 

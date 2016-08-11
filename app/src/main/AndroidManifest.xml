@@ -39,7 +39,7 @@
         <activity android:name=".Activities.NewTicket.NTConfirmationActivity" />
         <activity android:name=".Activities.NewTicket.NTResultActivity" />
         <activity android:name=".Activities.TimeTable.TTServicesListActivity" />
-        <activity android:name=".Activities$NewTicket$NTBusStopSelectionActivity" />
+        <activity android:name=".Activities.NewTicket.NTBusStopSelectionActivity" />
         <activity android:name=".Activities.MyTickets.MyUsedTicketsActivity" />
         <activity android:name=".Activities.MyTickets.MyUnusedTicketsActivity" />
         <activity android:name=".Activities.MyTickets.MTShowTicketActivity" />
@@ -50,7 +50,7 @@
         <activity android:name=".Activities.MyTickets.MTBuyBookingActivity" />
         <activity android:name=".Activities.NewTicket.NTBookingActivity" />
         <activity android:name=".Activities.MyTickets.MyBookingsSwipeActivity" />
-        <activity android:name=".Activities.MyTickets.MyBookingsSwipeActivity"></activity>
+
     </application>
 
 </manifest>

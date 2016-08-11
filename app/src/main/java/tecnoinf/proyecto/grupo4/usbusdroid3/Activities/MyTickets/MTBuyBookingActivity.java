@@ -55,7 +55,7 @@ public class MTBuyBookingActivity extends AppCompatActivity implements View.OnCl
             e.printStackTrace();
         }
         SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
-        buyTicketRest = getString(R.string.URLbuyTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId));
+        buyTicketRest = getString(R.string.URLTickets, getString(R.string.URL_REST_API), getString(R.string.tenantId));
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
 
