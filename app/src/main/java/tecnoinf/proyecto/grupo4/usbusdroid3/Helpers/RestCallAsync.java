@@ -31,6 +31,7 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
     //private LoginActivity.UserLoginTask mAuthTask = null;
     private String saved_username;
     private String saved_password;
+    private String saved_tenantId;
     private String saved_type;
     private String tenantId;
     private String loginURL;
@@ -52,6 +53,7 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
         saved_username = sharedPreferences.getString("username", "");
         saved_password = sharedPreferences.getString("password", "");
         saved_type = sharedPreferences.getString("user_type", "");
+        saved_tenantId = sharedPreferences.getString("tenantId", "");
         tenantId = sharedPreferences.getString("tenantId", "");
         loginURL = sharedPreferences.getString("loginURL", "");
     }
@@ -92,6 +94,9 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
 
         if (!savedServerIP.isEmpty() && !savedPort.isEmpty()) {
             restURL = restURL.replace("10.0.2.2", savedServerIP).replace(":8080", ":"+savedPort);
+        }
+        if (!saved_tenantId.isEmpty()) {
+            restURL = restURL.replace("rest/api/"+mCtx.getString(R.string.tenantId)+"/", "rest/api/"+saved_tenantId+"/");
         }
 
         if(this.restURL == null || this.restURL.isEmpty()) {
@@ -171,7 +176,11 @@ public class RestCallAsync extends AsyncTask<Void, Void, JSONObject> {
 
         JSONObject credentials = new JSONObject();
         credentials.put("username", saved_username);
-        credentials.put("tenantId", mCtx.getString(R.string.tenantId));
+        if(saved_tenantId.isEmpty()) {
+            credentials.put("tenantId", mCtx.getString(R.string.tenantId));
+        } else {
+            credentials.put("tenantId", saved_tenantId);
+        }
         credentials.put("password", saved_password);
         RestCall call = new RestCall(loginURL, "POST", credentials, null);
         JSONObject result = call.getData();

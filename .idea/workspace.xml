@@ -87,34 +87,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad0c33d8-0a41-43f1-abfb-8c77429f18dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-hdpi/parcel_list.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-hdpi/parcel_list_item.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-hdpi/parcel_options.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-hdpi/parcel_unload.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-hdpi/parcel_unload_arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-hdpi/parcel_unload_arrow_check.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-mdpi/parcel_list.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-mdpi/parcel_list_item.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-mdpi/parcel_options.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-mdpi/parcel_unload.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-mdpi/parcel_unload_arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-mdpi/parcel_unload_arrow_check.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xhdpi/parcel_list.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xhdpi/parcel_list_item.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xhdpi/parcel_options.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xhdpi/parcel_unload.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xhdpi/parcel_unload_arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xhdpi/parcel_unload_arrow_check.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xxhdpi/parcel_list.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xxhdpi/parcel_list_item.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xxhdpi/parcel_options.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xxhdpi/parcel_unload.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xxhdpi/parcel_unload_arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/drawable-xxhdpi/parcel_unload_arrow_check.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Parcel/JourneyParcels/JourneyParcelsListActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Parcel/ParcelOptionsActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Parcel/RouteStopParcels/RPParcelListActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Parcel/RouteStopParcels/RPRouteStopListActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Models/Dimension.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Models/Parcel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_journey_parcels_list.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_journey_parcels_list_item.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_parcel_options.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_rpparcel_list.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_rpparcel_list_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTBuyBookingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTBuyBookingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTBuyBookingResultActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTBuyBookingResultActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBookingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBookingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBusStopSelectionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBusStopSelectionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTConfirmationActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTConfirmationActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTJourneyListActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTJourneyListActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTResultActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTResultActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTSelectSeatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTSelectSeatActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/JourneyShort.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/JourneyShort.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_new_ticket.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_new_ticket.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ntbus_stop_selection.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ntbus_stop_selection.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/SettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/SettingsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCallAsync.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCallAsync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/TicketStatus.java" afterPath="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/TicketStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/.idea/misc.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/LoginActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/MainActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/NewTicket/NTBusStopSelectionActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/NewTicket/NTBusStopSelectionActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/NewTicket/NTConfirmationActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/NewTicket/NTConfirmationActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/NewTicket/NewTicketActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/NewTicket/NewTicketActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/ScanTicket/STShowDetailsActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/ScanTicket/STShowDetailsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/TicketOptionsActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Tickets/TicketOptionsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/CloseTrip/CTConfirmationActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/CloseTrip/CTConfirmationActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/Odometer/SetOdometerActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/Odometer/SetOdometerActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/RouteStop/RouteStopListActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/RouteStop/RouteStopListActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/StartTrip/STResultActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/StartTrip/STResultActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/TripOptionsActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Activities/Trip/TripOptionsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Helpers/GPSTracker.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Helpers/GPSTracker.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Helpers/RestCallAsync.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Helpers/RestCallAsync.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Helpers/SettingsActivity.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Helpers/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_ntbus_stop_selection.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_ntbus_stop_selection.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Models/JourneyShort.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Models/JourneyShort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Models/TicketStatus.java" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/usbusdroidtrip/Models/TicketStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_main.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_settings.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/layout/activity_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/../USBusDroidTrip/app/src/main/res/values/strings.xml" />
     </list>
@@ -219,21 +252,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NTJourneyListActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTJourneyListActivity.java">
+      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="65" column="64" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
+              <caret line="567" column="64" selection-start-line="567" selection-start-column="64" selection-end-line="567" selection-end-column="64" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NTBusStopSelectionActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBusStopSelectionActivity.java">
+      <file leaf-file-name="MTShowTicketActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTShowTicketActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5898551">
-              <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QRCodeEncoder.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/QRCodeEncoder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.03046595">
+              <caret line="84" column="88" selection-start-line="84" selection-start-column="88" selection-end-line="84" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -2145,15 +2188,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_ttservices_list_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_ntjourneys_list_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NewTicket.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_ntresult.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_mtshow_ticket.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCall.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCallAsync.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTShowTicketActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MainClient.java" />
@@ -2183,7 +2221,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/BookingShort.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MyBookingsSwipeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/ListViewAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTJourneyListActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
@@ -2196,14 +2233,20 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_new_ticket.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBusStopSelectionActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/TicketStatus.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/SettingsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCallAsync.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/QRCodeEncoder.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -2249,6 +2292,20 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="USBusDroid" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Production">
           <PATH>
@@ -2289,19 +2346,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="USBusDroid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+      <pane id="Scratches">
+        <subPane />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -2425,90 +2471,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="USBusDroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="USBusDroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="usbusdroid3" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="USBusDroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="usbusdroid3" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Activities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="USBusDroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="usbusdroid3" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Activities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NewTicket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
-      </pane>
-      <pane id="Scratches">
-        <subPane />
       </pane>
     </panes>
   </component>
@@ -2897,8 +2860,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29692832" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2908,16 +2871,16 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31058496" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17747441" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17576791" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.023890786" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.48913044" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2549168" sideWeight="0.48913044" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24935733" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22980501" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2988,98 +2951,44 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/RegistrationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_bookings.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mytickets_list_item.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.3846154">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_used_tickets.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.811321">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_tickets.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_client.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="33" selection-start-line="61" selection-start-column="4" selection-end-line="70" selection-end-column="33" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/activity_main_client.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntbooking.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntbooking.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider editor-type-id="android-designer">
+      <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44854882">
           <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/io.card/android-sdk/5.3.4/AndroidManifest.xml">
@@ -3090,43 +2999,43 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntjourneys_list.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntconfirmation.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntconfirmation.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntselect_seat.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntselect_seat.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntbooking.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntbooking.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.269231">
           <caret line="148" column="31" selection-start-line="148" selection-start-column="31" selection-end-line="148" selection-end-column="31" />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MyUnusedTicketsActivity.java">
@@ -3151,23 +3060,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_bookings.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/activity_mybookings_list_item.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v21/activity_mybookings_list_item.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.307693">
           <caret line="133" column="19" selection-start-line="9" selection-start-column="4" selection-end-line="133" selection-end-column="19" />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ticket_booking.png">
@@ -3181,56 +3090,49 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_unused_tickets.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8146965">
           <caret line="30" column="19" selection-start-line="11" selection-start-column="4" selection-end-line="30" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mytickets_list_used_item.xml">
-      <provider selected="true" editor-type-id="android-designer">
+      <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mytickets_list_used_item.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_bookings_swipe_item.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_bookings_swipe_item.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.653846">
           <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_bookings_swipe.xml">
-      <provider editor-type-id="android-designer">
+      <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_bookings_swipe.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13578275">
           <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MyUsedTicketsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.29809105">
           <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCallAsync.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2584434">
-          <caret line="109" column="22" selection-start-line="109" selection-start-column="22" selection-end-line="109" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -3263,61 +3165,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTShowTicketActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/RouteStop.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4516129">
           <caret line="51" column="39" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2694612">
-          <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTResultActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTConfirmationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -3328,60 +3179,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NewTicket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26516464">
-          <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBookingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5181976">
-          <caret line="95" column="80" selection-start-line="95" selection-start-column="80" selection-end-line="95" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTSelectSeatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.0242634">
-          <caret line="291" column="72" selection-start-line="291" selection-start-column="72" selection-end-line="291" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/JourneyShort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="35" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ntbus_stop_selection.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="69" selection-end-column="47" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_new_ticket.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_new_ticket.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="101" column="36" selection-start-line="101" selection-start-column="36" selection-end-line="101" selection-end-column="36" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTJourneyListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="64" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
-          <folding />
-        </state>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MyTicketsActivity.java">
@@ -3391,18 +3206,163 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/JourneyShort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03046595">
+          <caret line="79" column="34" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Models/TicketStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19428572">
+          <caret line="6" column="68" selection-start-line="6" selection-start-column="68" selection-end-line="6" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NewTicket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="161" column="92" selection-start-line="161" selection-start-column="92" selection-end-line="161" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTResultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="73" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBookingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="57" selection-start-line="95" selection-start-column="57" selection-end-line="95" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTJourneyListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02463768">
+          <caret line="49" column="68" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73069304">
-          <caret line="44" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTBusStopSelectionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5898551">
-          <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.31182796">
+          <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTConfirmationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03046595">
+          <caret line="117" column="78" selection-start-line="117" selection-start-column="78" selection-end-line="117" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5944334">
+          <caret line="72" column="49" selection-start-line="72" selection-start-column="49" selection-end-line="72" selection-end-column="49" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7258065">
+          <caret line="68" column="11" selection-start-line="68" selection-start-column="11" selection-end-line="68" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.6756272">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/RestCallAsync.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.2867384">
+          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="567" column="64" selection-start-line="567" selection-start-column="64" selection-end-line="567" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/MyTickets/MTShowTicketActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_client.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45340502">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27419356">
+          <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71240604">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Activities/NewTicket/NTSelectSeatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24193548">
+          <caret line="228" column="115" selection-start-line="228" selection-start-column="115" selection-end-line="228" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tecnoinf/proyecto/grupo4/usbusdroid3/Helpers/QRCodeEncoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03046595">
+          <caret line="84" column="88" selection-start-line="84" selection-start-column="88" selection-end-line="84" selection-end-column="88" />
           <folding />
         </state>
       </provider>

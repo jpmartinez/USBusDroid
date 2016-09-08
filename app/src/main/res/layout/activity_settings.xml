@@ -66,11 +66,31 @@
         android:layout_height="wrap_content"
         android:text="Aplicar"
         android:id="@+id/settingsApplyBtn"
-        android:layout_below="@+id/settingsServerET"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
         android:textSize="20dp"
         android:textColor="#ffffff"
-        android:background="#34a902"/>
+        android:background="#34a902"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ingrese TenantID"
+        android:id="@+id/settingsTenantIDTitle"
+        android:layout_below="@+id/settingsServerET"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp" />
+
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingsTenantIdET"
+        android:layout_toEndOf="@+id/settingsTenantIDTitle"
+        android:layout_alignBaseline="@+id/settingsTenantIDTitle"
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="30sp" />
 
 </RelativeLayout>
