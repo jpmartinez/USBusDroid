@@ -22,7 +22,7 @@
     <string name="Seat_01">01</string>
 
     <!--Tenant ID-->
-    <string name="tenantId">2</string>
+    <string name="tenantId">42</string>
 
     <!--REST URLs-->
     <string name="URL_REST_API">http://10.0.2.2:8080/rest/api</string>

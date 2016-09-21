@@ -33,7 +33,7 @@ public class NTBookingActivity extends AppCompatActivity {
     private String bookTicketRest;
     private Button confirmBookingBtn;
     private JSONObject bookingData;
-
+    private String tenantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class NTBookingActivity extends AppCompatActivity {
         bookTicketRest = getString(R.string.URLbookTicket, getString(R.string.URL_REST_API), getString(R.string.tenantId));
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
+        tenantId = sharedPreferences.getString("tenantId", "");
 
         String selectedSeat = String.valueOf(father.getIntExtra("seat", 0));
         paymentAmount = father.getStringExtra("ticketPrice");
@@ -87,7 +88,7 @@ public class NTBookingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 newBooking = new JSONObject();
                 try {
-                    newBooking.put("tenantId", getString(R.string.tenantId));
+                    newBooking.put("tenantId", tenantId);
                     newBooking.put("journeyId", journey.get("id"));
                     newBooking.put("clientId", username);
                     newBooking.put("seat", String.valueOf(father.getIntExtra("seat", 0)));
