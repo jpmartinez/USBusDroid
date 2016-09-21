@@ -24,12 +24,10 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.PayPalConfig;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Helpers.RestCallAsync;
-import tecnoinf.proyecto.grupo4.usbusdroid3.Models.RouteStop;
 import tecnoinf.proyecto.grupo4.usbusdroid3.Models.TicketStatus;
 import tecnoinf.proyecto.grupo4.usbusdroid3.R;
 
@@ -45,7 +43,6 @@ public class MTBuyBookingActivity extends AppCompatActivity implements View.OnCl
     private Intent father;
     private JSONObject ticketData;
     private String bookingId;
-    private String tenantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +56,8 @@ public class MTBuyBookingActivity extends AppCompatActivity implements View.OnCl
         }
         SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
         buyTicketRest = getString(R.string.URLTickets, getString(R.string.URL_REST_API), getString(R.string.tenantId));
-
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
-        tenantId = sharedPreferences.getString("tenantId", "");
 
         String selectedSeat = father.getStringExtra("seat");
         //TODO: tomar el bookingId para luego cambiarle el status
@@ -108,19 +103,7 @@ public class MTBuyBookingActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         newTicket = new JSONObject();
         try {
-            Double originKm = 0.0, destinationKm = 0.0;
-
-            final List<RouteStop> routeStopList = RouteStop.fromJson(journey.getJSONObject("service").getJSONObject("route").getJSONArray("busStops"));
-            for(RouteStop rs: routeStopList) {
-                if (rs.getBusStop().equalsIgnoreCase(father.getStringExtra("getsOn"))){
-                    originKm = rs.getKm();
-                }
-                if (rs.getBusStop().equalsIgnoreCase(father.getStringExtra("getsOff"))) {
-                    destinationKm = rs.getKm();
-                }
-            }
-
-            newTicket.put("tenantId", tenantId);
+            newTicket.put("tenantId", getString(R.string.tenantId));
             newTicket.put("journeyId", journey.get("id"));
             newTicket.put("hasCombination", false);
             newTicket.put("combination", null);
@@ -135,8 +118,6 @@ public class MTBuyBookingActivity extends AppCompatActivity implements View.OnCl
             newTicket.put("routeId", journey.getJSONObject("service").getJSONObject("route").get("id"));
             newTicket.put("branchId", 0);
             newTicket.put("windowId", 0);
-            newTicket.put("kmGetsOn", originKm);
-            newTicket.put("kmGetsOff", destinationKm);
 
             AsyncTask<Void, Void, JSONObject> ticketResult = new RestCallAsync(getApplicationContext(), buyTicketRest, "POST", newTicket, token).execute();
             ticketData =  ticketResult.get();
@@ -147,7 +128,7 @@ public class MTBuyBookingActivity extends AppCompatActivity implements View.OnCl
         getPayment();
     }
 
-    public static final int PAYPAL_REQUEST_CODE = 42;
+    public static final int PAYPAL_REQUEST_CODE = 123;
 
 
     //Paypal Configuration Object

@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -176,19 +175,8 @@ public class NewTicket extends AppCompatActivity {
         }
     }
 
-//    public void showDatePicker() {
-//        btnSelectDate = (Button) findViewById(R.id.btnNTSelectDate);
-//        btnSelectDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialog(DIALOG_ID);
-//
-//            }
-//        });
-//    }
-
     public void showDatePicker() {
-        ImageButton btnSelectDate = (ImageButton) findViewById(R.id.btnNTSelectDateK);
+        btnSelectDate = (Button) findViewById(R.id.btnNTSelectDate);
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

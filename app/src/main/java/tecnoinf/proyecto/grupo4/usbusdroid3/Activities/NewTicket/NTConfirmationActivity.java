@@ -42,7 +42,6 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
     private String buyTicketRest;
     private Intent father;
     private JSONObject ticketData;
-    private String tenantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
         buyTicketRest = getString(R.string.URLTickets, getString(R.string.URL_REST_API), getString(R.string.tenantId));
         token = sharedPreferences.getString("token", "");
         username = sharedPreferences.getString("username", "");
-        tenantId = sharedPreferences.getString("tenantId", "");
 
         String selectedSeat = String.valueOf(father.getIntExtra("seat", 0));
         paymentAmount = father.getStringExtra("ticketPrice");
@@ -102,7 +100,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         newTicket = new JSONObject();
         try {
-            newTicket.put("tenantId", tenantId);
+            newTicket.put("tenantId", getString(R.string.tenantId));
             newTicket.put("journeyId", journey.get("id"));
             newTicket.put("hasCombination", false);
             newTicket.put("combination", null);
@@ -129,7 +127,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
         getPayment();
     }
 
-    public static final int PAYPAL_REQUEST_CODE = 42;
+    public static final int PAYPAL_REQUEST_CODE = 123;
 
 
     //Paypal Configuration Object
@@ -148,7 +146,7 @@ public class NTConfirmationActivity extends AppCompatActivity implements View.On
     private void getPayment() {
         //Creating a paypalpayment
         PayPalPayment payment = new PayPalPayment(
-                (new BigDecimal(String.valueOf(paymentAmount))).divide(new BigDecimal(30.00), BigDecimal.ROUND_UP).setScale(0, RoundingMode.UP),
+                (new BigDecimal(String.valueOf(paymentAmount))).divide(new BigDecimal(32), BigDecimal.ROUND_UP).setScale(0, RoundingMode.UP),
                 "USD",
                 "Simplified Coding Fee",
                 PayPalPayment.PAYMENT_INTENT_SALE);

@@ -28,7 +28,6 @@ public class MTBuyBookingResultActivity extends AppCompatActivity {
     private JSONObject updatedTicket;
     private JSONObject journey;
     private Button homeButton;
-    private String tenantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class MTBuyBookingResultActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
         token = sharedPreferences.getString("token", "");
-        tenantId = sharedPreferences.getString("tenantId", "");
 
         try {
             tempTicket = new JSONObject(father.getStringExtra("ticket"));
@@ -52,7 +50,7 @@ public class MTBuyBookingResultActivity extends AppCompatActivity {
 
             //TODO: if response.state == approved
             updatedTicket = new JSONObject();
-            updatedTicket.put("tenantId", tenantId);
+            updatedTicket.put("tenantId", getString(R.string.tenantId));
             updatedTicket.put("id", tempTicket.get("id"));
             updatedTicket.put("paymentToken", paymentDetails.getJSONObject("response").get("id"));
             updatedTicket.put("username", username);
