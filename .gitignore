@@ -49,3 +49,5 @@ captures/
 .idea/workspace.xml
 app/app.iml
 .idea/gradle.xml
+.idea/workspace.xml
+app/app.iml

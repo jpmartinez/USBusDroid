@@ -95,7 +95,9 @@ public class JourneyShort {
         ArrayList<JourneyShort> journeyList = new ArrayList<>();
         for (int i = 0; i < jsonObjects.length(); i++) {
             try {
-                journeyList.add(new JourneyShort(jsonObjects.getJSONObject(i)));
+                if (jsonObjects.getJSONObject(i).getString("status").equalsIgnoreCase("ACTIVE")) {
+                    journeyList.add(new JourneyShort(jsonObjects.getJSONObject(i)));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

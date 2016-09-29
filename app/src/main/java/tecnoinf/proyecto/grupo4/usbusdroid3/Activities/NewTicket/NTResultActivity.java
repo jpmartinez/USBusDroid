@@ -28,6 +28,7 @@ public class NTResultActivity extends AppCompatActivity {
     private JSONObject updatedTicket;
     private JSONObject journey;
     private Button homeButton;
+    private String tenantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class NTResultActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("USBusData", Context.MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
         token = sharedPreferences.getString("token", "");
+        tenantId = sharedPreferences.getString("tenantId", "");
 
         try {
             tempTicket = new JSONObject(father.getStringExtra("ticket"));
@@ -50,7 +52,7 @@ public class NTResultActivity extends AppCompatActivity {
 
             //TODO: if response.state == approved
             updatedTicket = new JSONObject();
-            updatedTicket.put("tenantId", getString(R.string.tenantId));
+            updatedTicket.put("tenantId", tenantId);
             updatedTicket.put("id", tempTicket.get("id"));
             updatedTicket.put("paymentToken", paymentDetails.getJSONObject("response").get("id"));
             updatedTicket.put("username", username);
@@ -86,7 +88,9 @@ public class NTResultActivity extends AppCompatActivity {
 
         //Showing the details from json object
         textViewId.setText(jsonDetails.getString("id"));
-        textViewStatus.setText(jsonDetails.getString("state"));
+        textViewStatus.setText(
+                jsonDetails.getString("state").equalsIgnoreCase("approved")?"APROBADO":"ERROR"
+        );
         textViewAmount.setText("$ " + paymentAmount);
     }
 

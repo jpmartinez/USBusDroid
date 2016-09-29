@@ -24,32 +24,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainClient" />
-        <activity android:name=".Activities.NewTicket.NewTicket" />
-        <activity android:name=".Activities.MyTickets.MyTicketsActivity" />
-        <activity android:name=".Activities.TimeTable.TimeTable" />
-        <activity android:name=".Activities.ContactUs.ContactUs" />
+        <activity android:name=".Activities.MainClient" android:label="USBus Principal" />
+        <activity android:name=".Activities.NewTicket.NewTicket" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.MyTickets.MyTicketsActivity" android:label="USBus Mis Pasajes" />
+        <activity android:name=".Activities.TimeTable.TimeTable" android:label="USBus Horarios" />
+        <activity android:name=".Activities.ContactUs.ContactUs" android:label="USBus Contacto" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="37639548c5fc33add920f563bac6215f2740df48" />
 
-        <activity android:name=".Activities.NewTicket.NTJourneyListActivity" />
-        <activity android:name=".Activities.NewTicket.NTSelectSeatActivity" />
-        <activity android:name=".Activities.NewTicket.NTConfirmationActivity" />
-        <activity android:name=".Activities.NewTicket.NTResultActivity" />
-        <activity android:name=".Activities.TimeTable.TTServicesListActivity" />
-        <activity android:name=".Activities.NewTicket.NTBusStopSelectionActivity" />
-        <activity android:name=".Activities.MyTickets.MyUsedTicketsActivity" />
-        <activity android:name=".Activities.MyTickets.MyUnusedTicketsActivity" />
-        <activity android:name=".Activities.MyTickets.MTShowTicketActivity" />
-        <activity android:name=".Activities.RegistrationActivity" />
-        <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.MyTickets.MyBookingsActivity" />
-        <activity android:name=".Activities.MyTickets.MTBuyBookingResultActivity" />
-        <activity android:name=".Activities.MyTickets.MTBuyBookingActivity" />
-        <activity android:name=".Activities.NewTicket.NTBookingActivity" />
-        <activity android:name=".Activities.MyTickets.MyBookingsSwipeActivity" />
+        <activity android:name=".Activities.NewTicket.NTJourneyListActivity" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.NewTicket.NTSelectSeatActivity" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.NewTicket.NTConfirmationActivity" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.NewTicket.NTResultActivity" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.TimeTable.TTServicesListActivity" android:label="USBus Horarios" />
+        <activity android:name=".Activities.NewTicket.NTBusStopSelectionActivity" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.MyTickets.MyUsedTicketsActivity" android:label="USBus Pasajes Usados" />
+        <activity android:name=".Activities.MyTickets.MyUnusedTicketsActivity" android:label="USBus Pasajes Sin Usar" />
+        <activity android:name=".Activities.MyTickets.MTShowTicketActivity" android:label="USBus Ver Pasaje" />
+        <activity android:name=".Activities.RegistrationActivity" android:label="USBus Registro" />
+        <activity android:name=".Activities.SettingsActivity" android:label="USBus Parametros" />
+        <activity android:name=".Activities.MyTickets.MyBookingsActivity" android:label="USBus Mis Reservas" />
+        <activity android:name=".Activities.MyTickets.MTBuyBookingResultActivity" android:label="USBus Comprar Pasaje" />
+        <activity android:name=".Activities.MyTickets.MTBuyBookingActivity" android:label="USBus Nuevo Pasaje" />
+        <activity android:name=".Activities.NewTicket.NTBookingActivity" android:label="USBus Nueva Reserva" />
+        <activity android:name=".Activities.MyTickets.MyBookingsSwipeActivity" android:label="USBus Mis Reservas" />
 
     </application>
 
